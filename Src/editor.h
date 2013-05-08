@@ -11,7 +11,6 @@ private:
     Map* targetMap;
     GameObject* onEdit;
 
-    vec3 ScreenToWorld();
     void PutObject();
 public:
     void SetTarget(Map*);

@@ -75,3 +75,40 @@ vec2 Input::MousePos()
     vec2 val = vec2(x,y);
     return val;
 }
+vec2 Input::ScreenToWorld2d()
+{
+    vec2 cpos = MousePos();
+    bool xneg = false,yneg = false;
+    int hX = Renderer::win_w / 2,hY = Renderer::win_h / 2;
+
+    if(cpos.x > hX)
+    {
+        cpos.x -= hX;
+        xneg = true;
+    }
+    if(cpos.y > hY)
+    {
+        cpos.y -= hY;
+        yneg = true;
+    }
+
+    cpos.x = cpos.x / hX;
+    cpos.y = cpos.y / hY;
+    cpos.y = (1 - cpos.y);
+    if(!xneg)
+    {
+        cpos.x = (-1 + cpos.x);
+    }
+    if(yneg)
+    {
+        cpos.y = (-1 + cpos.y );
+    }
+    //cpos *= 1.7f;
+    return cpos;
+}
+vec3 Input::ScreenToWorld3d()
+{
+    vec2 val = ScreenToWorld2d();
+    val *= Renderer::sCamera()->GetPosition().z;
+    return vec3(val,0);
+}

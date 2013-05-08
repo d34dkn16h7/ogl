@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include "map.h"
-#include "input.h";
+#include "input.h"
 #include "editor.h"
 #include "renderer.h"
 #include "gameObject.h"

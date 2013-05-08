@@ -1,8 +1,11 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#include <GL/glew.h>
 #include <GL/glfw.h>
 #include <glm/glm.hpp>
+
+#include "renderer.h"
 
 using namespace glm;
 
@@ -23,6 +26,8 @@ public:
     static bool isMousePressed(int);
     static bool isMouseRelased(int);
     static vec2 MousePos();
+    static vec2 ScreenToWorld2d();
+    static vec3 ScreenToWorld3d();
 };
 
 #endif // INPUT_H

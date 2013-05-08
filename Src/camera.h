@@ -22,11 +22,10 @@ private:
     mat4 projection;
 
 public:
+    string name;
+    Camera(int,int);
 
     void GenerateMatrix();
-        string name;
-
-    Camera(int,int);
 
     void uPosition(vec3);
     void aPosition(vec3);
@@ -37,6 +36,7 @@ public:
 
     const mat4& GetMatrix();
     const vec3 GetLook();
+    const vec3 GetPosition();
 };
 
 #endif // CAMERA_H

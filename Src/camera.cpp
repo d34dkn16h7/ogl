@@ -50,3 +50,7 @@ const vec3 Camera::GetLook()
 {
     return lookTarget;
 }
+const vec3 Camera::GetPosition()
+{
+    return position;
+}
