@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ogl-pAlpha" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="ogl-pAlpha" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="ogl-pAlpha" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-std=c++11" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=c++11" />
+			<Add option="-Wall" />
+			<Add option="-DGLEW_STATIC" />
+		</Compiler>
+		<Linker>
+			<Add option="-lglfw" />
+			<Add library="glew32s" />
+			<Add library="opengl32" />
+		</Linker>
+		<Unit filename="Src/camera.cpp" />
+		<Unit filename="Src/camera.h" />
+		<Unit filename="Src/editor.cpp" />
+		<Unit filename="Src/editor.h" />
+		<Unit filename="Src/game.cpp" />
+		<Unit filename="Src/game.h" />
+		<Unit filename="Src/gameObject.cpp" />
+		<Unit filename="Src/gameObject.h" />
+		<Unit filename="Src/geometry.cpp" />
+		<Unit filename="Src/geometry.h" />
+		<Unit filename="Src/input.cpp" />
+		<Unit filename="Src/input.h" />
+		<Unit filename="Src/main.cpp" />
+		<Unit filename="Src/map.cpp" />
+		<Unit filename="Src/map.h" />
+		<Unit filename="Src/program.cpp" />
+		<Unit filename="Src/program.h" />
+		<Unit filename="Src/renderer.cpp" />
+		<Unit filename="Src/renderer.h" />
+		<Unit filename="Src/tools.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

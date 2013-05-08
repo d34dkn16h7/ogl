@@ -1,0 +1,492 @@
+# depslib dependency file v1.0
+1358264236 source:c:\users\calide 2\desktop\d3master\ogl-palpha\src\game.cpp
+	"game.h"
+
+1358258870 c:\users\calide 2\desktop\d3master\ogl-palpha\src\game.h
+	<iostream>
+	"renderer.h"
+
+1358268418 c:\users\calide 2\desktop\d3master\ogl-palpha\src\renderer.h
+	<GL/glew.h>
+	<GL/glfw.h>
+	<stdexcept>
+	<iostream>
+	<vector>
+	"gameObject.h"
+
+1358257728 source:c:\users\calide 2\desktop\d3master\ogl-palpha\src\main.cpp
+	"game.h"
+
+1358268830 source:c:\users\calide 2\desktop\d3master\ogl-palpha\src\renderer.cpp
+	"renderer.h"
+
+1358266318 c:\users\calide 2\desktop\d3master\ogl-palpha\src\gameobject.h
+	<iostream>
+	"renderer.h"
+
+1358266170 source:c:\users\calide 2\desktop\d3master\ogl-palpha\src\gameobject.cpp
+	"gameObject.h"
+
+1358812888 source:c:\users\shardstack\desktop\ogl-palpha\src\game.cpp
+	"game.h"
+
+1358258870 c:\users\shardstack\desktop\ogl-palpha\src\game.h
+	<iostream>
+	"renderer.h"
+
+1358812717 c:\users\shardstack\desktop\ogl-palpha\src\renderer.h
+	<GL/glew.h>
+	<GL/glfw.h>
+	<stdexcept>
+	<iostream>
+	<string>
+	<vector>
+	"gameObject.h"
+	"program.h"
+	"camera.h"
+	"object.h"
+
+1358810543 c:\users\shardstack\desktop\ogl-palpha\src\gameobject.h
+	<iostream>
+	"object.h"
+
+1358810388 source:c:\users\shardstack\desktop\ogl-palpha\src\gameobject.cpp
+	"gameObject.h"
+
+1358257728 source:c:\users\shardstack\desktop\ogl-palpha\src\main.cpp
+	"game.h"
+
+1358812703 source:c:\users\shardstack\desktop\ogl-palpha\src\renderer.cpp
+	"renderer.h"
+
+1358288435 c:\users\shardstack\desktop\ogl-palpha\src\shader.h
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+
+1358288506 source:c:\users\shardstack\desktop\ogl-palpha\src\shader.cpp
+	"shader.h"
+
+1368019702 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
+	"game.h"
+
+1368007048 c:\users\calide 2\desktop\ogl-palpha\src\game.h
+	"map.h"
+	"input.h"
+	"editor.h"
+	"renderer.h"
+	"gameObject.h"
+
+1367006600 c:\users\calide 2\desktop\ogl-palpha\src\renderer.h
+	<GL/glew.h>
+	<GL/glfw.h>
+	<stdexcept>
+	<vector>
+	"program.h"
+	"camera.h"
+	"geometry.h"
+
+1367006600 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
+	<stdexcept>
+	"geometry.h"
+
+1358340677 c:\users\calide 2\desktop\ogl-palpha\src\shader.h
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+
+1367006600 source:c:\users\calide 2\desktop\ogl-palpha\src\gameobject.cpp
+	"gameObject.h"
+	<iostream>
+
+1367006600 source:c:\users\calide 2\desktop\ogl-palpha\src\main.cpp
+	"game.h"
+
+1368004482 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
+	"renderer.h"
+	<iostream>
+
+1358331554 source:c:\users\calide 2\desktop\ogl-palpha\src\shader.cpp
+	"shader.h"
+
+1367006600 source:c:\users\calide 2\desktop\ogl-palpha\src\program.cpp
+	"program.h"
+
+1367006600 c:\users\calide 2\desktop\ogl-palpha\src\program.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<stdexcept>
+	<fstream>
+	<string>
+	<vector>
+	"tools.h"
+
+1359045249 source:c:\users\calide 2\desktop\ogl-palpha\src\object.cpp
+	"object.h"
+
+1359388220 c:\users\calide 2\desktop\ogl-palpha\src\object.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<fstream>
+	<vector>
+	<string>
+	<map>
+	"renderer.h"
+	"program.h"
+
+1358781329 c:\users\shardstack\desktop\ogl-palpha\src\program.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<stdexcept>
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	"camera.h"
+
+1358810998 source:c:\users\shardstack\desktop\ogl-palpha\src\object.cpp
+	"object.h"
+
+1358810555 c:\users\shardstack\desktop\ogl-palpha\src\object.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<stdexcept>
+	<iostream>
+	<fstream>
+	<vector>
+	<string>
+	"renderer.h"
+	"program.h"
+
+1358786779 source:c:\users\shardstack\desktop\ogl-palpha\src\program.cpp
+	"program.h"
+
+1367006600 source:c:\users\calide 2\desktop\ogl-palpha\src\camera.cpp
+	"camera.h"
+
+1368001818 c:\users\calide 2\desktop\ogl-palpha\src\camera.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<string>
+
+1358812788 source:c:\users\shardstack\desktop\ogl-palpha\src\camera.cpp
+	"camera.h"
+
+1358786880 c:\users\shardstack\desktop\ogl-palpha\src\camera.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<string>
+
+1360104919 source:c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\camera.cpp
+	"camera.h"
+
+1360100543 c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\camera.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<string>
+
+1360105101 source:c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\game.cpp
+	"game.h"
+
+1358953999 c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\game.h
+	<iostream>
+	"renderer.h"
+
+1358812717 c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\renderer.h
+	<GL/glew.h>
+	<GL/glfw.h>
+	<stdexcept>
+	<iostream>
+	<string>
+	<vector>
+	"gameObject.h"
+	"program.h"
+	"camera.h"
+	"object.h"
+
+1358810543 c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\gameobject.h
+	<iostream>
+	"object.h"
+
+1359388220 c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\object.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<fstream>
+	<vector>
+	<string>
+	<map>
+	"renderer.h"
+	"program.h"
+
+1358781329 c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\program.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<stdexcept>
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	"camera.h"
+
+1358810388 source:c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\gameobject.cpp
+	"gameObject.h"
+
+1358257728 source:c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\main.cpp
+	"game.h"
+
+1359045249 source:c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\object.cpp
+	"object.h"
+
+1358786779 source:c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\program.cpp
+	"program.h"
+
+1359022999 source:c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\renderer.cpp
+	"renderer.h"
+
+1368004433 c:\users\calide 2\desktop\ogl-palpha\src\geometry.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<fstream>
+	<vector>
+	<string>
+	<map>
+	"renderer.h"
+	"program.h"
+
+1368004473 source:c:\users\calide 2\desktop\ogl-palpha\src\geometry.cpp
+	"geometry.h"
+	<iostream>
+
+1366634113 source:c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\camera.cpp
+	"camera.h"
+
+1366634125 c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\camera.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<string>
+
+1366637816 source:c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\game.cpp
+	"game.h"
+
+1366624121 c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\game.h
+	"map.h"
+	"renderer.h"
+	"gameObject.h"
+
+1366637711 c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\renderer.h
+	<GL/glew.h>
+	<GL/glfw.h>
+	<stdexcept>
+	<vector>
+	"program.h"
+	"camera.h"
+	"geometry.h"
+
+1365522331 c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\program.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<stdexcept>
+	<fstream>
+	<string>
+	<vector>
+	"tools.h"
+
+1365522260 c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\geometry.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<fstream>
+	<vector>
+	<string>
+	<map>
+	"renderer.h"
+	"program.h"
+
+1365501086 c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\gameobject.h
+	<stdexcept>
+	"geometry.h"
+
+1365501217 source:c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\gameobject.cpp
+	"gameObject.h"
+	<iostream>
+
+1365522187 source:c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\geometry.cpp
+	"geometry.h"
+	<iostream>
+
+1364336153 source:c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\main.cpp
+	"game.h"
+
+1366623595 source:c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\map.cpp
+	"map.h"
+	"game.h"
+	"tools.h"
+	<iostream>
+	<stdlib.h>
+	<glm/glm.hpp>
+
+1364991027 c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\map.h
+	<stdexcept>
+	<fstream>
+	<string>
+	<vector>
+	"gameObject.h"
+
+1365522358 source:c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\program.cpp
+	"program.h"
+
+1366637685 source:c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\renderer.cpp
+	"renderer.h"
+	<iostream>
+
+1366627641 c:\users\calide 2\documents\github\ogl-palpha\ogl-palpha\src\tools.h
+	<glm/glm.hpp>
+	<stdexcept>
+	<iostream>
+	<fstream>
+	<string>
+
+1366639860 source:/home/d34dkn16h7/Desktop/ogl-pAlpha/Src/camera.cpp
+	"camera.h"
+
+1366639860 /home/d34dkn16h7/Desktop/ogl-pAlpha/Src/camera.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<string>
+
+1366639860 source:/home/d34dkn16h7/Desktop/ogl-pAlpha/Src/game.cpp
+	"game.h"
+
+1366639860 /home/d34dkn16h7/Desktop/ogl-pAlpha/Src/game.h
+	"map.h"
+	"renderer.h"
+	"gameObject.h"
+
+1366639860 /home/d34dkn16h7/Desktop/ogl-pAlpha/Src/map.h
+	<stdexcept>
+	<fstream>
+	<string>
+	<vector>
+	"gameObject.h"
+
+1366639860 /home/d34dkn16h7/Desktop/ogl-pAlpha/Src/gameObject.h
+	<stdexcept>
+	"geometry.h"
+
+1366639860 /home/d34dkn16h7/Desktop/ogl-pAlpha/Src/geometry.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<fstream>
+	<vector>
+	<string>
+	<map>
+	"renderer.h"
+	"program.h"
+
+1366639860 /home/d34dkn16h7/Desktop/ogl-pAlpha/Src/renderer.h
+	<GL/glew.h>
+	<GL/glfw.h>
+	<stdexcept>
+	<vector>
+	"program.h"
+	"camera.h"
+	"geometry.h"
+
+1366639860 /home/d34dkn16h7/Desktop/ogl-pAlpha/Src/program.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<stdexcept>
+	<fstream>
+	<string>
+	<vector>
+	"tools.h"
+
+1366639860 /home/d34dkn16h7/Desktop/ogl-pAlpha/Src/tools.h
+	<glm/glm.hpp>
+	<stdexcept>
+	<iostream>
+	<fstream>
+	<string>
+
+1366639860 source:/home/d34dkn16h7/Desktop/ogl-pAlpha/Src/gameObject.cpp
+	"gameObject.h"
+	<iostream>
+
+1366639860 source:/home/d34dkn16h7/Desktop/ogl-pAlpha/Src/geometry.cpp
+	"geometry.h"
+	<iostream>
+
+1366639860 source:/home/d34dkn16h7/Desktop/ogl-pAlpha/Src/main.cpp
+	"game.h"
+
+1366639860 source:/home/d34dkn16h7/Desktop/ogl-pAlpha/Src/map.cpp
+	"map.h"
+	"game.h"
+	"tools.h"
+	<iostream>
+	<stdlib.h>
+	<glm/glm.hpp>
+
+1366639860 source:/home/d34dkn16h7/Desktop/ogl-pAlpha/Src/program.cpp
+	"program.h"
+
+1366639860 source:/home/d34dkn16h7/Desktop/ogl-pAlpha/Src/renderer.cpp
+	"renderer.h"
+	<iostream>
+
+1368005889 c:\users\calide 2\desktop\ogl-palpha\src\map.h
+	<stdexcept>
+	<fstream>
+	<string>
+	<vector>
+	"gameObject.h"
+
+1367006600 c:\users\calide 2\desktop\ogl-palpha\src\tools.h
+	<glm/glm.hpp>
+	<stdexcept>
+	<iostream>
+	<fstream>
+	<string>
+
+1368005985 source:c:\users\calide 2\desktop\ogl-palpha\src\map.cpp
+	"map.h"
+	"game.h"
+	"tools.h"
+	<iostream>
+	<stdlib.h>
+	<glm/glm.hpp>
+
+1368018463 c:\users\calide 2\desktop\ogl-palpha\src\editor.h
+	"map.h"
+	"input.h"
+	"gameObject.h"
+
+1368019179 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
+	"editor.h"
+
+1368019191 c:\users\calide 2\desktop\ogl-palpha\src\input.h
+	<GL/glfw.h>
+	<glm/glm.hpp>
+
+1368019794 source:c:\users\calide 2\desktop\ogl-palpha\src\input.cpp
+	"input.h"
+
