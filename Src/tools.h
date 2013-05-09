@@ -12,24 +12,6 @@ using namespace glm;
 
 namespace Tools
 {
-    class Math
-    {
-    public:
-        constexpr static float pi = 3.14159f;
-        static vec3 gLookAt(float r)
-        {
-            float curcumference = (1) * pi;
-            float delta = curcumference / 360;
-            vec3 vec(0,0,0);
-            vec.x = ( r * delta );
-            if(vec.x > 0)
-                vec.z = ( 1 - vec.x);
-            else
-                vec.z = ( 1 + vec.x);
-            cout << "Rot : " << r << " - " << vec.x << " : " << vec.z << endl;
-            return vec;
-        }
-    };
     class File
     {
     public:
@@ -52,6 +34,18 @@ namespace Tools
             {
                 throw  runtime_error("Can't Read File " + fSrc);
                 return "";
+            }
+        }
+        static void tSaveFile(string fSrc,string sData)
+        {
+            fstream file(fSrc.c_str());
+            if(file.is_open())
+            {
+                file << sData;file.close();
+            }
+            else
+            {
+                throw  runtime_error("Can't Read File " + fSrc);
             }
         }
     };

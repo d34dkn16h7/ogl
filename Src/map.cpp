@@ -2,6 +2,7 @@
 #include "game.h"
 #include "tools.h"
 #include <iostream>
+#include <sstream>
 #include <stdlib.h>
 #include <glm/glm.hpp>
 
@@ -9,8 +10,26 @@ using namespace glm;
 
 void Map::LoadMap(string fSrc)
 {
-    string mstr  = Tools::File::tLoadFile(fSrc);
+    string mstr = Tools::File::tLoadFile(fSrc);
     MakeMap(mstr);
+}
+void Map::SaveMap(string tFile)
+{
+    cout << "Map saved : " << tFile << endl;
+    std::stringstream mstr;
+    for(GameObject* gmo : data)
+    {
+        mstr << gmo->mName << endl;
+        mstr << "\t" << "pos " << gmo->GetPosition().x << " " << gmo->GetPosition().y << " " <<  gmo->GetPosition().z << endl;
+        if(gmo->GetScale() != vec3(1,1,1))
+            mstr << "\t" << "scale " << gmo->GetScale().x << " " << gmo->GetScale().y << " " <<  gmo->GetScale().z << endl;
+
+        mstr << "\t" << "col " << gmo->GetColor().x << " " << gmo->GetColor().y << " " <<  gmo->GetColor().z << " " << gmo->GetColor().w << endl;
+
+        if(gmo == Game::onControl)
+            mstr << "\t" << "player" << endl;
+    }
+    Tools::File::tSaveFile(tFile,mstr.str());
 }
 void Map::MakeMap(string strData)
 {
@@ -21,7 +40,7 @@ void Map::MakeMap(string strData)
     {
         string token = t.tokens[i];
 
-        std::cout << "Current Token : " << token << std::endl;
+        //std::cout << "Current Token : " << token << std::endl;
 
         if(isObject(token))
         {
@@ -33,7 +52,7 @@ void Map::MakeMap(string strData)
         {
             if(token == "player")
             {
-                Game::ins->onControl = gmo;
+                Game::onControl = gmo;
             }
             if(token == "pos")
             {
@@ -45,14 +64,14 @@ void Map::MakeMap(string strData)
                 gmo->uPosition(v);
                 i += 3;
             }
-            if(token == "rot")
+            if(token == "scale")
             {
                 float x,y,z;
                 x = atof(t.tokens[i + 1].c_str());
                 y = atof(t.tokens[i + 2].c_str());
                 z = atof(t.tokens[i + 3].c_str());
                 vec3 v(x,y,z);
-                gmo->uRotate(v);
+                gmo->uScale(v);
                 i += 3;
             }
             if(token == "col")

@@ -15,14 +15,13 @@ private:
 
     vec3 position = vec3(0,0,15);
     vec3 rotation = vec3(0,0,0);
-    vec3 lookTarget = vec3(0,0,0);
+    vec3 lookTarget = vec3(0,0,-.1f);
 
     mat4 look;
     mat4 camera;
     mat4 projection;
 
 public:
-    string name;
     Camera(int,int);
 
     void GenerateMatrix();
@@ -35,8 +34,8 @@ public:
     void aRotate(vec3); //rotates the whole scene
 
     const mat4& GetMatrix();
-    const vec3 GetLook();
-    const vec3 GetPosition();
+    vec3 GetLook();
+    vec3 GetPosition();
 };
 
 #endif // CAMERA_H

@@ -5,11 +5,15 @@
 #include "input.h"
 #include "gameObject.h"
 
+enum EditMode
+{PositionEdit,ScaleEdit,RotationEdit,ColorEdit};
+
 class Editor
 {
 private:
     Map* targetMap;
     GameObject* onEdit;
+    EditMode mode;
 
     void PutObject();
 public:

@@ -2,10 +2,16 @@
 
 Camera::Camera(int x,int y)
 {
-    name = "Main Camera";
-    aspectRatio = 1.7f;//  x / y;
+    aspectRatio = (float)x / (float)y;
     GenerateMatrix();
 }
+void Camera::GenerateMatrix()
+{
+    look = lookAt(position,(position + lookTarget), vec3(0,1,0));
+    projection = perspective<float>(60, aspectRatio, 0.1, 20.0);
+    camera = projection * look;
+}
+//SET
 void Camera::uPosition(vec3 val)
 {
     position = val;
@@ -36,21 +42,16 @@ void Camera::aRotate(vec3 val)
     rotation += val;
     GenerateMatrix();
 }
-void Camera::GenerateMatrix()
-{
-    look = lookAt(position,(lookTarget), vec3(0,1,0));
-    projection = perspective<float>(50.0, aspectRatio, 0.1, 20.0);
-    camera = projection * look;
-}
+//GET
 const mat4& Camera::GetMatrix()
 {
     return (camera);
 }
-const vec3 Camera::GetLook()
+vec3 Camera::GetLook()
 {
     return lookTarget;
 }
-const vec3 Camera::GetPosition()
+vec3 Camera::GetPosition()
 {
     return position;
 }

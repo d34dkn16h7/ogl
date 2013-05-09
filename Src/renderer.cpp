@@ -79,7 +79,7 @@ bool Renderer::Setup(int w,int h , int screenState)
 }
 void Renderer::Reg(Geometry *obj)
 {
-    std::cout << "Registered 'geometry' : " << obj->mName << std::endl;
+    //std::cout << "Registered 'geometry' : " << obj->mName << std::endl;
     drawList.push_back(obj);
 }
 

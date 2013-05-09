@@ -16,8 +16,10 @@ class Input
     static bool mKeyStatePressed[3];
     static void UpdateMouse();
     static vec2 lastPos;
+    static int lastWPos;
 public:
     static vec2 mouseDelta; // don't forget y;
+    static int mouseWDelta;
 
     static void Init();
     static void Update();

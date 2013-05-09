@@ -4,10 +4,12 @@ bool Input::mKeyState[3];
 bool Input::mKeyStateRelased[3];
 bool Input::mKeyStatePressed[3];
 
+int Input::mouseWDelta,Input::lastWPos;
 vec2 Input::lastPos,Input::mouseDelta;
 
 void Input::Init()
 {
+    mouseWDelta = 0;
     lastPos = MousePos();
 }
 void Input::Update()
@@ -51,6 +53,9 @@ void Input::UpdateMouse()
 
     mouseDelta = MousePos() - lastPos;
     lastPos = MousePos();
+
+    mouseWDelta = glfwGetMouseWheel() - lastWPos;
+    lastWPos = glfwGetMouseWheel();
 }
 bool Input::isMousePressed(int key)
 {
@@ -95,15 +100,12 @@ vec2 Input::ScreenToWorld2d()
     cpos.x = cpos.x / hX;
     cpos.y = cpos.y / hY;
     cpos.y = (1 - cpos.y);
+
     if(!xneg)
-    {
         cpos.x = (-1 + cpos.x);
-    }
     if(yneg)
-    {
         cpos.y = (-1 + cpos.y );
-    }
-    //cpos *= 1.7f;
+
     return cpos;
 }
 vec3 Input::ScreenToWorld3d()

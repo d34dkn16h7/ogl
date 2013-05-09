@@ -17,6 +17,7 @@ private:
     bool isObject(string);
 public:
     void LoadMap(string);
+    void SaveMap(string);
     void Put(GameObject*);
 };
 

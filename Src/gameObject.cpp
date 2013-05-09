@@ -4,7 +4,8 @@ const static string DataDir = "Data/";
 #include <iostream>
 GameObject::GameObject(string pref )
 {
-    std::cout << "new game object : " << pref << std::endl;
+    mName = pref;
+    //std::cout << "new game object : " << pref << std::endl;
     LoadPrefab(pref);
 }
 void GameObject::LoadPrefab(string fName)

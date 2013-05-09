@@ -16,11 +16,11 @@ class Game
 {
 public:
     static Game* ins;
+    static GameObject* onControl;
     static float deltaTime,lastTime,Speed;
-    static bool isOpen;
+    static bool isOpen,isEditor;
     Map map;
     Editor editor;
-    GameObject* onControl = nullptr;
     Game();
     int Run();
     void Update();

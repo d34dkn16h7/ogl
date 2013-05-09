@@ -2,7 +2,8 @@
 
 
 Game* Game::ins;
-bool Game::isOpen;
+GameObject* Game::onControl;
+bool Game::isOpen,Game::isEditor;
 float Game::deltaTime,Game::lastTime,Game::Speed;
 
 int Game::Run()
@@ -24,12 +25,17 @@ Game::Game()
     Speed = 5;
     lastTime = glfwGetTime();
     editor.SetTarget(&map);
+    isEditor = true;
     Input::Init();
 }
 void Game::Update()
 {
+    if(glfwGetKey(GLFW_KEY_HOME))
+        isEditor = !isEditor;
+
     Input::Update();
-    editor.Update();
+    if(isEditor)
+        editor.Update();
     input();
 }
 void Game::input()
@@ -45,6 +51,8 @@ void Game::input()
         if(glfwGetKey('D'))
             onControl->aPosition(Right * Speed * deltaTime);
     }
+    if(glfwGetKey(GLFW_KEY_PAUSE))
+        map.SaveMap("Data/m.mp");
 
     if(glfwGetKey(GLFW_KEY_LSHIFT))
         Renderer::sCamera()->aPosition(Forward * deltaTime);

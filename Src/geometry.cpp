@@ -6,7 +6,6 @@ bool Geometry::Load(string fSrc)
 {
     if(LoadData(fSrc) != eLoad::Fail)
     {
-        mName = fSrc;
         LinkData();
         GenerateMatrix();
         Renderer::Reg(this);
@@ -66,50 +65,6 @@ void Geometry::LinkData()
     glVertexAttribPointer( posAttrib, 3, GL_FLOAT, GL_FALSE, 0, NULL );
     glEnableVertexAttribArray( posAttrib );
 }
-void Geometry::uPosition(vec3 val)
-{
-    position = val;
-    GenerateMatrix();
-}
-void Geometry::aPosition(vec3 val)
-{
-    position += val;
-    GenerateMatrix();
-}
-void Geometry::uRotate(vec3 val)
-{
-    rotation = val;
-    GenerateMatrix();
-}
-void Geometry::aRotate(vec3 val)
-{
-    rotation += val;
-    GenerateMatrix();
-}
-void Geometry::uScale(vec3 val)
-{
-    vScale = val;
-    GenerateMatrix();
-}
-void Geometry::uScale(float val)
-{
-    vScale = vec3(val,val,val);
-    GenerateMatrix();
-}
-void Geometry::aScale(vec3 val)
-{
-    vScale += val;
-    GenerateMatrix();
-}
-void Geometry::aScale(float val)
-{
-    vScale += vec3(val,val,val);
-    GenerateMatrix();
-}
-void Geometry::uColor(vec4 val)
-{
-    color = val;
-}
 void Geometry::GenerateMatrix()
 {
     modelMatrix = translate(mat4(),position);
@@ -117,27 +72,54 @@ void Geometry::GenerateMatrix()
     modelMatrix *= rotate(mat4(),rotation.y , vec3(1,0,0));
     modelMatrix *= scale(mat4(1.0),vScale);
 }
-const int Geometry::GetEdges()
-{
-    return edges;
-}
-const vec4 Geometry::GetColor()
-{
-    return color;
-}
-const GLuint Geometry::GetType()
-{
-    return type;
-}
-const GLuint Geometry::GetVBO()
-{
-    return vbo;
-}
-const GLuint Geometry::GetVAO()
-{
-    return vao;
-}
-const mat4 Geometry::GetModelMatrix()
-{
-    return modelMatrix;
-}
+//GET
+void Geometry::uPosition(vec3 val)
+{position = val;GenerateMatrix();}
+
+void Geometry::aPosition(vec3 val)
+{position += val;GenerateMatrix();}
+
+void Geometry::uRotate(vec3 val)
+{rotation = val;GenerateMatrix();}
+
+void Geometry::aRotate(vec3 val)
+{rotation += val;GenerateMatrix();}
+
+void Geometry::uScale(vec3 val)
+{vScale = val;GenerateMatrix();}
+
+void Geometry::uScale(float val)
+{vScale = vec3(val,val,val);GenerateMatrix();}
+
+void Geometry::aScale(vec3 val)
+{vScale += val;GenerateMatrix();}
+
+void Geometry::aScale(float val)
+{vScale += vec3(val,val,val);GenerateMatrix();}
+
+void Geometry::uColor(vec4 val)
+{color = val;}
+//GET
+int Geometry::GetEdges()
+{return edges;}
+
+vec3 Geometry::GetPosition()
+{return position;}
+
+vec3 Geometry::GetScale()
+{return vScale;}
+
+vec4 Geometry::GetColor()
+{return color;}
+
+GLuint Geometry::GetType()
+{return type;}
+
+GLuint Geometry::GetVBO()
+{return vbo;}
+
+GLuint Geometry::GetVAO()
+{return vao;}
+
+mat4 Geometry::GetModelMatrix()
+{return modelMatrix;}

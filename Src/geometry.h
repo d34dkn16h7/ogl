@@ -44,6 +44,7 @@ public:
 
     Geometry *d = nullptr;
     bool Load(string);
+    //SET
     void uPosition(vec3);
     void aPosition(vec3);
     void uRotate(vec3);
@@ -54,11 +55,14 @@ public:
     void aScale(float);
     void uColor(vec4);
 
-    const int GetEdges();
-    const vec4 GetColor();
-    const GLuint GetVBO();
-    const GLuint GetVAO();
-    const GLuint GetType();
-    const mat4 GetModelMatrix();
+    //GET
+    int GetEdges();
+    vec3 GetPosition();
+    vec3 GetScale();
+    vec4 GetColor();
+    GLuint GetVBO();
+    GLuint GetVAO();
+    GLuint GetType();
+    mat4 GetModelMatrix();
 };
 #endif // GEOMETRY_H
