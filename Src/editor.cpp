@@ -63,9 +63,9 @@ void Editor::PutObject()
 {
     onEdit = new GameObject();
     //cout << v.x << ":" << v.y << endl;
-    vec3 nPos = Renderer::sCamera()->GetPosition() + Input::ScreenToWorld3d();
+    vec3 nPos = vec3 ( Renderer::sCamera()->GetPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;
     onEdit->uPosition(nPos);
-    onEdit->uColor( vec4(-1,0,0,0) );
+    onEdit->uColor( vec4(-1,0,0,1) );
     targetMap->Put(onEdit);
 }

@@ -22,6 +22,7 @@ private:
     mat4 projection;
 
 public:
+    static Camera* MainCamera;
     Camera(int,int);
 
     void GenerateMatrix();
@@ -34,8 +35,11 @@ public:
     void aRotate(vec3); //rotates the whole scene
 
     const mat4& GetMatrix();
+    mat4 Matrix();
+    mat4 GetPerspective();
     vec3 GetLook();
     vec3 GetPosition();
+    float GetAspectRatio();
 };
 
 #endif // CAMERA_H

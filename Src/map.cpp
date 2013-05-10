@@ -19,12 +19,23 @@ void Map::SaveMap(string tFile)
     std::stringstream mstr;
     for(GameObject* gmo : data)
     {
+        vec3 tVec;
         mstr << gmo->mName << endl;
-        mstr << "\t" << "pos " << gmo->GetPosition().x << " " << gmo->GetPosition().y << " " <<  gmo->GetPosition().z << endl;
-        if(gmo->GetScale() != vec3(1,1,1))
-            mstr << "\t" << "scale " << gmo->GetScale().x << " " << gmo->GetScale().y << " " <<  gmo->GetScale().z << endl;
+        //Position
+        tVec = gmo->GetPosition();
+        mstr << "\t" << "pos " << tVec.x << " " << tVec.y << " " <<  tVec.z << endl;
+        //Scale
+        tVec = gmo->GetScale();
+        if(tVec != vec3(1,1,1))
+            mstr << "\t" << "scale " << tVec.x << " " << tVec.y << " " <<  tVec.z << endl;
+        //Rotation
+        tVec = gmo->GetRotation();
+        if(tVec != vec3(0,0,0))
+            mstr << "\t" << "rot " << tVec.x << " " << tVec.y << " " <<  tVec.z << endl;
+        //Color
+        vec4 tVec4 = gmo->GetColor();
+        mstr << "\t" << "col " << tVec4.x << " " << tVec4.y << " " << tVec4.z << " " << tVec4.w << endl;
 
-        mstr << "\t" << "col " << gmo->GetColor().x << " " << gmo->GetColor().y << " " <<  gmo->GetColor().z << " " << gmo->GetColor().w << endl;
 
         if(gmo == Game::onControl)
             mstr << "\t" << "player" << endl;
@@ -87,8 +98,8 @@ void Map::MakeMap(string strData)
                 }
                 else
                 {
-                    g  = -1;
-                    b = -1;
+                    g  = 0;
+                    b = 0;
                     a = 1;
                     i += 1;
                 }

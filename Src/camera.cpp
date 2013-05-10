@@ -1,7 +1,10 @@
 #include "camera.h"
 
+Camera* Camera::MainCamera;
+
 Camera::Camera(int x,int y)
 {
+    MainCamera = this;
     aspectRatio = (float)x / (float)y;
     GenerateMatrix();
 }
@@ -47,6 +50,14 @@ const mat4& Camera::GetMatrix()
 {
     return (camera);
 }
+mat4 Camera::Matrix()
+{
+    return camera;
+}
+mat4 Camera::GetPerspective()
+{
+    return perspective<float>(60, aspectRatio, 0.1, 20.0);
+}
 vec3 Camera::GetLook()
 {
     return lookTarget;
@@ -54,4 +65,8 @@ vec3 Camera::GetLook()
 vec3 Camera::GetPosition()
 {
     return position;
+}
+float Camera::GetAspectRatio()
+{
+    return aspectRatio;
 }

@@ -110,7 +110,10 @@ vec2 Input::ScreenToWorld2d()
 }
 vec3 Input::ScreenToWorld3d()
 {
-    vec2 val = ScreenToWorld2d();
-    val *= Renderer::sCamera()->GetPosition().z;
-    return vec3(val,0);
+    float camZ = Camera::MainCamera->GetPosition().z;
+    vec3 val = vec3(ScreenToWorld2d(),0);
+    vec3 mult(camZ,camZ / Camera::MainCamera->GetAspectRatio(),0);
+    val *= mult;
+    glm::unProject(val, mat4(1.0) , Camera::MainCamera->GetPerspective(),vec4(-1,1,-1,1));
+    return val;
 }

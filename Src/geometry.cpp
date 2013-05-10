@@ -106,6 +106,9 @@ int Geometry::GetEdges()
 vec3 Geometry::GetPosition()
 {return position;}
 
+vec3 Geometry::GetRotation()
+{return rotation;}
+
 vec3 Geometry::GetScale()
 {return vScale;}
 

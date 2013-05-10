@@ -58,6 +58,7 @@ public:
     //GET
     int GetEdges();
     vec3 GetPosition();
+    vec3 GetRotation();
     vec3 GetScale();
     vec4 GetColor();
     GLuint GetVBO();
