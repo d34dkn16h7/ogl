@@ -10,6 +10,7 @@ int Game::Run()
 {
     isOpen = Renderer::Setup(1024,576,GLFW_WINDOW);//isOpen = Renderer::Setup(1280,800,GLFW_FULLSCREEN);
     map.LoadMap("Data/m.mp");
+    Input::Init();
     while(isOpen && !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam( GLFW_OPENED))
     {
         Update();
@@ -34,6 +35,7 @@ void Game::Update()
         isEditor = !isEditor;
 
     Input::Update();
+
     if(isEditor)
         editor.Update();
     input();
@@ -53,11 +55,6 @@ void Game::input()
     }
     if(glfwGetKey(GLFW_KEY_PAUSE))
         map.SaveMap("Data/m.mp");
-
-    if(glfwGetKey(GLFW_KEY_LSHIFT))
-        Renderer::sCamera()->aPosition(Forward * deltaTime);
-    if(glfwGetKey(GLFW_KEY_LCTRL))
-        Renderer::sCamera()->aPosition(Backward * deltaTime);
 }
 void Game::Timer()
 {

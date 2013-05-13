@@ -25,11 +25,13 @@ void Renderer::Render()
         if(lastDrawName != gmo->mName)
         {
             glBindVertexArray(gmo->d->GetVAO());
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,gmo->d->GetEBO());
             edges = gmo->d->GetEdges();
             type = gmo->d->GetType();
             lastDrawName = gmo->mName;
         }
-        glDrawArrays( type , 0 , edges );
+        //glDrawArrays( type , 0 , edges );
+        glDrawElements(type,gmo->d->element.size(),GL_UNSIGNED_INT,0);
     }
     prog->Use(false);
     glBindVertexArray(0);

@@ -17,12 +17,16 @@ class Input
     static void UpdateMouse();
     static vec2 lastPos;
     static int lastWPos;
+    //call backs
+    static void GLFWCALL Keyboard(int,int);
+    static void GLFWCALL MouseKeys(int,int);
 public:
     static vec2 mouseDelta; // don't forget y;
     static int mouseWDelta;
 
     static void Init();
     static void Update();
+
 
     static bool isMouse(int);
     static bool isMousePressed(int);

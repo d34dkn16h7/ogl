@@ -22,13 +22,12 @@ class Geometry
 {
 private:
     vector<GLfloat> data;
-    vector<GLuint> element;
     vector<GLfloat> colorData;
     static map< string , Geometry > Data;
     int edges = 0;
 
     mat4 modelMatrix;
-    GLuint vbo,vao,type = GL_TRIANGLES;
+    GLuint vbo,vao,ebo,type = GL_TRIANGLES;
 
     vec3 position = vec3(0,0,0);
     vec3 rotation = vec3(0,0,0);
@@ -40,6 +39,7 @@ private:
     eLoad LoadData(string);
     bool isLoaded = false;
 public:
+    vector<GLuint> element;
     string mName = "unnamed";
 
     Geometry *d = nullptr;
@@ -63,6 +63,7 @@ public:
     vec4 GetColor();
     GLuint GetVBO();
     GLuint GetVAO();
+    GLuint GetEBO();
     GLuint GetType();
     mat4 GetModelMatrix();
 };

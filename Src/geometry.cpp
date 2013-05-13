@@ -23,6 +23,7 @@ eLoad Geometry::LoadData(string fSrc)
         {
             edges = 1;
             GLfloat x,y,z;
+            int f1,f2,f3;
             string type = "null type";
             while(!file.eof())
             {
@@ -42,9 +43,19 @@ eLoad Geometry::LoadData(string fSrc)
                     d->colorData.push_back(y);
                     d->colorData.push_back(z);
                 }
+                if(type == "f")
+                {
+                    file >> f1 >> f2 >> f3;
+                    f1 = f1 - 1;
+                    f2 = f2 - 1;
+                    f3 = f3 - 1;
+                    d->element.push_back( (GLuint)f1 );
+                    d->element.push_back( (GLuint)f2 );
+                    d->element.push_back( (GLuint)f3 );
+                }
             }
             d->isLoaded = true;
-            std::cout << fSrc << " : Loaded" << std::endl;
+            //std::cout << fSrc << " : Loaded" << std::endl;
             return eLoad::Ok;
         }
         else return eLoad::Fail;
@@ -64,6 +75,13 @@ void Geometry::LinkData()
     GLint posAttrib = glGetAttribLocation( Program::sGetProgram(), "vert" );
     glVertexAttribPointer( posAttrib, 3, GL_FLOAT, GL_FALSE, 0, NULL );
     glEnableVertexAttribArray( posAttrib );
+
+    glGenBuffers(1,&d->ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, d->ebo);
+
+    glBufferData( GL_ELEMENT_ARRAY_BUFFER ,
+                  (d->element.size() * sizeof(d->element)),
+                  &d->element[0],GL_STATIC_DRAW);
 }
 void Geometry::GenerateMatrix()
 {
@@ -123,6 +141,8 @@ GLuint Geometry::GetVBO()
 
 GLuint Geometry::GetVAO()
 {return vao;}
+GLuint Geometry::GetEBO()
+{return ebo;}
 
 mat4 Geometry::GetModelMatrix()
 {return modelMatrix;}

@@ -7,50 +7,30 @@ bool Input::mKeyStatePressed[3];
 int Input::mouseWDelta,Input::lastWPos;
 vec2 Input::lastPos,Input::mouseDelta;
 
+
 void Input::Init()
 {
     mouseWDelta = 0;
     lastPos = MousePos();
+    glfwSetKeyCallback(Input::Keyboard);
+    glfwSetMouseButtonCallback(Input::MouseKeys);
 }
 void Input::Update()
 {
     UpdateMouse();
 }
+void GLFWCALL Input::Keyboard(int key ,int action)
+{
+    //cout << key << " : " << action << endl;
+}
+void GLFWCALL Input::MouseKeys(int key ,int action)
+{
+    mKeyState[key] = ( action == GLFW_PRESS );
+    mKeyStatePressed[key] = ( action == GLFW_PRESS );
+    mKeyStateRelased[key] = ( action == GLFW_RELEASE );
+}
 void Input::UpdateMouse()
 {
-    if(!mKeyState[0] && glfwGetMouseButton(0))
-    {
-        mKeyState[0] = true;
-        mKeyStatePressed[0] = true;
-    }
-    else if(mKeyState[0] && !glfwGetMouseButton(0))
-    {
-        mKeyState[0] = false;
-        mKeyStateRelased[0] = true;
-    }
-
-    if(!mKeyState[1] && glfwGetMouseButton(1))
-    {
-        mKeyState[1] = true;
-        mKeyStatePressed[1] = true;
-    }
-    else if(mKeyState[1] && !glfwGetMouseButton(1))
-    {
-        mKeyState[1] = false;
-        mKeyStateRelased[1] = true;
-    }
-
-    if(!mKeyState[2] && glfwGetMouseButton(2))
-    {
-        mKeyState[2] = true;
-        mKeyStatePressed[2] = true;
-    }
-    else if(mKeyState[2] && !glfwGetMouseButton(2))
-    {
-        mKeyState[2] = false;
-        mKeyStateRelased[2] = true;
-    }
-
     mouseDelta = MousePos() - lastPos;
     lastPos = MousePos();
 
