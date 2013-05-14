@@ -12,14 +12,27 @@ void Editor::Update()
         p.z = Renderer::sCamera()->GetPosition().z;
         Renderer::sCamera()->uPosition(p);
     }
+
+    if(glfwGetKey(GLFW_KEY_SPACE))
+    {
+        vec3 gPos = vec3 ( Renderer::sCamera()->GetPosition() + Input::ScreenToWorld3d());
+        gPos.z = 0;
+        onEdit = Collider::Get(gPos);
+    }
+    if(glfwGetKey(GLFW_KEY_DEL) && onEdit != nullptr)
+    {
+        delete onEdit;
+        onEdit = nullptr;
+    }
+
     if(glfwGetKey('1'))
     {mode = EditMode::PositionEdit;}
     if(glfwGetKey('2'))
     {mode = EditMode::ScaleEdit;}
-    /*if(glfwGetKey('3'))
+    if(glfwGetKey('3'))
     {mode = EditMode::RotationEdit;}
     if(glfwGetKey('4'))
-    {mode = EditMode::ColorEdit;}*/
+    {mode = EditMode::ColorEdit;}
 
 
     if(Input::isMouse(0) && onEdit != nullptr) //Edit

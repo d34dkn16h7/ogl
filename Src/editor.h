@@ -3,6 +3,7 @@
 
 #include "map.h"
 #include "input.h"
+#include "collider.h"
 #include "gameObject.h"
 
 enum EditMode

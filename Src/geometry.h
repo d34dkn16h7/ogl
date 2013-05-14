@@ -17,14 +17,15 @@ enum class eLoad
 {
     Ok,Fail,AlreadyLoaded
 };
-
 class Geometry
 {
 private:
     vector<GLfloat> data;
     vector<GLfloat> colorData;
-    static map< string , Geometry > Data;
+    static map< string , Geometry* > Data;
     int edges = 0;
+
+    bool isLoaded = false;
 
     mat4 modelMatrix;
     GLuint vbo,vao,ebo,type = GL_TRIANGLES;
@@ -37,8 +38,8 @@ private:
     void LinkData();
     void GenerateMatrix();
     eLoad LoadData(string);
-    bool isLoaded = false;
 public:
+    virtual ~Geometry();
     vector<GLuint> element;
     string mName = "unnamed";
 

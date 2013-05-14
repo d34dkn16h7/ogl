@@ -27,6 +27,7 @@ public:
     static void Render();
     static void GenData();
     static void Reg(Geometry*);
+    static void UnReg(Geometry*);
     static Camera* sCamera();
 };
 

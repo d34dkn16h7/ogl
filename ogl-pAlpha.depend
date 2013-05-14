@@ -79,7 +79,7 @@
 	"renderer.h"
 	"gameObject.h"
 
-1367006600 c:\users\calide 2\desktop\ogl-palpha\src\renderer.h
+1368540430 c:\users\calide 2\desktop\ogl-palpha\src\renderer.h
 	<GL/glew.h>
 	<GL/glfw.h>
 	<stdexcept>
@@ -88,9 +88,10 @@
 	"camera.h"
 	"geometry.h"
 
-1367006600 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
+1368540066 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
 	<stdexcept>
 	"geometry.h"
+	"collider.h"
 
 1358340677 c:\users\calide 2\desktop\ogl-palpha\src\shader.h
 	<GL/glew.h>
@@ -99,14 +100,14 @@
 	<string>
 	<vector>
 
-1368106899 source:c:\users\calide 2\desktop\ogl-palpha\src\gameobject.cpp
+1368541258 source:c:\users\calide 2\desktop\ogl-palpha\src\gameobject.cpp
 	"gameObject.h"
 	<iostream>
 
 1367006600 source:c:\users\calide 2\desktop\ogl-palpha\src\main.cpp
 	"game.h"
 
-1368528080 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
+1368541163 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
 	"renderer.h"
 	<iostream>
 
@@ -256,7 +257,7 @@
 1359022999 source:c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\renderer.cpp
 	"renderer.h"
 
-1368459197 c:\users\calide 2\desktop\ogl-palpha\src\geometry.h
+1368541520 c:\users\calide 2\desktop\ogl-palpha\src\geometry.h
 	<glm/gtc/matrix_transform.hpp>
 	<glm/glm.hpp>
 	<GL/glew.h>
@@ -267,7 +268,7 @@
 	"renderer.h"
 	"program.h"
 
-1368528052 source:c:\users\calide 2\desktop\ogl-palpha\src\geometry.cpp
+1368540855 source:c:\users\calide 2\desktop\ogl-palpha\src\geometry.cpp
 	"geometry.h"
 	<iostream>
 
@@ -476,12 +477,13 @@
 	<stdlib.h>
 	<glm/glm.hpp>
 
-1368107554 c:\users\calide 2\desktop\ogl-palpha\src\editor.h
+1368538564 c:\users\calide 2\desktop\ogl-palpha\src\editor.h
 	"map.h"
 	"input.h"
+	"collider.h"
 	"gameObject.h"
 
-1368519253 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
+1368541196 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
 	"editor.h"
 
 1368448371 c:\users\calide 2\desktop\ogl-palpha\src\input.h
@@ -492,4 +494,12 @@
 
 1368449368 source:c:\users\calide 2\desktop\ogl-palpha\src\input.cpp
 	"input.h"
+
+1368539965 source:c:\users\calide 2\desktop\ogl-palpha\src\collider.cpp
+	"collider.h"
+
+1368538612 c:\users\calide 2\desktop\ogl-palpha\src\collider.h
+	<glm/glm.hpp>
+	<vector>
+	"gameObject.h"
 

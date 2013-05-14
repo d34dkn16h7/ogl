@@ -1,7 +1,12 @@
 #include "geometry.h"
 #include <iostream>
 
-map<string,Geometry> Geometry::Data;
+map<string,Geometry*> Geometry::Data;
+Geometry::~Geometry()
+{
+    cout << "~Geometry" << endl;
+    Renderer::UnReg(this);
+}
 bool Geometry::Load(string fSrc)
 {
     eLoad res = LoadData(fSrc);
@@ -17,7 +22,10 @@ bool Geometry::Load(string fSrc)
 }
 eLoad Geometry::LoadData(string fSrc)
 {
-    d = &Data[fSrc];
+    d = Data[fSrc];
+    if(d == nullptr)
+        d = this;
+
     if(!d->isLoaded)
     {
         fstream file(fSrc.c_str());
