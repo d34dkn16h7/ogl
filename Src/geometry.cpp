@@ -4,9 +4,11 @@
 map<string,Geometry> Geometry::Data;
 bool Geometry::Load(string fSrc)
 {
-    if(LoadData(fSrc) != eLoad::Fail)
+    eLoad res = LoadData(fSrc);
+    if(res != eLoad::Fail)
     {
-        LinkData();
+        if(res != eLoad::AlreadyLoaded)
+            LinkData();
         GenerateMatrix();
         Renderer::Reg(this);
         return true;
@@ -34,7 +36,6 @@ eLoad Geometry::LoadData(string fSrc)
                     d->data.push_back(x);
                     d->data.push_back(y);
                     d->data.push_back(z);
-                    d->edges++;
                 }
                 if(type == "c")
                 {
@@ -54,6 +55,7 @@ eLoad Geometry::LoadData(string fSrc)
                     d->element.push_back( (GLuint)f3 );
                 }
             }
+            d->edges = d->element.size();
             d->isLoaded = true;
             //std::cout << fSrc << " : Loaded" << std::endl;
             return eLoad::Ok;
@@ -70,18 +72,19 @@ void Geometry::LinkData()
     glGenBuffers( 1, &d->vbo );
     glBindBuffer( GL_ARRAY_BUFFER , d->vbo );
     glBufferData( GL_ARRAY_BUFFER ,
-                  (d->data.size() * sizeof(d->data)),
+                  (d->data.size() * sizeof(d->data[0])),
                   &d->data[0],GL_STATIC_DRAW);
-    GLint posAttrib = glGetAttribLocation( Program::sGetProgram(), "vert" );
-    glVertexAttribPointer( posAttrib, 3, GL_FLOAT, GL_FALSE, 0, NULL );
-    glEnableVertexAttribArray( posAttrib );
 
     glGenBuffers(1,&d->ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, d->ebo);
 
     glBufferData( GL_ELEMENT_ARRAY_BUFFER ,
-                  (d->element.size() * sizeof(d->element)),
-                  &d->element[0],GL_STATIC_DRAW);
+                  (d->element.size() * sizeof(d->element[0])),
+                  &d->element[0],GL_DYNAMIC_DRAW);
+
+    GLint posAttrib = glGetAttribLocation( Program::sGetProgram(), "vert" );
+    glVertexAttribPointer( posAttrib, 3, GL_FLOAT, GL_FALSE, 0, NULL );
+    glEnableVertexAttribArray( posAttrib );
 }
 void Geometry::GenerateMatrix()
 {

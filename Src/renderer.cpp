@@ -30,8 +30,7 @@ void Renderer::Render()
             type = gmo->d->GetType();
             lastDrawName = gmo->mName;
         }
-        //glDrawArrays( type , 0 , edges );
-        glDrawElements(type,gmo->d->element.size(),GL_UNSIGNED_INT,0);
+        glDrawElements(type,edges,GL_UNSIGNED_INT,0);
     }
     prog->Use(false);
     glBindVertexArray(0);
@@ -49,14 +48,20 @@ Camera* Renderer::sCamera()
 bool Renderer::Setup(int w,int h , int screenState)
 {
     glfwInit();
-    glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
-    glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
+    glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2); //2
     glfwOpenWindowHint(GLFW_WINDOW_NO_RESIZE, GL_TRUE);
+    glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     if(!glfwOpenWindow(w, h, 8, 8, 8, 8, 16, 0, screenState) )
     {
-        throw runtime_error("glfwOpenWindow() Fail!");
-        return false;
+        glfwOpenWindowHint(GLFW_OPENGL_PROFILE,0);
+        if(!glfwOpenWindow(w, h, 8, 8, 8, 8, 16, 0, screenState))
+        {
+            throw runtime_error("glfwOpenWindow() Fail 2x!");
+            return false;
+        }
+        cerr << "GLFW_OPENGL_PROFILE -> 0" << endl;
+
     }
     glfwSetWindowTitle("openGL 3.2 -PRE.ALPHA");
     glfwSwapInterval(1);
@@ -81,7 +86,6 @@ bool Renderer::Setup(int w,int h , int screenState)
 }
 void Renderer::Reg(Geometry *obj)
 {
-    //std::cout << "Registered 'geometry' : " << obj->mName << std::endl;
     drawList.push_back(obj);
 }
 

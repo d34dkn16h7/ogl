@@ -6,7 +6,7 @@ void Editor::SetTarget(Map* val)
 }
 void Editor::Update()
 {
-    if(glfwGetKey('F'))
+    if(glfwGetKey('F') && onEdit != nullptr)
     {
         vec3 p = onEdit->GetPosition();
         p.z = Renderer::sCamera()->GetPosition().z;
@@ -42,9 +42,8 @@ void Editor::Update()
         }
     }
     if(Input::isMousePressed(1)) //PutObject
-    {
         PutObject();
-    }
+
     if(Input::isMouse(2)) // Move camera
     {
         float camZ = Renderer::sCamera()->GetPosition().z;

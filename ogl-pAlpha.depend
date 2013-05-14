@@ -106,7 +106,7 @@
 1367006600 source:c:\users\calide 2\desktop\ogl-palpha\src\main.cpp
 	"game.h"
 
-1368459369 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
+1368528080 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
 	"renderer.h"
 	<iostream>
 
@@ -267,7 +267,7 @@
 	"renderer.h"
 	"program.h"
 
-1368460621 source:c:\users\calide 2\desktop\ogl-palpha\src\geometry.cpp
+1368528052 source:c:\users\calide 2\desktop\ogl-palpha\src\geometry.cpp
 	"geometry.h"
 	<iostream>
 
@@ -481,7 +481,7 @@
 	"input.h"
 	"gameObject.h"
 
-1368196286 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
+1368519253 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
 	"editor.h"
 
 1368448371 c:\users\calide 2\desktop\ogl-palpha\src\input.h
