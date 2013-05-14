@@ -6,20 +6,20 @@ void Editor::SetTarget(Map* val)
 }
 void Editor::Update()
 {
-    if(glfwGetKey('F') && onEdit != nullptr)
+    if(glfwGetKey('F') && onEdit != nullptr) // Focus
     {
         vec3 p = onEdit->GetPosition();
         p.z = Renderer::sCamera()->GetPosition().z;
         Renderer::sCamera()->uPosition(p);
     }
 
-    if(glfwGetKey(GLFW_KEY_SPACE))
+    if(glfwGetKey(GLFW_KEY_SPACE)) // Select -> Switch to double click
     {
         vec3 gPos = vec3 ( Renderer::sCamera()->GetPosition() + Input::ScreenToWorld3d());
         gPos.z = 0;
         onEdit = Collider::Get(gPos);
     }
-    if(glfwGetKey(GLFW_KEY_DEL) && onEdit != nullptr)
+    if(glfwGetKey(GLFW_KEY_DEL) && onEdit != nullptr) // Delete
     {
         delete onEdit;
         onEdit = nullptr;
@@ -30,9 +30,9 @@ void Editor::Update()
     if(glfwGetKey('2'))
     {mode = EditMode::ScaleEdit;}
     if(glfwGetKey('3'))
-    {mode = EditMode::RotationEdit;}
+    {mode = EditMode::RotationEdit;} // Empty
     if(glfwGetKey('4'))
-    {mode = EditMode::ColorEdit;}
+    {mode = EditMode::ColorEdit;} // Empty
 
 
     if(Input::isMouse(0) && onEdit != nullptr) //Edit

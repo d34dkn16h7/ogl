@@ -17,6 +17,7 @@ private:
 public:
     float xMin,xMax,yMin,yMax;
     Collider(GameObject*);
+    ~Collider();
 
     static vector<GameObject*> GetAll(vec3);
     static GameObject* Get(vec3);

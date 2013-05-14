@@ -4,7 +4,6 @@
 map<string,Geometry*> Geometry::Data;
 Geometry::~Geometry()
 {
-    cout << "~Geometry" << endl;
     Renderer::UnReg(this);
 }
 bool Geometry::Load(string fSrc)

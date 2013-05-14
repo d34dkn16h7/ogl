@@ -5,14 +5,13 @@ const static string DataDir = "Data/";
 GameObject::GameObject(string pref )
 {
     mName = pref;
-    //std::cout << "new game object : " << pref << std::endl;
     LoadPrefab(pref);
     collider = new Collider(this);
 }
 GameObject::~GameObject()
 {
-    cout << "~GameObject" << endl;
-    delete collider;
+    if(collider != nullptr)
+        delete collider;
 }
 void GameObject::LoadPrefab(string fName)
 {

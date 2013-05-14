@@ -43,17 +43,11 @@ Renderer::Renderer(Geometry *obj)
 }
 void Renderer::UnReg(Geometry *obj)
 {
-    cout << "unReg" << endl;
-    cout << "Target " << obj << endl;
     for(int i = 0;i < drawList.size();i++)
     {
         if(drawList[i] == obj)
         {
-            cout << "Found " << drawList[i] << endl;
-            cout << "Size : " << drawList.size() << endl;
             drawList.erase(drawList.begin() + i);
-            cout << "Size : " << drawList.size() << endl;
-            cout << "unReg done" << endl;
         }
     }
 }
