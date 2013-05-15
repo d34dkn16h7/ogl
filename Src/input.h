@@ -7,17 +7,23 @@
 
 #include "renderer.h"
 
+#define MOUSE_KEY_COUNT 3
+
 using namespace glm;
 
 class Input
 {
-    static bool mKeyState[3];
-    static bool mKeyStateRelased[3];
-    static bool mKeyStatePressed[3];
-    static void UpdateMouse();
     static vec2 lastPos;
-    static int lastWPos;
-    //call backs
+
+    static bool mKeyState[MOUSE_KEY_COUNT];
+    static bool mKeyStateRelased[MOUSE_KEY_COUNT];
+    static bool mKeyStatePressed[MOUSE_KEY_COUNT];
+
+    static int lastWPos,lastClick;
+
+    static float lastClickTime,doubleClickTimeout,isStateTimeout;
+    //func
+    static void UpdateMouse();
     static void GLFWCALL Keyboard(int,int);
     static void GLFWCALL MouseKeys(int,int);
 public:
@@ -31,6 +37,7 @@ public:
     static bool isMouse(int);
     static bool isMousePressed(int);
     static bool isMouseRelased(int);
+    static bool DoubleClick(int);
     static vec2 MousePos();
     static vec2 ScreenToWorld2d();
     static vec3 ScreenToWorld3d();

@@ -483,10 +483,10 @@
 	"collider.h"
 	"gameObject.h"
 
-1368542208 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
+1368608711 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
 	"editor.h"
 
-1368448371 c:\users\calide 2\desktop\ogl-palpha\src\input.h
+1368611837 c:\users\calide 2\desktop\ogl-palpha\src\input.h
 	<GL/glew.h>
 	<GL/glfw.h>
 	<glm/glm.hpp>
@@ -495,7 +495,7 @@
 1368449368 source:c:\users\calide 2\desktop\ogl-palpha\src\input.cpp
 	"input.h"
 
-1368539965 source:c:\users\calide 2\desktop\ogl-palpha\src\collider.cpp
+1368606241 source:c:\users\calide 2\desktop\ogl-palpha\src\collider.cpp
 	"collider.h"
 
 1368542511 c:\users\calide 2\desktop\ogl-palpha\src\collider.h

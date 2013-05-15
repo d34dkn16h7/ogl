@@ -21,10 +21,24 @@ vector<GameObject*> Collider::GetAll(vec3 pos)
 {
     vector<GameObject*> val;
 
+    for(Collider* collider : colliders)
+    {
+        GameObject* gmo = collider->owner;
+        vec3 oPos = gmo->GetPosition();
+        if( oPos.x > (pos.x - 1) && oPos.x < (pos.x + 1) )
+            if( oPos.y > (pos.y - 1) && oPos.y < (pos.y + 1) )
+            {
+                val.push_back(gmo);
+            }
+    }
+
     return val;
 }
 GameObject* Collider::Get(vec3 pos)
 {
-    if(!colliders.empty())
-        return colliders.front()->owner;
+    vector<GameObject*> val = GetAll(pos);
+    if(!val.empty())
+        return val.front();
+    else
+        return nullptr;
 }
