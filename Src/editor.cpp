@@ -13,7 +13,7 @@ void Editor::Update()
         Renderer::sCamera()->uPosition(p);
     }
 
-    if( Input::DoubleClick(0) ) // Select -> Switch to double click
+    if( glfwGetKey(GLFW_KEY_LCTRL) && Input::isMousePressed(0) ) // Select -> Switch to double click
     {
         vec3 gPos = vec3 ( Renderer::sCamera()->GetPosition() + Input::ScreenToWorld3d());
         gPos.z = 0;

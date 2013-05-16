@@ -10,6 +10,7 @@ GameObject::GameObject(string pref )
 }
 GameObject::~GameObject()
 {
+    Map::ins->Pop(this);
     if(collider != nullptr)
         delete collider;
 }

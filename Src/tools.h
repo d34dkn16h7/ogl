@@ -38,7 +38,7 @@ namespace Tools
         }
         static void tSaveFile(string fSrc,string sData)
         {
-            fstream file(fSrc.c_str());
+            fstream file(fSrc.c_str(),std::fstream::trunc | std::fstream::out);
             if(file.is_open())
             {
                 file << sData;file.close();

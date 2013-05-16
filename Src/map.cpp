@@ -1,21 +1,24 @@
-#include "map.h"
-#include "game.h"
-#include "tools.h"
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
 #include <glm/glm.hpp>
+#include "map.h"
+#include "game.h"
+#include "tools.h"
 
 using namespace glm;
 
+Map* Map::ins;
+
 void Map::LoadMap(string fSrc)
 {
+    ins = this;
     string mstr = Tools::File::tLoadFile(fSrc);
     MakeMap(mstr);
 }
 void Map::SaveMap(string tFile)
 {
-    cout << "Map saved : " << tFile << endl;
+    cout << "Map saved : " << tFile << "  : Map Size -> " << data.size() << endl;
     std::stringstream mstr;
     for(GameObject* gmo : data)
     {
@@ -108,6 +111,7 @@ void Map::MakeMap(string strData)
             }
         }
     }
+    cout << "Loaded Map Size : " << data.size() << endl;
 }
 bool Map::isObject(string token)
 {
@@ -121,4 +125,17 @@ bool Map::isObject(string token)
 void Map::Put(GameObject* gmo)
 {
     data.push_back(gmo);
+}
+void Map::Pop(GameObject* gmo)
+{
+    for(int i = 0 ; i < data.size();i++)
+    {
+
+        if(gmo == data[i])
+        {
+            int curSize = data.size();
+            data.erase(data.begin() + i);
+            //cout << "Erased New Size : " << curSize << " -> " << data.size() << endl;
+        }
+    }
 }

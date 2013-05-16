@@ -25,8 +25,9 @@ vector<GameObject*> Collider::GetAll(vec3 pos)
     {
         GameObject* gmo = collider->owner;
         vec3 oPos = gmo->GetPosition();
-        if( oPos.x > (pos.x - 1) && oPos.x < (pos.x + 1) )
-            if( oPos.y > (pos.y - 1) && oPos.y < (pos.y + 1) )
+        float r = gmo->GetScale().x; // Works only cubic objects
+        if( oPos.x > (pos.x - r) && oPos.x < (pos.x + r) )
+            if( oPos.y > (pos.y - r) && oPos.y < (pos.y + r) )
             {
                 val.push_back(gmo);
             }

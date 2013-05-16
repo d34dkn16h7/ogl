@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include "geometry.h"
 #include "collider.h"
+#include "map.h"
 
 using namespace std;
 

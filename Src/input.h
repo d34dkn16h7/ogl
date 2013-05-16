@@ -19,9 +19,7 @@ class Input
     static bool mKeyStateRelased[MOUSE_KEY_COUNT];
     static bool mKeyStatePressed[MOUSE_KEY_COUNT];
 
-    static int lastWPos,lastClick;
-
-    static float lastClickTime,doubleClickTimeout,isStateTimeout;
+    static int lastWPos;
     //func
     static void UpdateMouse();
     static void GLFWCALL Keyboard(int,int);
@@ -37,7 +35,6 @@ public:
     static bool isMouse(int);
     static bool isMousePressed(int);
     static bool isMouseRelased(int);
-    static bool DoubleClick(int);
     static vec2 MousePos();
     static vec2 ScreenToWorld2d();
     static vec3 ScreenToWorld3d();

@@ -4,16 +4,13 @@ bool Input::mKeyState[ MOUSE_KEY_COUNT ];
 bool Input::mKeyStateRelased[ MOUSE_KEY_COUNT ];
 bool Input::mKeyStatePressed[ MOUSE_KEY_COUNT ];
 
-int Input::mouseWDelta,Input::lastWPos,Input::lastClick;
-float Input::lastClickTime,Input::doubleClickTimeout;
+int Input::mouseWDelta,Input::lastWPos;
 vec2 Input::lastPos,Input::mouseDelta;
 
 
 void Input::Init()
 {
     mouseWDelta = 0;
-    lastClickTime = 0;
-    doubleClickTimeout = 1;
     lastPos = MousePos();
     glfwSetKeyCallback(Input::Keyboard);
     glfwSetMouseButtonCallback(Input::MouseKeys);
@@ -28,15 +25,8 @@ void GLFWCALL Input::Keyboard(int key ,int action)
 }
 void GLFWCALL Input::MouseKeys(int key ,int action)
 {
-    mKeyState[key] = ( action == GLFW_PRESS );
-    mKeyStatePressed[key] = ( action == GLFW_PRESS );
+    mKeyState[key] = mKeyStatePressed[key] = ( action == GLFW_PRESS );
     mKeyStateRelased[key] = ( action == GLFW_RELEASE );
-
-    if( action == GLFW_PRESS )
-    {
-        lastClick = key;
-        lastClickTime = glfwGetTime();
-    }
 }
 void Input::UpdateMouse()
 {
@@ -61,10 +51,6 @@ bool Input::isMouseRelased(int key)
     bool val = mKeyStateRelased[key];
     mKeyStateRelased[key] = false;
     return val;
-}
-bool Input::DoubleClick(int key)
-{
-    return false;
 }
 vec2 Input::MousePos()
 {
