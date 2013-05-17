@@ -111,7 +111,7 @@ void Map::MakeMap(string strData)
             }
         }
     }
-    cout << "Loaded Map Size : " << data.size() << endl;
+    cout << "Loaded Map Size -> " << data.size() << endl;
 }
 bool Map::isObject(string token)
 {

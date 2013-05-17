@@ -8,6 +8,9 @@ int Renderer::win_w,Renderer::win_h;
 
 void Renderer::Render()
 {
+    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+    //glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+
     prog->SetUniform("cameraMatrix",cam->GetMatrix());
 
     glClearColor(0,0,0,1);
@@ -59,7 +62,7 @@ bool Renderer::Setup(int w,int h , int screenState)
 {
     glfwInit();
     glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
-    glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2); //2
+    glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
     glfwOpenWindowHint(GLFW_WINDOW_NO_RESIZE, GL_TRUE);
     glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     if(!glfwOpenWindow(w, h, 8, 8, 8, 8, 16, 0, screenState) )

@@ -16,7 +16,12 @@ private:
     GameObject* onEdit;
     EditMode mode;
 
+    void Edit();
     void PutObject();
+    void SelectObject();
+
+    void MoveCam();
+    void FocusToObject();
 public:
     void SetTarget(Map*);
     void Update();

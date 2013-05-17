@@ -25,6 +25,7 @@ namespace Tools
                 while(!file.eof())
                 {
                     int val = file.get();
+
                     if(val != -1)
                         whole += val;
                 }
@@ -32,7 +33,7 @@ namespace Tools
             }
             else
             {
-                throw  runtime_error("Can't Read File " + fSrc);
+                //throw  runtime_error("Can't Read File " + fSrc);
                 return "";
             }
         }

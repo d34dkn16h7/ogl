@@ -14,9 +14,9 @@ class Collider;
 class GameObject : public Geometry
 {
 private:
-    Collider* collider;
     void LoadPrefab(string);
 public:
+    Collider* collider;
     GameObject(string = "cube");
     virtual ~GameObject();
 };
