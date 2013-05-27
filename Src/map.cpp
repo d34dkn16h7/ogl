@@ -128,14 +128,12 @@ void Map::Put(GameObject* gmo)
 }
 void Map::Pop(GameObject* gmo)
 {
-    for(int i = 0 ; i < data.size();i++)
+    for(unsigned int i = 0 ; i < data.size();i++)
     {
 
         if(gmo == data[i])
         {
-            int curSize = data.size();
             data.erase(data.begin() + i);
-            //cout << "Erased New Size : " << curSize << " -> " << data.size() << endl;
         }
     }
 }

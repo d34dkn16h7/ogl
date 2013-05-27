@@ -1,4 +1,5 @@
 #include "renderer.h"
+#include "game.h"
 #include <iostream>
 
 Camera* Renderer::cam;
@@ -8,9 +9,6 @@ int Renderer::win_w,Renderer::win_h;
 
 void Renderer::Render()
 {
-    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-    //glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-
     prog->SetUniform("cameraMatrix",cam->GetMatrix());
 
     glClearColor(0,0,0,1);
@@ -22,6 +20,14 @@ void Renderer::Render()
     for( unsigned int i = 0; i < drawList.size(); i++)
     {
         Geometry *gmo = drawList[i];
+
+        /* Find a better wat to do it */
+        if(gmo == Game::ins->editor.GetOnEdit())
+            glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+        else
+            glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+
+
         prog->SetUniform("modelMatrix",gmo->GetModelMatrix());
         prog->SetUniform("color",gmo->GetColor());
         prog->Use(true);
@@ -46,17 +52,13 @@ Renderer::Renderer(Geometry *obj)
 }
 void Renderer::UnReg(Geometry *obj)
 {
-    for(int i = 0;i < drawList.size();i++)
+    for(unsigned int i = 0;i < drawList.size();i++)
     {
         if(drawList[i] == obj)
         {
             drawList.erase(drawList.begin() + i);
         }
     }
-}
-Camera* Renderer::sCamera()
-{
-    return cam;
 }
 bool Renderer::Setup(int w,int h , int screenState)
 {
@@ -101,11 +103,3 @@ void Renderer::Reg(Geometry *obj)
 {
     drawList.push_back(obj);
 }
-
-/*
-Draw wireframe
-if((i / 2) == 0)
-glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-else
-glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-*/

@@ -79,7 +79,7 @@
 	"renderer.h"
 	"gameObject.h"
 
-1368540430 c:\users\calide 2\desktop\ogl-palpha\src\renderer.h
+1369648879 c:\users\calide 2\desktop\ogl-palpha\src\renderer.h
 	<GL/glew.h>
 	<GL/glfw.h>
 	<stdexcept>
@@ -108,7 +108,7 @@
 1368783791 source:c:\users\calide 2\desktop\ogl-palpha\src\main.cpp
 	"game.h"
 
-1368800665 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
+1369648736 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
 	"renderer.h"
 	<iostream>
 
@@ -469,7 +469,7 @@
 	<fstream>
 	<string>
 
-1368780053 source:c:\users\calide 2\desktop\ogl-palpha\src\map.cpp
+1369648966 source:c:\users\calide 2\desktop\ogl-palpha\src\map.cpp
 	<iostream>
 	<sstream>
 	<stdlib.h>
@@ -478,13 +478,13 @@
 	"game.h"
 	"tools.h"
 
-1368788971 c:\users\calide 2\desktop\ogl-palpha\src\editor.h
+1369649158 c:\users\calide 2\desktop\ogl-palpha\src\editor.h
 	"map.h"
 	"input.h"
 	"collider.h"
 	"gameObject.h"
 
-1368802028 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
+1369649181 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
 	"editor.h"
 
 1368697716 c:\users\calide 2\desktop\ogl-palpha\src\input.h
@@ -496,7 +496,7 @@
 1368697700 source:c:\users\calide 2\desktop\ogl-palpha\src\input.cpp
 	"input.h"
 
-1368787052 source:c:\users\calide 2\desktop\ogl-palpha\src\collider.cpp
+1369648899 source:c:\users\calide 2\desktop\ogl-palpha\src\collider.cpp
 	"collider.h"
 
 1368785581 c:\users\calide 2\desktop\ogl-palpha\src\collider.h

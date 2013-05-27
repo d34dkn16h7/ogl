@@ -28,7 +28,6 @@ public:
     static void GenData();
     static void Reg(Geometry*);
     static void UnReg(Geometry*);
-    static Camera* sCamera();
 };
 
 #endif // RENDERER_H

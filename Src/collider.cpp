@@ -11,7 +11,7 @@ Collider::Collider(GameObject* gmo)
 }
 Collider::~Collider()
 {
-    for(int i = 0;i < colliders.size();i++)
+    for(unsigned int i = 0;i < colliders.size();i++)
     {
         if(colliders[i] == this)
         {

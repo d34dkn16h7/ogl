@@ -25,6 +25,7 @@ private:
 public:
     void SetTarget(Map*);
     void Update();
+    GameObject* GetOnEdit();
 };
 
 #endif // EDITOR_H

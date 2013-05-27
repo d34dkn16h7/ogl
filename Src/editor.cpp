@@ -31,12 +31,13 @@ void Editor::Update()
         MoveCam();
 
     if(Input::mouseWDelta != 0)
-        Renderer::sCamera()->aPosition( vec3(0,0,Input::mouseWDelta * -.1f) );
+        Camera::MainCamera->aPosition( vec3(0,0,Input::mouseWDelta * -.1f) );
 }
 void Editor::Edit()
 {
     vec2 val = Input::mouseDelta;
-    float camZ = Renderer::sCamera()->GetPosition().z;
+    float camZ = Camera::MainCamera->GetPosition().z;
+
     switch (mode)
     {
     case EditMode::PositionEdit:
@@ -57,13 +58,17 @@ void Editor::Edit()
             onEdit->aScale( vec3(val.x , val.y , 0) );
         }
         break;
+    case EditMode::ColorEdit:
+    case EditMode::RotationEdit:
+    default:
+        break;
     }
 }
 void Editor::PutObject()
 {
     onEdit = new GameObject();
 
-    vec3 nPos = vec3 ( Renderer::sCamera()->GetPosition() + Input::ScreenToWorld3d());
+    vec3 nPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;
 
     onEdit->uPosition(nPos);
@@ -72,7 +77,7 @@ void Editor::PutObject()
 }
 void Editor::SelectObject()
 {
-    vec3 gPos = vec3 ( Renderer::sCamera()->GetPosition() + Input::ScreenToWorld3d());
+    vec3 gPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
     gPos.z = 0;
     onEdit = Collider::Get(gPos);
 }
@@ -84,20 +89,24 @@ void Editor::SetTarget(Map* val)
 // Cam Func
 void Editor::MoveCam()
 {
-    float camZ = Renderer::sCamera()->GetPosition().z;
+    float camZ = Camera::MainCamera->GetPosition().z;
     vec2 val = Input::mouseDelta;
     if(camZ < 0)
         camZ = (-camZ);
     val *= (camZ * .002f);
     val.x = -val.x;
-    Renderer::sCamera()->aPosition(vec3(val.x,val.y,0));
+    Camera::MainCamera->aPosition(vec3(val.x,val.y,0));
 }
 void Editor::FocusToObject()
 {
     vec3 p = onEdit->GetPosition();
-    vec3 camPos = Renderer::sCamera()->GetPosition();
+    vec3 camPos = Camera::MainCamera->GetPosition();
 
     p.z = camPos.z - (camPos.z * .02f);
 
-    Renderer::sCamera()->uPosition(p);
+    Camera::MainCamera->uPosition(p);
+}
+GameObject* Editor::GetOnEdit()
+{
+    return onEdit;
 }
