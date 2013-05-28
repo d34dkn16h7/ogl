@@ -9,7 +9,6 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "tools.h"
 
 using namespace std;
 using namespace glm;
@@ -26,8 +25,10 @@ public:
     Program(string vShaderSrc = "Data/Shaders/def.vs",string fShaderSrc = "Data/Shaders/def.fs");
     void Use(bool);
     GLuint& GetProgram();
+
     void SetUniform(const string&,const mat4&);
     void SetUniform(const string&,const vec4);
+
     static void sUse(bool);
     static GLuint& sGetProgram();
 };

@@ -1,13 +1,19 @@
 #ifndef MAP_H
 #define MAP_H
 
+#include <glm/glm.hpp>
 #include <stdexcept>
+#include <iostream>
+#include <stdlib.h>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <vector>
+
 #include "gameObject.h"
 
 using namespace std;
+using namespace glm;
 
 class GameObject;
 class Map

@@ -22,6 +22,7 @@ private:
     mat4 projection;
 
 public:
+    vec2 ScreenSize;
     static Camera* MainCamera;
     Camera(int,int);
 

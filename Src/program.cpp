@@ -1,3 +1,4 @@
+#include "tools.h"
 #include "program.h"
 
 GLuint* Program::dProg;

@@ -7,6 +7,14 @@ Global Lists:
     Collider -> colliders (colliders with gmo owners)
     Map      -> data (gmo)
 */
+/*
+To Do:
+    physics
+    prefabs
+    geometry store
+    gui
+    colliders -> (intersect)
+*/
 
 int main()
 {

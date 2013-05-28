@@ -1,4 +1,8 @@
+#include "input.h"
+#include "camera.h"
 #include "editor.h"
+#include "physics.h" // remove this later
+#include "collider.h"
 
 void Editor::Update()
 {
@@ -50,8 +54,9 @@ void Editor::Edit()
         val *= .01f;
         if(glfwGetKey(GLFW_KEY_LSHIFT) )
         {
-            float fac = (val.x + val.y) / (float)2;
-            onEdit->aScale( fac );
+            float fac = (val.x + val.y) / 2;
+            if(fac != 0) // fix useless call,its useless now
+                onEdit->aScale( fac );
         }
         else
         {
@@ -67,7 +72,10 @@ void Editor::Edit()
 void Editor::PutObject()
 {
     onEdit = new GameObject();
-
+    // psysics test
+    onEdit->physics = new Physics(onEdit);
+    onEdit->physics->AddConstantForce(vec3(0,-.005f,0));
+    //
     vec3 nPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;
 

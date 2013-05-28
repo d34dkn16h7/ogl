@@ -1,12 +1,6 @@
-#include <iostream>
-#include <sstream>
-#include <stdlib.h>
-#include <glm/glm.hpp>
 #include "map.h"
 #include "game.h"
 #include "tools.h"
-
-using namespace glm;
 
 Map* Map::ins;
 
@@ -23,7 +17,7 @@ void Map::SaveMap(string tFile)
     for(GameObject* gmo : data)
     {
         vec3 tVec;
-        mstr << gmo->mName << endl;
+        mstr << gmo->gPtr->idString << endl;
         //Position
         tVec = gmo->GetPosition();
         mstr << "\t" << "pos " << tVec.x << " " << tVec.y << " " <<  tVec.z << endl;
@@ -111,9 +105,9 @@ void Map::MakeMap(string strData)
             }
         }
     }
-    cout << "Loaded Map Size -> " << data.size() << endl;
+    //cout << "Loaded Map Size -> " << data.size() << endl;
 }
-bool Map::isObject(string token)
+bool Map::isObject(string token) //hard-coded vals? fuck no!
 {
     if(token == "cube")
         return true;

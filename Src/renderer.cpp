@@ -4,9 +4,13 @@
 
 Camera* Renderer::cam;
 Program* Renderer::prog;
-vector<Geometry*> Renderer::drawList;
 int Renderer::win_w,Renderer::win_h;
+vector<Geometry*> Renderer::drawList;
 
+Renderer::Renderer(Geometry *obj)
+{
+    Reg(obj);
+}
 void Renderer::Render()
 {
     prog->SetUniform("cameraMatrix",cam->GetMatrix());
@@ -14,30 +18,27 @@ void Renderer::Render()
     glClearColor(0,0,0,1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    string lastDrawName = "null";
     int edges = 0;
     GLenum type = GL_TRIANGLES;
-    for( unsigned int i = 0; i < drawList.size(); i++)
+    string lastDrawName = "null";
+    for(Geometry* gmo : drawList)
     {
-        Geometry *gmo = drawList[i];
-
         /* Find a better wat to do it */
         if(gmo == Game::ins->editor.GetOnEdit())
             glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
         else
             glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
-
         prog->SetUniform("modelMatrix",gmo->GetModelMatrix());
         prog->SetUniform("color",gmo->GetColor());
         prog->Use(true);
-        if(lastDrawName != gmo->mName)
+        if(lastDrawName != gmo->gPtr->idString)
         {
-            glBindVertexArray(gmo->d->GetVAO());
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,gmo->d->GetEBO());
-            edges = gmo->d->GetEdges();
-            type = gmo->d->GetType();
-            lastDrawName = gmo->mName;
+            glBindVertexArray(gmo->gPtr->GetVAO());
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,gmo->gPtr->GetEBO());
+            edges = gmo->gPtr->GetEdges();
+            type = gmo->gPtr->GetType();
+            lastDrawName = gmo->gPtr->idString;
         }
         glDrawElements(type,edges,GL_UNSIGNED_INT,0);
     }
@@ -46,20 +47,7 @@ void Renderer::Render()
 
     glfwSwapBuffers();
 }
-Renderer::Renderer(Geometry *obj)
-{
-    drawList.push_back(obj);
-}
-void Renderer::UnReg(Geometry *obj)
-{
-    for(unsigned int i = 0;i < drawList.size();i++)
-    {
-        if(drawList[i] == obj)
-        {
-            drawList.erase(drawList.begin() + i);
-        }
-    }
-}
+
 bool Renderer::Setup(int w,int h , int screenState)
 {
     glfwInit();
@@ -102,4 +90,14 @@ bool Renderer::Setup(int w,int h , int screenState)
 void Renderer::Reg(Geometry *obj)
 {
     drawList.push_back(obj);
+}
+void Renderer::UnReg(Geometry *obj)
+{
+    for(unsigned int i = 0;i < drawList.size();i++)
+    {
+        if(drawList[i] == obj)
+        {
+            drawList.erase(drawList.begin() + i);
+        }
+    }
 }

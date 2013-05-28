@@ -1,5 +1,7 @@
 #include "game.h"
-
+#include "input.h"
+#include "physics.h"
+#include "renderer.h"
 
 Game* Game::ins;
 GameObject* Game::onControl;
@@ -35,6 +37,7 @@ void Game::Update()
         isEditor = !isEditor;
 
     Input::Update();
+    Physics::UpdateAll();
 
     if(isEditor)
         editor.Update();

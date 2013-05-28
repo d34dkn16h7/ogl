@@ -1,4 +1,5 @@
 #include "input.h"
+#include "camera.h"
 
 bool Input::mKeyState[ MOUSE_KEY_COUNT ];
 bool Input::mKeyStateRelased[ MOUSE_KEY_COUNT ];
@@ -63,7 +64,7 @@ vec2 Input::ScreenToWorld2d()
 {
     vec2 cpos = MousePos();
     bool xneg = false,yneg = false;
-    int hX = Renderer::win_w / 2,hY = Renderer::win_h / 2;
+    int hX = Camera::MainCamera->ScreenSize.x / 2,hY = Camera::MainCamera->ScreenSize.y / 2;
 
     if(cpos.x > hX)
     {

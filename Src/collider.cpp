@@ -2,11 +2,10 @@
 
 vector<Collider*> Collider::colliders;
 
-Collider::Collider(GameObject* gmo)
+Collider::Collider(GameObject* gmo) : owner(gmo)
 {
-    owner = gmo;
-    xMin = -1;xMax = 1;
-    yMin = -1;yMax = 1;
+    xMin = yMin = -1;
+    xMax = yMax = 1;
     colliders.push_back(this);
 }
 Collider::~Collider()
@@ -34,7 +33,7 @@ vector<GameObject*> Collider::GetAll(vec3 pos)
         if( oPos.x > (pos.x + xMinGen) && oPos.x < (pos.x + xMaxGen) )
             if( oPos.y > (pos.y + yMinGen) && oPos.y < (pos.y + yMaxGen) )
             {
-                cout << "Selected -> " << gmo << endl;
+                //cout << "Selected -> " << gmo << endl;
                 //cout << xMinGen << ":" << xMaxGen << endl;
                 //cout << yMinGen << ":" << yMaxGen << endl;
                 val.push_back(gmo);

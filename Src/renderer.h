@@ -8,6 +8,7 @@ class Program;
 #include <GL/glfw.h>
 #include <stdexcept>
 #include <vector>
+
 #include "program.h"
 #include "camera.h"
 #include "geometry.h"

@@ -5,6 +5,7 @@ Camera* Camera::MainCamera;
 Camera::Camera(int x,int y)
 {
     MainCamera = this;
+    ScreenSize = vec2(x,y);
     aspectRatio = (float)x / (float)y;
     GenerateMatrix();
 }

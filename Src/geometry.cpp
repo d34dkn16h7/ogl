@@ -1,36 +1,46 @@
+#include "program.h"
 #include "geometry.h"
+#include "renderer.h"
 #include <iostream>
 
-map<string,Geometry*> Geometry::Data;
+vector< GData* > Geometry::gData;
 Geometry::~Geometry()
 {
     Renderer::UnReg(this);
 }
-bool Geometry::Load(string fSrc)
+void Geometry::Load(string fSrc)
 {
-    eLoad res = LoadData(fSrc);
-    if(res != eLoad::Fail)
+    LoadSatus res = LoadData(fSrc);
+    if(res != LoadSatus::Fail)
     {
-        if(res != eLoad::AlreadyLoaded)
+        if(res != LoadSatus::AlreadyLoaded)
             LinkData();
         GenerateMatrix();
         Renderer::Reg(this);
-        return true;
     }
-    return false;
+    else
+        throw runtime_error("Can't load model file : " + fSrc);
 }
-eLoad Geometry::LoadData(string fSrc)
+GData* Geometry::Find(string sStr)
 {
-    d = Data[fSrc];
-    if(d == nullptr)
-        d = this;
-
-    if(!d->isLoaded)
+    for(GData* val : gData)
     {
+        if(val->idString == sStr)
+            return val;
+    }
+
+    return nullptr;
+}
+LoadSatus Geometry::LoadData(string fSrc)
+{
+    gPtr = Find(fSrc);
+    if(gPtr == nullptr)
+    {
+        gPtr = new GData();
+        gPtr->idString = fSrc;
         fstream file(fSrc.c_str());
         if(file.is_open())
         {
-            edges = 1;
             GLfloat x,y,z;
             int f1,f2,f3;
             string type = "null type";
@@ -40,16 +50,16 @@ eLoad Geometry::LoadData(string fSrc)
                 if(type == "v")
                 {
                     file >> x >> y >> z;
-                    d->data.push_back(x);
-                    d->data.push_back(y);
-                    d->data.push_back(z);
+                    gPtr->verticles.push_back(x);
+                    gPtr->verticles.push_back(y);
+                    gPtr->verticles.push_back(z);
                 }
                 if(type == "c")
                 {
                     file >> x >> y >> z;
-                    d->colorData.push_back(x);
-                    d->colorData.push_back(y);
-                    d->colorData.push_back(z);
+                    gPtr->colorData.push_back(x);
+                    gPtr->colorData.push_back(y);
+                    gPtr->colorData.push_back(z);
                 }
                 if(type == "f")
                 {
@@ -57,37 +67,36 @@ eLoad Geometry::LoadData(string fSrc)
                     f1 = f1 - 1;
                     f2 = f2 - 1;
                     f3 = f3 - 1;
-                    d->element.push_back( (GLuint)f1 );
-                    d->element.push_back( (GLuint)f2 );
-                    d->element.push_back( (GLuint)f3 );
+                    gPtr->elementary.push_back( (GLuint)f1 );
+                    gPtr->elementary.push_back( (GLuint)f2 );
+                    gPtr->elementary.push_back( (GLuint)f3 );
                 }
             }
-            d->edges = d->element.size();
-            d->isLoaded = true;
             //std::cout << fSrc << " : Loaded" << std::endl;
-            return eLoad::Ok;
+            gData.push_back(gPtr);
+            return LoadSatus::Loaded;
         }
-        else return eLoad::Fail;
+        else return LoadSatus::Fail;
     }
-    return eLoad::AlreadyLoaded;
+    return LoadSatus::AlreadyLoaded;
 }
 void Geometry::LinkData()
 {
-    glGenVertexArrays( 1, &d->vao );
-    glBindVertexArray( d->vao );
+    glGenVertexArrays( 1, &gPtr->vao );
+    glBindVertexArray( gPtr->vao );
 
-    glGenBuffers( 1, &d->vbo );
-    glBindBuffer( GL_ARRAY_BUFFER , d->vbo );
+    glGenBuffers( 1, &gPtr->vbo );
+    glBindBuffer( GL_ARRAY_BUFFER , gPtr->vbo );
     glBufferData( GL_ARRAY_BUFFER ,
-                  (d->data.size() * sizeof(d->data[0])),
-                  &d->data[0],GL_STATIC_DRAW);
+                  (gPtr->verticles.size() * sizeof(gPtr->verticles[0])),
+                  &gPtr->verticles[0],GL_STATIC_DRAW);
 
-    glGenBuffers(1,&d->ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, d->ebo);
+    glGenBuffers(1,&gPtr->ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gPtr->ebo);
 
     glBufferData( GL_ELEMENT_ARRAY_BUFFER ,
-                  (d->element.size() * sizeof(d->element[0])),
-                  &d->element[0],GL_DYNAMIC_DRAW);
+                  (gPtr->elementary.size() * sizeof(gPtr->elementary[0])),
+                  &gPtr->elementary[0],GL_DYNAMIC_DRAW);
 
     GLint posAttrib = glGetAttribLocation( Program::sGetProgram(), "vert" );
     glVertexAttribPointer( posAttrib, 3, GL_FLOAT, GL_FALSE, 0, NULL );
@@ -128,31 +137,17 @@ void Geometry::aScale(float val)
 void Geometry::uColor(vec4 val)
 {color = val;}
 //GET
-int Geometry::GetEdges()
-{return edges;}
 
-vec3 Geometry::GetPosition()
-{return position;}
+vec3 Geometry::GetPosition() const {return position;}
+vec3 Geometry::GetRotation() const {return rotation;}
+vec3 Geometry::GetScale() const {return vScale;}
+vec4 Geometry::GetColor() const {return color;}
 
-vec3 Geometry::GetRotation()
-{return rotation;}
+mat4 Geometry::GetModelMatrix() const {return modelMatrix;}
 
-vec3 Geometry::GetScale()
-{return vScale;}
-
-vec4 Geometry::GetColor()
-{return color;}
-
-GLuint Geometry::GetType()
-{return type;}
-
-GLuint Geometry::GetVBO()
-{return vbo;}
-
-GLuint Geometry::GetVAO()
-{return vao;}
-GLuint Geometry::GetEBO()
-{return ebo;}
-
-mat4 Geometry::GetModelMatrix()
-{return modelMatrix;}
+/// GData
+int GData::GetEdges() const {return elementary.size();}
+GLuint GData::GetType() const {return type;}
+GLuint GData::GetVBO() const {return vbo;}
+GLuint GData::GetVAO() const {return vao;}
+GLuint GData::GetEBO() const {return ebo;}

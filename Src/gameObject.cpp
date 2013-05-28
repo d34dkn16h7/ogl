@@ -1,10 +1,10 @@
+#include "map.h"
 #include "gameObject.h"
+#include <iostream>
 
 const static string DataDir = "Data/";
-#include <iostream>
 GameObject::GameObject(string pref )
 {
-    mName = pref;
     LoadPrefab(pref);
     collider = new Collider(this);
 }
@@ -28,10 +28,7 @@ void GameObject::LoadPrefab(string fName)
             if(input == "model")
             {
                 file >> sVal;
-                if(!Load( DataDir + sVal))
-                {
-                    throw runtime_error(sVal);
-                }
+                Load( DataDir + sVal);
             }
             else if(input == "scale")
             {

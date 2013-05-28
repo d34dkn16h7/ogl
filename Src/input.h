@@ -5,8 +5,6 @@
 #include <GL/glfw.h>
 #include <glm/glm.hpp>
 
-#include "renderer.h"
-
 #define MOUSE_KEY_COUNT 3
 
 using namespace glm;
@@ -25,7 +23,7 @@ class Input
     static void GLFWCALL Keyboard(int,int);
     static void GLFWCALL MouseKeys(int,int);
 public:
-    static vec2 mouseDelta; // don't forget y;
+    static vec2 mouseDelta;
     static int mouseWDelta;
 
     static void Init();
