@@ -15,13 +15,14 @@ private:
     EditMode mode;
 
     void Edit();
+    void CommandLine();
     void PutObject();
     void SelectObject();
 
     void MoveCam();
     void FocusToObject();
 public:
-    void SetTarget(Map*);
+    void SetTargetMap(Map*);
     void Update();
     GameObject* GetOnEdit();
 };

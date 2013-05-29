@@ -8,13 +8,14 @@ void Editor::Update()
 {
     if(glfwGetKey('F') && onEdit != nullptr)
         FocusToObject();
-    if( glfwGetKey(GLFW_KEY_LCTRL) && Input::isMousePressed(0) )
+    if(Input::isMousePressed(0)) // Select
         SelectObject();
     if(glfwGetKey(GLFW_KEY_DEL) && onEdit != nullptr) // Delete
     {
-        delete onEdit;
-        onEdit = nullptr;
+        delete onEdit;onEdit = nullptr;
     }
+    if(glfwGetKey(GLFW_KEY_F2))
+        CommandLine();
 
     if(glfwGetKey('1'))
         mode = EditMode::PositionEdit;
@@ -69,12 +70,36 @@ void Editor::Edit()
         break;
     }
 }
+void Editor::CommandLine() // look at the mess
+{
+    string currentCommand = "";
+    cout << " -> ";
+    cin >> currentCommand;
+
+    if(currentCommand == "add")
+    {
+        string componentName;
+        cout << " -> Enter component name : ";
+        cin >> componentName;
+        if(componentName == "physics")
+        {
+            if(onEdit != nullptr)
+            {
+                onEdit->physics = new Physics(onEdit);
+                onEdit->physics->AddConstantForce(vec3(0,-.01f,0));
+                cout << endl << " -> Component added" << endl;
+            }
+            else
+                cout << endl << " -> Couldn't add component" << endl;
+        }
+    }
+}
 void Editor::PutObject()
 {
     onEdit = new GameObject();
     // psysics test
-    onEdit->physics = new Physics(onEdit);
-    onEdit->physics->AddConstantForce(vec3(0,-.005f,0));
+    //onEdit->physics = new Physics(onEdit);
+    //onEdit->physics->AddConstantForce(vec3(0,-.005f,0));
     //
     vec3 nPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;
@@ -90,7 +115,7 @@ void Editor::SelectObject()
     onEdit = Collider::Get(gPos);
 }
 //
-void Editor::SetTarget(Map* val)
+void Editor::SetTargetMap(Map* val)
 {
     targetMap = val;
 }
