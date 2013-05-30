@@ -19,12 +19,15 @@ private:
     vec3 constForce;
 public:
     Physics(GameObject*);
+    ~Physics();
     void Update();
 
     void Move(vec3);
     void AddForce(vec3);
     void AddConstantForce(vec3);
 
+    static void Reg(Physics*);
+    static void UnReg(Physics*);
     static void UpdateAll();
 };
 

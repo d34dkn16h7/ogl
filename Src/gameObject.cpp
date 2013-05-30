@@ -13,6 +13,8 @@ GameObject::~GameObject()
     Map::ins->Pop(this);
     if(collider != nullptr)
         delete collider;
+    if(physics != nullptr)
+        delete physics;
 }
 void GameObject::LoadPrefab(string fName)
 {
@@ -40,6 +42,10 @@ void GameObject::LoadPrefab(string fName)
                 vec3 tPos;
                 file >> tPos.x >> tPos.y >> tPos.z;
                 uPosition(tPos);
+            }
+            else if(input == "physics")
+            {
+                physics = new Physics(this);
             }
         }
     }

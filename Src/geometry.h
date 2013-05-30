@@ -20,8 +20,6 @@ class GData
 public:
     string idString;
 
-    bool loadStatus;
-
     vector<GLuint> elementary;
     vector<GLfloat> verticles;
     vector<GLfloat> colorData;

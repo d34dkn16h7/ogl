@@ -6,7 +6,7 @@
 vector< GData* > Geometry::gData;
 Geometry::~Geometry()
 {
-    Renderer::UnReg(this);
+    Renderer::UnRegObject(this);
 }
 void Geometry::Load(string fSrc)
 {
@@ -16,7 +16,7 @@ void Geometry::Load(string fSrc)
         if(res != LoadSatus::AlreadyLoaded)
             LinkData();
         GenerateMatrix();
-        Renderer::Reg(this);
+        Renderer::RegObject(this);
     }
     else
         throw runtime_error("Can't load model file : " + fSrc);
@@ -145,7 +145,7 @@ vec4 Geometry::GetColor() const {return color;}
 
 mat4 Geometry::GetModelMatrix() const {return modelMatrix;}
 
-/// GData
+// GData
 int GData::GetEdges() const {return elementary.size();}
 GLuint GData::GetType() const {return type;}
 GLuint GData::GetVBO() const {return vbo;}

@@ -69,7 +69,8 @@
 1358288506 source:c:\users\shardstack\desktop\ogl-palpha\src\shader.cpp
 	"shader.h"
 
-1369818302 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
+1369927625 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
+	"gui.h"
 	"game.h"
 	"input.h"
 	"physics.h"
@@ -80,7 +81,7 @@
 	"editor.h"
 	"gameObject.h"
 
-1369730046 c:\users\calide 2\desktop\ogl-palpha\src\renderer.h
+1369926830 c:\users\calide 2\desktop\ogl-palpha\src\renderer.h
 	<GL/glew.h>
 	<GL/glfw.h>
 	<stdexcept>
@@ -88,6 +89,7 @@
 	"program.h"
 	"camera.h"
 	"geometry.h"
+	"gui.h"
 
 1369746917 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
 	<stdexcept>
@@ -102,15 +104,15 @@
 	<string>
 	<vector>
 
-1369756118 source:c:\users\calide 2\desktop\ogl-palpha\src\gameobject.cpp
+1369908636 source:c:\users\calide 2\desktop\ogl-palpha\src\gameobject.cpp
 	"map.h"
 	"gameObject.h"
 	<iostream>
 
-1369817480 source:c:\users\calide 2\desktop\ogl-palpha\src\main.cpp
+1369924331 source:c:\users\calide 2\desktop\ogl-palpha\src\main.cpp
 	"game.h"
 
-1369755095 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
+1369929703 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
 	"renderer.h"
 	"game.h"
 	<iostream>
@@ -176,7 +178,7 @@
 1358786779 source:c:\users\shardstack\desktop\ogl-palpha\src\program.cpp
 	"program.h"
 
-1369751667 source:c:\users\calide 2\desktop\ogl-palpha\src\camera.cpp
+1369905023 source:c:\users\calide 2\desktop\ogl-palpha\src\camera.cpp
 	"camera.h"
 
 1369730153 c:\users\calide 2\desktop\ogl-palpha\src\camera.h
@@ -261,7 +263,7 @@
 1359022999 source:c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\renderer.cpp
 	"renderer.h"
 
-1369756230 c:\users\calide 2\desktop\ogl-palpha\src\geometry.h
+1369924331 c:\users\calide 2\desktop\ogl-palpha\src\geometry.h
 	<glm/gtc/matrix_transform.hpp>
 	<glm/glm.hpp>
 	<GL/glew.h>
@@ -270,7 +272,7 @@
 	<string>
 	<map>
 
-1369756310 source:c:\users\calide 2\desktop\ogl-palpha\src\geometry.cpp
+1369925881 source:c:\users\calide 2\desktop\ogl-palpha\src\geometry.cpp
 	"program.h"
 	"geometry.h"
 	"renderer.h"
@@ -486,7 +488,7 @@
 	"map.h"
 	"gameObject.h"
 
-1369747326 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
+1369908949 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
 	"input.h"
 	"camera.h"
 	"editor.h"
@@ -516,11 +518,24 @@
 1369731589 c:\users\calide 2\desktop\ogl-palpha\src\component.h
 	"gameobject.h"
 
-1369747092 c:\users\calide 2\desktop\ogl-palpha\src\physics.h
+1369908773 c:\users\calide 2\desktop\ogl-palpha\src\physics.h
 	<glm/glm.hpp>
 	<vector>
 	"gameobject.h"
 
-1369750752 source:c:\users\calide 2\desktop\ogl-palpha\src\physics.cpp
+1369908862 source:c:\users\calide 2\desktop\ogl-palpha\src\physics.cpp
 	"physics.h"
+
+1369929750 source:c:\users\calide 2\desktop\ogl-palpha\src\gui.cpp
+	"gui.h"
+	"program.h"
+	"renderer.h"
+	<iostream>
+
+1369929626 c:\users\calide 2\desktop\ogl-palpha\src\gui.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<string>
+	<vector>
 

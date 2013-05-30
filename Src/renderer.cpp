@@ -5,11 +5,12 @@
 Camera* Renderer::cam;
 Program* Renderer::prog;
 int Renderer::win_w,Renderer::win_h;
-vector<Geometry*> Renderer::drawList;
+vector<Geometry*> Renderer::drawObjects;
+vector<Gui*> Renderer::drawGUI;
 
 Renderer::Renderer(Geometry *obj)
 {
-    Reg(obj);
+    RegObject(obj);
 }
 void Renderer::Render()
 {
@@ -18,10 +19,17 @@ void Renderer::Render()
     glClearColor(0,0,0,1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    RenderObjects();
+    RenderGUI();
+
+    glfwSwapBuffers();
+}
+void Renderer::RenderObjects()
+{
     int edges = 0;
     GLenum type = GL_TRIANGLES;
     string lastDrawName = "null";
-    for(Geometry* gmo : drawList)
+    for(Geometry* gmo : drawObjects)
     {
         /* Find a better wat to do it */
         if(gmo == Game::ins->editor.GetOnEdit())
@@ -44,10 +52,34 @@ void Renderer::Render()
     }
     prog->Use(false);
     glBindVertexArray(0);
-
-    glfwSwapBuffers();
 }
+void Renderer::RenderGUI()
+{
+    int edges = 0;
+    GLenum type = GL_TRIANGLES;
+    string lastDrawName = "null";
+    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
+    mat4 mMatrix = translate(mat4(),Camera::MainCamera->GetPosition() + vec3(0,0,-.3f));
+    prog->SetUniform("modelMatrix", mMatrix );
+    prog->SetUniform("color", vec4(1,1,1,1));
+    prog->Use(true);
+
+    for(Gui* gObj : drawGUI)
+    {
+        if(lastDrawName != gObj->master->idString)
+        {
+            glBindVertexArray(gObj->master->GetVAO());
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,gObj->master->GetEBO());
+            edges = gObj->master->GetEdges();
+            type = gObj->master->GetType();
+            lastDrawName = gObj->master->idString;
+        }
+        glDrawElements(type,edges,GL_UNSIGNED_INT,0);
+    }
+    prog->Use(false);
+    glBindVertexArray(0);
+}
 bool Renderer::Setup(int w,int h , int screenState)
 {
     glfwInit();
@@ -87,17 +119,31 @@ bool Renderer::Setup(int w,int h , int screenState)
     prog = new Program();
     return true;
 }
-void Renderer::Reg(Geometry *obj)
+void Renderer::RegObject(Geometry *obj)
 {
-    drawList.push_back(obj);
+    drawObjects.push_back(obj);
 }
-void Renderer::UnReg(Geometry *obj)
+void Renderer::UnRegObject(Geometry *obj)
 {
-    for(unsigned int i = 0;i < drawList.size();i++)
+    for(unsigned int i = 0;i < drawObjects.size();i++)
     {
-        if(drawList[i] == obj)
+        if(drawObjects[i] == obj)
         {
-            drawList.erase(drawList.begin() + i);
+            drawObjects.erase(drawObjects.begin() + i);
+        }
+    }
+}
+void Renderer::RegGUI(Gui* obj)
+{
+    drawGUI.push_back(obj);
+}
+void Renderer::UnRegGUI(Gui* obj)
+{
+    for(unsigned int i = 0;i < drawGUI.size();i++)
+    {
+        if(drawGUI[i] == obj)
+        {
+            drawGUI.erase(drawGUI.begin() + i);
         }
     }
 }

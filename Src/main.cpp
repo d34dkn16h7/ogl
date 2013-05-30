@@ -9,10 +9,10 @@ Global Lists:
 */
 /*
 To Do:
-    physics - pre-pre-pre alpha level
-    prefabs
+    physics - (pre-pre-pre alpha level)
+    prefabs - (very basic)
     geometry store - Done!
-    gui
+    gui - freshly started
     colliders -> (intersect)
 */
 

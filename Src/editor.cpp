@@ -93,6 +93,11 @@ void Editor::CommandLine() // look at the mess
                 cout << endl << " -> Couldn't add component" << endl;
         }
     }
+    else if(currentCommand == "del")
+    {
+        if(onEdit != nullptr && onEdit->physics != nullptr)
+            delete onEdit->physics;
+    }
 }
 void Editor::PutObject()
 {

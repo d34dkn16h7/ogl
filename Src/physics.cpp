@@ -4,9 +4,12 @@ vector<Physics*> Physics::physics;
 
 Physics::Physics(GameObject* own) : owner(own) , constForce( vec3(0,0,0) )
 {
-    physics.push_back(this);
+    Reg(this);
 }
-
+Physics::~Physics()
+{
+    UnReg(this);
+}
 void Physics::Move(vec3 val)
 {
     vec3 cPos = owner->GetPosition();
@@ -25,6 +28,20 @@ void Physics::AddConstantForce(vec3 val)
 void Physics::Update()
 {
     Move(constForce);
+}
+void Physics::Reg(Physics* val)
+{
+    physics.push_back(val);
+}
+void Physics::UnReg(Physics* val)
+{
+    for(unsigned int i = 0;i < physics.size();i++)
+    {
+        if(physics[i] == val)
+        {
+            physics.erase(physics.begin() + i);
+        }
+    }
 }
 void Physics::UpdateAll()
 {

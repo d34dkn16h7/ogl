@@ -12,7 +12,7 @@ Camera::Camera(int x,int y)
 void Camera::GenerateMatrix()
 {
     look = lookAt(position,(position + lookTarget), vec3(0,1,0));
-    projection = perspective<float>(60, aspectRatio, 0.1, 20.0);
+    projection = perspective<float>(60, aspectRatio, 0.1, 100.0);
     camera = projection * look;
 }
 //SET
@@ -57,7 +57,7 @@ mat4 Camera::Matrix()
 }
 mat4 Camera::GetPerspective()
 {
-    return perspective<float>(60, aspectRatio, 0.1, 20.0);
+    return perspective<float>(60, aspectRatio, 0.1, 100.0);
 }
 vec3 Camera::GetLook()
 {
