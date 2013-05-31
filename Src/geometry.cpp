@@ -37,7 +37,7 @@ LoadSatus Geometry::LoadData(string fSrc)
     if(gPtr == nullptr)
     {
         gPtr = new GData();
-        gPtr->idString = fSrc;
+        gPtr->idString = nameToken;
         fstream file(fSrc.c_str());
         if(file.is_open())
         {
@@ -64,9 +64,9 @@ LoadSatus Geometry::LoadData(string fSrc)
                 if(type == "f")
                 {
                     file >> f1 >> f2 >> f3;
-                    f1 = f1 - 1;
-                    f2 = f2 - 1;
-                    f3 = f3 - 1;
+                    f1 -= 1;
+                    f2 -= 1;
+                    f3 -= 1;
                     gPtr->elementary.push_back( (GLuint)f1 );
                     gPtr->elementary.push_back( (GLuint)f2 );
                     gPtr->elementary.push_back( (GLuint)f3 );
@@ -96,9 +96,9 @@ void Geometry::LinkData()
 
     glBufferData( GL_ELEMENT_ARRAY_BUFFER ,
                   (gPtr->elementary.size() * sizeof(gPtr->elementary[0])),
-                  &gPtr->elementary[0],GL_DYNAMIC_DRAW);
+                  &gPtr->elementary[0],GL_STATIC_DRAW);
 
-    GLint posAttrib = glGetAttribLocation( Program::sGetProgram(), "vert" );
+    GLint posAttrib = glGetAttribLocation( Program::GetProgram("Model"), "vert" );
     glVertexAttribPointer( posAttrib, 3, GL_FLOAT, GL_FALSE, 0, NULL );
     glEnableVertexAttribArray( posAttrib );
 }

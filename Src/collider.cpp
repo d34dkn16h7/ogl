@@ -50,3 +50,20 @@ GameObject* Collider::Get(vec3 pos)
     else
         return nullptr;
 }
+vector<GameObject*> Collider::Intersect()
+{
+    return Intersect(this);
+}
+vector<GameObject*> Collider::Intersect( Collider* target)
+{
+    vector<GameObject*> gList;
+
+    for(Collider* gmo : colliders)
+    {
+        //calc intersection
+        if(true)
+            gList.push_back(gmo->owner);
+    }
+
+    return gList;
+}

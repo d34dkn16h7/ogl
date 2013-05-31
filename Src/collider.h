@@ -17,10 +17,12 @@ private:
 public:
     float xMin,xMax,yMin,yMax;
     Collider(GameObject*);
+    vector<GameObject*> Intersect();
     ~Collider();
 
     static vector<GameObject*> GetAll(vec3);
     static GameObject* Get(vec3);
+    static vector<GameObject*> Intersect( Collider* );
 };
 
 #endif // COLLIDER_H

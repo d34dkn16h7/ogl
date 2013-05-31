@@ -7,38 +7,27 @@ vector<GUIData*> Gui::gData;
 
 Gui::Gui()
 {
-    std::cout << "new gui element \n";
     master = Find("rect");
     if(master == nullptr)
     {
-        MakeData();
+        MakeButton();
         LinkData();
     }
+    GenerateMatrix();
     Renderer::RegGUI(this);
 }
-void Gui::MakeData()
+void Gui::MakeButton()
 {
     master = new GUIData();
 
-    master->verticles.push_back(-.1f);
-    master->verticles.push_back(.1f);
-    master->verticles.push_back(0);
+    master->verticles.push_back(-1);
+    master->verticles.push_back(-1);
 
-    master->elementary.push_back(0);
-    master->elementary.push_back(1);
-    master->elementary.push_back(2);
+    master->verticles.push_back(-1);
+    master->verticles.push_back(1);
 
-    master->elementary.push_back(1);
-    master->elementary.push_back(1);
-    master->elementary.push_back(2);
-
-    master->elementary.push_back(1);
-    master->elementary.push_back(0);
-    master->elementary.push_back(2);
-
-    master->elementary.push_back(0);
-    master->elementary.push_back(0);
-    master->elementary.push_back(2);
+    master->verticles.push_back(1);
+    master->verticles.push_back(1);
 
     gData.push_back(master);
 }
@@ -53,14 +42,7 @@ void Gui::LinkData()
                   (master->verticles.size() * sizeof(master->verticles[0])),
                   &master->verticles[0],GL_STATIC_DRAW);
 
-    glGenBuffers(1,&master->ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, master->ebo);
-
-    glBufferData( GL_ELEMENT_ARRAY_BUFFER ,
-                  (master->elementary.size() * sizeof(master->elementary[0])),
-                  &master->elementary[0],GL_DYNAMIC_DRAW);
-
-    GLint posAttrib = glGetAttribLocation( Program::sGetProgram(), "vert" );
+    GLint posAttrib = glGetAttribLocation( Program::GetProgram("Gui"), "vert" );
     glVertexAttribPointer( posAttrib, 2, GL_FLOAT, GL_FALSE, 0, NULL );
     glEnableVertexAttribArray( posAttrib );
 }
@@ -75,9 +57,16 @@ GUIData* Gui::Find(string sStr)
 
     return nullptr;
 }
+mat4 Gui::GetMatrix() const {return matrix;}
+vec2 Gui::GetScale()
+{
+    return vec2(.002f,.002f);
+}
+void Gui::GenerateMatrix()
+{
+}
 // GUIData
-int GUIData::GetEdges() const {return elementary.size();}
+int GUIData::GetEdges() const {return verticles.size();}
 GLuint GUIData::GetType() const {return type;}
 GLuint GUIData::GetVBO() const {return vbo;}
 GLuint GUIData::GetVAO() const {return vao;}
-GLuint GUIData::GetEBO() const {return ebo;}

@@ -113,6 +113,8 @@ bool Map::isObject(string token) //hard-coded vals? fuck no!
         return true;
     if(token == "tris")
         return true;
+    if(token == "sphere")
+        return true;
 
     return false;
 }

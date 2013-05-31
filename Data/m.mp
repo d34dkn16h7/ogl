@@ -20,6 +20,6 @@ cube
 cube
 	pos -13.4221 -4.49484 0
 	col -1 0 0 1
-cube
+sphere
 	pos 1.43354 -0.731336 0
 	col -1 0 0 1

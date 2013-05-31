@@ -14,7 +14,6 @@ int Game::Run()
     isOpen = Renderer::Setup(1024,576,GLFW_WINDOW);//isOpen = Renderer::Setup(1280,800,GLFW_FULLSCREEN);
     map.LoadMap("Data/m.mp");
     Input::Init();
-    Gui* myButton = new Gui();
     while(isOpen && !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam( GLFW_OPENED))
     {
         Update();

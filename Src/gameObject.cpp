@@ -3,8 +3,9 @@
 #include <iostream>
 
 const static string DataDir = "Data/";
-GameObject::GameObject(string pref )
+GameObject::GameObject(string pref)
 {
+    nameToken = pref;
     LoadPrefab(pref);
     collider = new Collider(this);
 }

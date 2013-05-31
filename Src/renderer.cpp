@@ -4,7 +4,6 @@
 
 Camera* Renderer::cam;
 Program* Renderer::prog;
-int Renderer::win_w,Renderer::win_h;
 vector<Geometry*> Renderer::drawObjects;
 vector<Gui*> Renderer::drawGUI;
 
@@ -14,13 +13,11 @@ Renderer::Renderer(Geometry *obj)
 }
 void Renderer::Render()
 {
-    prog->SetUniform("cameraMatrix",cam->GetMatrix());
-
     glClearColor(0,0,0,1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     RenderObjects();
-    RenderGUI();
+    //RenderGUI();
 
     glfwSwapBuffers();
 }
@@ -29,9 +26,9 @@ void Renderer::RenderObjects()
     int edges = 0;
     GLenum type = GL_TRIANGLES;
     string lastDrawName = "null";
+    prog->SetUniform("cameraMatrix",cam->GetMatrix());
     for(Geometry* gmo : drawObjects)
     {
-        /* Find a better wat to do it */
         if(gmo == Game::ins->editor.GetOnEdit())
             glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
         else
@@ -50,6 +47,7 @@ void Renderer::RenderObjects()
         }
         glDrawElements(type,edges,GL_UNSIGNED_INT,0);
     }
+
     prog->Use(false);
     glBindVertexArray(0);
 }
@@ -58,26 +56,24 @@ void Renderer::RenderGUI()
     int edges = 0;
     GLenum type = GL_TRIANGLES;
     string lastDrawName = "null";
-    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
-    mat4 mMatrix = translate(mat4(),Camera::MainCamera->GetPosition() + vec3(0,0,-.3f));
-    prog->SetUniform("modelMatrix", mMatrix );
-    prog->SetUniform("color", vec4(1,1,1,1));
-    prog->Use(true);
+    Program::Use(true,"Gui");
+    Program::GetProgramIns("Gui")->SetUniform("color", vec4(1,1,1,1));
 
     for(Gui* gObj : drawGUI)
     {
+        Program::GetProgramIns("Gui")->SetUniform("scale", gObj->GetScale() );
         if(lastDrawName != gObj->master->idString)
         {
             glBindVertexArray(gObj->master->GetVAO());
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,gObj->master->GetEBO());
+            glBindBuffer(GL_ARRAY_BUFFER,gObj->master->GetVBO());
             edges = gObj->master->GetEdges();
             type = gObj->master->GetType();
             lastDrawName = gObj->master->idString;
         }
-        glDrawElements(type,edges,GL_UNSIGNED_INT,0);
+        glDrawArrays(type,0,edges);
     }
-    prog->Use(false);
+    Program::Use(false,"Gui");
     glBindVertexArray(0);
 }
 bool Renderer::Setup(int w,int h , int screenState)
@@ -99,7 +95,7 @@ bool Renderer::Setup(int w,int h , int screenState)
 
     }
     glfwSetWindowTitle("openGL 3.2 -PRE.ALPHA");
-    glfwSwapInterval(1);
+    glfwSwapInterval(0);
     glewExperimental = GL_TRUE;
     if(glewInit() != GLEW_OK)
     {
@@ -113,10 +109,9 @@ bool Renderer::Setup(int w,int h , int screenState)
     }
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    win_w = w;
-    win_h = h;
-    cam = new Camera(win_w,win_h);
-    prog = new Program();
+    cam = new Camera(w,h);
+    prog = new Program("Data/Shaders/dVS.glsl","Data/Shaders/dFS.glsl","Model");
+    new Program("Data/Shaders/guiVS.glsl","Data/Shaders/guiFS.glsl","Gui");
     return true;
 }
 void Renderer::RegObject(Geometry *obj)

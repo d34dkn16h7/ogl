@@ -16,20 +16,26 @@ using namespace glm;
 class Program
 {
 private:
+    static vector<Program*> programs;
+
     bool isReady;
     GLuint prog,vert,frag;
-    static GLuint *dProg;
+    static GLuint* dProg;
     GLuint CompileShader(GLuint& trg,GLuint type,string shaderSrc);
     void LinkProgram();
 public:
-    Program(string vShaderSrc = "Data/Shaders/def.vs",string fShaderSrc = "Data/Shaders/def.fs");
+    string name;
+
+    Program(string,string,string);
     void Use(bool);
     GLuint& GetProgram();
 
+    void SetUniform(const string&,const vec2&);
+    void SetUniform(const string&,const vec4&);
     void SetUniform(const string&,const mat4&);
-    void SetUniform(const string&,const vec4);
 
-    static void sUse(bool);
-    static GLuint& sGetProgram();
+    static void Use(bool,string);
+    static GLuint& GetProgram(string);
+    static Program* GetProgramIns(string);
 };
 #endif // PROGRAM_H

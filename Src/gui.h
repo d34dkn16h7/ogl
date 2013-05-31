@@ -10,23 +10,19 @@
 using namespace std;
 using namespace glm;
 
-typedef vec4 Rect;
-
 class GUIData
 {
 public:
     string idString;
 
-    vector<GLuint> elementary;
     vector<GLfloat> verticles;
     vector<GLfloat> colorData;
 
-    GLuint vbo,vao,ebo,type = GL_TRIANGLES;
+    GLuint vbo,vao,type = GL_TRIANGLES;
 
     int GetEdges() const;
     GLuint GetVBO() const;
     GLuint GetVAO() const;
-    GLuint GetEBO() const;
     GLuint GetType() const;
 };
 
@@ -35,16 +31,23 @@ class Gui
 private:
     static vector< GUIData* > gData;
 
-    Rect rect;
+    float rot;
+    vec2 pos;
+    vec2 scl;
+
     int guiLayer;
+    mat4 matrix;
 
     GUIData* Find(string);
-    void MakeData();
+    void MakeButton();
     void LinkData();
+    void GenerateMatrix();
 public:
     Gui();
 
     GUIData* master;
+    mat4 GetMatrix() const;
+    vec2 GetScale();
 };
 
 #endif // GUI_H

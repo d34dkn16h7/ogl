@@ -51,6 +51,7 @@ private:
     void GenerateMatrix();
     LoadSatus LoadData(string);
 public:
+    string nameToken;
     GData* gPtr = nullptr;
 
     virtual ~Geometry();

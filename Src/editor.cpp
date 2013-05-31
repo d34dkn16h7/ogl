@@ -102,13 +102,8 @@ void Editor::CommandLine() // look at the mess
 void Editor::PutObject()
 {
     onEdit = new GameObject();
-    // psysics test
-    //onEdit->physics = new Physics(onEdit);
-    //onEdit->physics->AddConstantForce(vec3(0,-.005f,0));
-    //
     vec3 nPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;
-
     onEdit->uPosition(nPos);
     onEdit->uColor( vec4(-1,0,0,1) );
     targetMap->Put(onEdit);

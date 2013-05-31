@@ -25,7 +25,6 @@ private:
     static vector<Gui*> drawGUI;
 public:
     Renderer(Geometry *obj); // Alternative for static void Reg();
-    static int win_w,win_h;
     static bool Setup(int,int,int);
     static void Render();
     static void RenderObjects();
