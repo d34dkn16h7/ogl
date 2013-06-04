@@ -6,13 +6,18 @@
 
 void Editor::Update()
 {
-    if(glfwGetKey('F') && onEdit != nullptr)
-        FocusToObject();
-    if(Input::isMousePressed(0)) // Select
-        SelectObject();
-    if(glfwGetKey(GLFW_KEY_DEL) && onEdit != nullptr) // Delete
+    isMultyEdit = glfwGetKey( GLFW_KEY_LCTRL );
+
+    /*if(glfwGetKey('F'))
+        FocusToObject();*/
+
+    if(Input::isMousePressed(0) && (((Input::mouseDelta.x + Input::mouseDelta.y) / 2) < .1f) )
+        SelectObjects();
+
+    if(glfwGetKey(GLFW_KEY_DEL))
     {
-        delete onEdit;onEdit = nullptr;
+        DeleteObject();
+        //delete onEdit;onEdit = nullptr;
     }
     if(glfwGetKey(GLFW_KEY_F2))
         CommandLine();
@@ -27,7 +32,7 @@ void Editor::Update()
         mode = EditMode::ColorEdit;   // Empty
 
 
-    if(Input::isMouse(0) && onEdit != nullptr)
+    if(Input::isMouse(0))
         Edit();
     if(Input::isMousePressed(1))
         PutObject();
@@ -49,19 +54,18 @@ void Editor::Edit()
         if(camZ < 0)
             camZ = (-camZ);
         val *= (camZ * .002f);
-        onEdit->aPosition(vec3(val.x,-val.y,0));
+        aPosition(vec3(val.x,-val.y,0));
         break;
     case EditMode::ScaleEdit:
         val *= .01f;
         if(glfwGetKey(GLFW_KEY_LSHIFT) )
         {
             float fac = (val.x + val.y) / 2;
-            if(fac != 0) // fix useless call,its useless now
-                onEdit->aScale( fac );
+            aScale( vec3(fac,fac,fac) );
         }
         else
         {
-            onEdit->aScale( vec3(val.x , val.y , 0) );
+            aScale( vec3(val.x , val.y , 0) );
         }
         break;
     case EditMode::ColorEdit:
@@ -72,6 +76,7 @@ void Editor::Edit()
 }
 void Editor::CommandLine() // look at the mess
 {
+    /*
     string currentCommand = "";
     cout << " -> ";
     cin >> currentCommand;
@@ -97,29 +102,70 @@ void Editor::CommandLine() // look at the mess
     {
         if(onEdit != nullptr && onEdit->physics != nullptr)
             delete onEdit->physics;
-    }
+    }*/
 }
 void Editor::PutObject()
 {
-    onEdit = new GameObject();
+    if(!isMultyEdit)
+        selection.clear();
+
+    GameObject* edit = new GameObject();
     vec3 nPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;
-    onEdit->uPosition(nPos);
-    onEdit->uColor( vec4(-1,0,0,1) );
-    targetMap->Put(onEdit);
+    edit->uPosition(nPos);
+    edit->uColor( vec4(-1,0,0,1) );
+    targetMap->Put(edit);
+    selection.push_back(edit);
 }
-void Editor::SelectObject()
+void Editor::DeleteObject()
+{
+    for(GameObject* gmo : selection)
+        delete gmo;
+
+    selection.clear();
+}
+void Editor::SelectObjects()
 {
     vec3 gPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
     gPos.z = 0;
-    onEdit = Collider::Get(gPos);
+
+    if(!isMultyEdit)
+        selection.clear();
+
+    UpdateSelections( (Collider::GetAll(gPos)) );
 }
-//
+void Editor::UpdateSelections( vector<GameObject*> val)
+{
+     for(GameObject* gmo : val)
+        if(!isSelected(gmo))
+            selection.push_back(gmo);
+        else
+            RemoveSelection(gmo);
+}
+void Editor::RemoveSelection(GameObject* obj)
+{
+    for(unsigned int i = 0;i < selection.size();i++)
+    {
+        if(selection[i] == obj)
+        {
+            selection.erase(selection.begin() + i);
+        }
+    }
+}
 void Editor::SetTargetMap(Map* val)
 {
     targetMap = val;
 }
-// Cam Func
+void Editor::aPosition(vec3 val)
+{
+    for(GameObject* gmo : selection)
+        gmo->aPosition(val);
+}
+void Editor::aScale(vec3 val)
+{
+    for(GameObject* gmo : selection)
+        gmo->aScale(val);
+}
 void Editor::MoveCam()
 {
     float camZ = Camera::MainCamera->GetPosition().z;
@@ -132,14 +178,19 @@ void Editor::MoveCam()
 }
 void Editor::FocusToObject()
 {
+    /*
     vec3 p = onEdit->GetPosition();
     vec3 camPos = Camera::MainCamera->GetPosition();
 
     p.z = camPos.z - (camPos.z * .02f);
 
-    Camera::MainCamera->uPosition(p);
+    Camera::MainCamera->uPosition(p);*/
 }
-GameObject* Editor::GetOnEdit()
+bool Editor::isSelected(GameObject* val)
 {
-    return onEdit;
+    for(GameObject* gmo : selection)
+        if(gmo == val)
+            return true;
+
+    return false;
 }

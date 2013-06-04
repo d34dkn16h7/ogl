@@ -1,3 +1,4 @@
 model Sphere.obj
 scale 1
 position 0 -.5 0
+physics

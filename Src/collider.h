@@ -12,16 +12,22 @@ class GameObject;
 class Collider
 {
 private:
-    static vector<Collider*> colliders;
     GameObject* owner;
+    static vector<Collider*> colliders;
+
+    static float GetSize(Collider*);
+    static Collider* FindBiggerVertical(Collider*,Collider*);
+    static Collider* FindBiggerHorizontal(Collider*,Collider*);
 public:
     float xMin,xMax,yMin,yMax;
+
     Collider(GameObject*);
-    vector<GameObject*> Intersect();
     ~Collider();
 
-    static vector<GameObject*> GetAll(vec3);
     static GameObject* Get(vec3);
+    static vector<GameObject*> GetAll(vec3);
+
+    vector<GameObject*> Intersect();
     static vector<GameObject*> Intersect( Collider* );
 };
 

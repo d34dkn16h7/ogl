@@ -17,8 +17,8 @@ class GameObject : public Geometry
 private:
     void LoadPrefab(string);
 public:
-    Physics* physics;
-    Collider* collider;
+    Physics* physics = nullptr;
+    Collider* collider = nullptr;
     GameObject(string = "cube");
     virtual ~GameObject();
 };

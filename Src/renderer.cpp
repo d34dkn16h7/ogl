@@ -29,7 +29,7 @@ void Renderer::RenderObjects()
     prog->SetUniform("cameraMatrix",cam->GetMatrix());
     for(Geometry* gmo : drawObjects)
     {
-        if(gmo == Game::ins->editor.GetOnEdit())
+        if( Game::ins->editor.isSelected( (GameObject*)gmo ) )
             glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
         else
             glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );

@@ -10,6 +10,8 @@ enum EditMode
 class Editor
 {
 private:
+    bool isMultyEdit;
+    vector<GameObject*> selection;
     Map* targetMap;
     GameObject* onEdit;
     EditMode mode;
@@ -17,14 +19,20 @@ private:
     void Edit();
     void CommandLine();
     void PutObject();
-    void SelectObject();
+    void DeleteObject();
+    void SelectObjects();
+    void UpdateSelections( vector<GameObject*> );
+    void RemoveSelection(GameObject*);
+
+    void aScale(vec3);
+    void aPosition(vec3);
 
     void MoveCam();
     void FocusToObject();
 public:
     void SetTargetMap(Map*);
     void Update();
-    GameObject* GetOnEdit();
+    bool isSelected(GameObject*);
 };
 
 #endif // EDITOR_H
