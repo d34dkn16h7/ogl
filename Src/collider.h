@@ -4,12 +4,12 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include "gameObject.h"
+#include "component.h"
 
 using namespace std;
 using namespace glm;
 
-class GameObject;
-class Collider
+class Collider : public Component
 {
 private:
     GameObject* owner;
@@ -23,6 +23,9 @@ public:
 
     Collider(GameObject*);
     ~Collider();
+
+    void Start() {}
+    void Update() {}
 
     static GameObject* Get(vec3);
     static vector<GameObject*> GetAll(vec3);

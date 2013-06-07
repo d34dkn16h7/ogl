@@ -4,22 +4,20 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include "gameobject.h"
+#include "component.h"
 
 using namespace std;
 using namespace glm;
 
-class GameObject;
-class Physics
+class Physics : public Component
 {
 private:
     static vector<Physics*> physics;
-
-    GameObject* owner;
-
     vec3 constForce;
 public:
     Physics(GameObject*);
-    ~Physics();
+    virtual ~Physics();
+    void Start();
     void Update();
 
     void Move(vec3);

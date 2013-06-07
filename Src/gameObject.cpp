@@ -1,5 +1,7 @@
-#include "map.h"
 #include "gameObject.h"
+#include "collider.h"
+#include "physics.h"
+#include "map.h"
 #include <iostream>
 
 const static string DataDir = "Data/";
@@ -7,15 +9,11 @@ GameObject::GameObject(string pref)
 {
     nameToken = pref;
     LoadPrefab(pref);
-    collider = new Collider(this);
 }
 GameObject::~GameObject()
 {
     Map::ins->Pop(this);
-    if(collider != nullptr)
-        delete collider;
-    if(physics != nullptr)
-        delete physics;
+    Component::DestroyAll( components );
 }
 void GameObject::LoadPrefab(string fName)
 {
@@ -46,7 +44,11 @@ void GameObject::LoadPrefab(string fName)
             }
             else if(input == "physics")
             {
-                physics = new Physics(this);
+                components.push_back( new Physics(this) );
+            }
+            else if(input == "collider")
+            {
+                components.push_back( new Collider(this) );
             }
         }
     }

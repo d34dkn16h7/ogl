@@ -2,13 +2,19 @@
 
 vector<Physics*> Physics::physics;
 
-Physics::Physics(GameObject* own) : owner(own) , constForce( vec3(0,0,0) )
+Physics::Physics(GameObject* own) : constForce( vec3(0,0,0) )
 {
+    owner = own;
     Reg(this);
 }
 Physics::~Physics()
 {
     UnReg(this);
+}
+void Physics::Start() {}
+void Physics::Update()
+{
+    Move(constForce);
 }
 void Physics::Move(vec3 val)
 {
@@ -24,10 +30,6 @@ void Physics::AddForce(vec3 val) {}
 void Physics::AddConstantForce(vec3 val)
 {
     constForce += val;
-}
-void Physics::Update()
-{
-    Move(constForce);
 }
 void Physics::Reg(Physics* val)
 {

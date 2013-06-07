@@ -91,11 +91,10 @@
 	"geometry.h"
 	"gui.h"
 
-1370361231 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
+1370615282 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
 	<stdexcept>
 	"geometry.h"
-	"collider.h"
-	"physics.h"
+	"component.h"
 
 1358340677 c:\users\calide 2\desktop\ogl-palpha\src\shader.h
 	<GL/glew.h>
@@ -104,9 +103,11 @@
 	<string>
 	<vector>
 
-1370361249 source:c:\users\calide 2\desktop\ogl-palpha\src\gameobject.cpp
-	"map.h"
+1370619926 source:c:\users\calide 2\desktop\ogl-palpha\src\gameobject.cpp
 	"gameObject.h"
+	"collider.h"
+	"physics.h"
+	"map.h"
 	<iostream>
 
 1369924331 source:c:\users\calide 2\desktop\ogl-palpha\src\main.cpp
@@ -484,11 +485,11 @@
 	"game.h"
 	"tools.h"
 
-1370360504 c:\users\calide 2\desktop\ogl-palpha\src\editor.h
+1370607864 c:\users\calide 2\desktop\ogl-palpha\src\editor.h
 	"map.h"
 	"gameObject.h"
 
-1370360869 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
+1370613188 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
 	"input.h"
 	"camera.h"
 	"editor.h"
@@ -504,26 +505,29 @@
 	"input.h"
 	"camera.h"
 
-1370359731 source:c:\users\calide 2\desktop\ogl-palpha\src\collider.cpp
+1370615345 source:c:\users\calide 2\desktop\ogl-palpha\src\collider.cpp
 	"collider.h"
 
-1370359158 c:\users\calide 2\desktop\ogl-palpha\src\collider.h
+1370615426 c:\users\calide 2\desktop\ogl-palpha\src\collider.h
 	<glm/glm.hpp>
 	<vector>
 	"gameObject.h"
-
-1369731449 source:c:\users\calide 2\desktop\ogl-palpha\src\component.cpp
 	"component.h"
 
-1369731589 c:\users\calide 2\desktop\ogl-palpha\src\component.h
-	"gameobject.h"
+1370619847 source:c:\users\calide 2\desktop\ogl-palpha\src\component.cpp
+	"component.h"
 
-1369908773 c:\users\calide 2\desktop\ogl-palpha\src\physics.h
+1370619839 c:\users\calide 2\desktop\ogl-palpha\src\component.h
+	"gameObject.h"
+	<vector>
+
+1370614818 c:\users\calide 2\desktop\ogl-palpha\src\physics.h
 	<glm/glm.hpp>
 	<vector>
 	"gameobject.h"
+	"component.h"
 
-1369908862 source:c:\users\calide 2\desktop\ogl-palpha\src\physics.cpp
+1370614879 source:c:\users\calide 2\desktop\ogl-palpha\src\physics.cpp
 	"physics.h"
 
 1370003807 source:c:\users\calide 2\desktop\ogl-palpha\src\gui.cpp

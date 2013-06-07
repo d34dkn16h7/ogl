@@ -21,14 +21,13 @@ private:
     void PutObject();
     void DeleteObject();
     void SelectObjects();
-    void UpdateSelections( vector<GameObject*> );
+    void UpdateSelections(const vector<GameObject*> );
     void RemoveSelection(GameObject*);
 
     void aScale(vec3);
     void aPosition(vec3);
 
-    void MoveCam();
-    void FocusToObject();
+    void MoveCam(); // m-click
 public:
     void SetTargetMap(Map*);
     void Update();

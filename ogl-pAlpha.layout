@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
+	<File name="Src\gameObject.h" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="150" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Src\geometry.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="838" topLine="123" />
+		</Cursor>
+	</File>
+	<File name="Src\geometry.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="955" topLine="39" />
+		</Cursor>
+	</File>
+	<File name="Src\gui.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="266" topLine="6" />
+		</Cursor>
+		<Folding>
+			<Collapse line="34" />
+		</Folding>
+	</File>
 	<File name="Src\gui.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="815" topLine="22" />
@@ -11,15 +34,38 @@
 			<Cursor1 position="29" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="Src\collider.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1516" topLine="32" />
+		</Cursor>
+		<Folding>
+			<Collapse line="5" />
+			<Collapse line="11" />
+		</Folding>
+	</File>
 	<File name="Src\input.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="544" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="Src\collider.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="588" topLine="9" />
 		</Cursor>
 	</File>
 	<File name="Src\main.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="328" topLine="0" />
 		</Cursor>
+	</File>
+	<File name="Src\editor.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="236" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="37" />
+			<Collapse line="68" />
+		</Folding>
 	</File>
 	<File name="Src\map.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
@@ -30,24 +76,43 @@
 			<Collapse line="13" />
 		</Folding>
 	</File>
+	<File name="Src\editor.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="417" topLine="10" />
+		</Cursor>
+	</File>
 	<File name="Src\map.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="214" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="Src\game.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="352" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="405" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="Src\physics.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="184" topLine="0" />
+			<Cursor1 position="128" topLine="0" />
 		</Cursor>
 		<Folding>
-			<Collapse line="13" />
-			<Collapse line="24" />
-			<Collapse line="28" />
+			<Collapse line="15" />
+			<Collapse line="19" />
 		</Folding>
+	</File>
+	<File name="Src\camera.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="19" topLine="0" />
+		</Cursor>
 	</File>
 	<File name="Src\physics.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="509" topLine="7" />
+			<Cursor1 position="332" topLine="5" />
+		</Cursor>
+	</File>
+	<File name="Src\camera.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="405" topLine="15" />
 		</Cursor>
 	</File>
 	<File name="Src\program.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -84,94 +149,24 @@
 			<Cursor1 position="134" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Src\collider.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Src\component.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1158" topLine="11" />
+			<Cursor1 position="210" topLine="0" />
 		</Cursor>
-		<Folding>
-			<Collapse line="5" />
-			<Collapse line="11" />
-			<Collapse line="49" />
-			<Collapse line="70" />
-			<Collapse line="74" />
-		</Folding>
+	</File>
+	<File name="Src\component.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="50" topLine="0" />
+		</Cursor>
 	</File>
 	<File name="Src\game.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="94" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Src\collider.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Src\gameObject.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="589" topLine="4" />
-		</Cursor>
-	</File>
-	<File name="Src\gameObject.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="137" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="Src\editor.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3154" topLine="3" />
-		</Cursor>
-		<Folding>
-			<Collapse line="7" />
-			<Collapse line="46" />
-			<Collapse line="77" />
-			<Collapse line="107" />
-			<Collapse line="127" />
-			<Collapse line="137" />
-			<Collapse line="145" />
-			<Collapse line="155" />
-			<Collapse line="159" />
-			<Collapse line="164" />
-			<Collapse line="169" />
-			<Collapse line="179" />
-			<Collapse line="189" />
-		</Folding>
-	</File>
-	<File name="Src\gameObject.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="352" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Src\editor.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="366" topLine="4" />
-		</Cursor>
-	</File>
-	<File name="Src\geometry.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="838" topLine="123" />
-		</Cursor>
-	</File>
-	<File name="Src\game.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="352" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="405" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Src\geometry.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="955" topLine="39" />
-		</Cursor>
-	</File>
-	<File name="Src\camera.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="19" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Src\gui.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="266" topLine="6" />
-		</Cursor>
-		<Folding>
-			<Collapse line="34" />
-		</Folding>
-	</File>
-	<File name="Src\camera.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="405" topLine="15" />
+			<Cursor1 position="1153" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

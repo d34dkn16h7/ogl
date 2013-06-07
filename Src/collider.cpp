@@ -54,10 +54,10 @@ vector<GameObject*> Collider::GetAll(vec3 pos)
         GameObject* gmo = collider->owner;
         vec3 oPos = gmo->GetPosition();
         vec3 oScale = gmo->GetScale();
-        float xMinGen = gmo->collider->xMin * oScale.x;
-        float xMaxGen = gmo->collider->xMax * oScale.x;
-        float yMinGen = gmo->collider->yMin * oScale.y;
-        float yMaxGen = gmo->collider->yMax * oScale.y;
+        float xMinGen = collider->xMin * oScale.x;
+        float xMaxGen = collider->xMax * oScale.x;
+        float yMinGen = collider->yMin * oScale.y;
+        float yMaxGen = collider->yMax * oScale.y;
         if( oPos.x > (pos.x + xMinGen) && oPos.x < (pos.x + xMaxGen) )
             if( oPos.y > (pos.y + yMinGen) && oPos.y < (pos.y + yMaxGen) )
             {

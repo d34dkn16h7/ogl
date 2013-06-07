@@ -8,19 +8,19 @@ void Editor::Update()
 {
     isMultyEdit = glfwGetKey( GLFW_KEY_LCTRL );
 
-    /*if(glfwGetKey('F'))
-        FocusToObject();*/
-
-    if(Input::isMousePressed(0) && (((Input::mouseDelta.x + Input::mouseDelta.y) / 2) < .1f) )
+    if(Input::isMousePressed(0))//if(Input::isMouseRelased(0))
         SelectObjects();
-
     if(glfwGetKey(GLFW_KEY_DEL))
-    {
         DeleteObject();
-        //delete onEdit;onEdit = nullptr;
-    }
     if(glfwGetKey(GLFW_KEY_F2))
         CommandLine();
+
+    if(Input::isMouse(0))
+        Edit();
+    if(Input::isMousePressed(1))
+        PutObject();
+    if(Input::isMouse(2))
+        MoveCam();
 
     if(glfwGetKey('1'))
         mode = EditMode::PositionEdit;
@@ -30,15 +30,6 @@ void Editor::Update()
         mode = EditMode::RotationEdit;   // Empty
     if(glfwGetKey('4'))
         mode = EditMode::ColorEdit;   // Empty
-
-
-    if(Input::isMouse(0))
-        Edit();
-    if(Input::isMousePressed(1))
-        PutObject();
-
-    if(Input::isMouse(2))
-        MoveCam();
 
     if(Input::mouseWDelta != 0)
         Camera::MainCamera->aPosition( vec3(0,0,Input::mouseWDelta * -.1f) );
@@ -132,9 +123,9 @@ void Editor::SelectObjects()
     if(!isMultyEdit)
         selection.clear();
 
-    UpdateSelections( (Collider::GetAll(gPos)) );
+    UpdateSelections( Collider::GetAll(gPos) );
 }
-void Editor::UpdateSelections( vector<GameObject*> val)
+void Editor::UpdateSelections(const vector<GameObject*> val)
 {
      for(GameObject* gmo : val)
         if(!isSelected(gmo))
@@ -175,16 +166,6 @@ void Editor::MoveCam()
     val *= (camZ * .002f);
     val.x = -val.x;
     Camera::MainCamera->aPosition(vec3(val.x,val.y,0));
-}
-void Editor::FocusToObject()
-{
-    /*
-    vec3 p = onEdit->GetPosition();
-    vec3 camPos = Camera::MainCamera->GetPosition();
-
-    p.z = camPos.z - (camPos.z * .02f);
-
-    Camera::MainCamera->uPosition(p);*/
 }
 bool Editor::isSelected(GameObject* val)
 {

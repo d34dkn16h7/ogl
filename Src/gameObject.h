@@ -4,21 +4,18 @@
 
 #include <stdexcept>
 #include "geometry.h"
-#include "collider.h"
-#include "physics.h"
+#include "component.h"
 
 using namespace std;
 
 class Geometry;
-class Collider;
-class Physics;
+class Component;
 class GameObject : public Geometry
 {
 private:
+    vector<Component*> components;
     void LoadPrefab(string);
 public:
-    Physics* physics = nullptr;
-    Collider* collider = nullptr;
     GameObject(string = "cube");
     virtual ~GameObject();
 };

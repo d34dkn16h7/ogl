@@ -44,6 +44,8 @@
 		<Unit filename="Src/camera.h" />
 		<Unit filename="Src/collider.cpp" />
 		<Unit filename="Src/collider.h" />
+		<Unit filename="Src/component.cpp" />
+		<Unit filename="Src/component.h" />
 		<Unit filename="Src/editor.cpp" />
 		<Unit filename="Src/editor.h" />
 		<Unit filename="Src/game.cpp" />
