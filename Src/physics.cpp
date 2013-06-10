@@ -4,6 +4,7 @@ vector<Physics*> Physics::physics;
 
 Physics::Physics(GameObject* own) : constForce( vec3(0,0,0) )
 {
+    type = ComponentType::C_Physics;
     owner = own;
     Reg(this);
 }

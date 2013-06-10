@@ -69,7 +69,7 @@
 1358288506 source:c:\users\shardstack\desktop\ogl-palpha\src\shader.cpp
 	"shader.h"
 
-1370008956 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
+1370872353 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
 	"gui.h"
 	"game.h"
 	"input.h"
@@ -91,7 +91,7 @@
 	"geometry.h"
 	"gui.h"
 
-1370615282 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
+1370862487 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
 	<stdexcept>
 	"geometry.h"
 	"component.h"
@@ -103,7 +103,7 @@
 	<string>
 	<vector>
 
-1370619926 source:c:\users\calide 2\desktop\ogl-palpha\src\gameobject.cpp
+1370871184 source:c:\users\calide 2\desktop\ogl-palpha\src\gameobject.cpp
 	"gameObject.h"
 	"collider.h"
 	"physics.h"
@@ -501,25 +501,27 @@
 	<GL/glfw.h>
 	<glm/glm.hpp>
 
-1369730226 source:c:\users\calide 2\desktop\ogl-palpha\src\input.cpp
+1370871510 source:c:\users\calide 2\desktop\ogl-palpha\src\input.cpp
 	"input.h"
 	"camera.h"
 
-1370615345 source:c:\users\calide 2\desktop\ogl-palpha\src\collider.cpp
+1370852036 source:c:\users\calide 2\desktop\ogl-palpha\src\collider.cpp
 	"collider.h"
 
-1370615426 c:\users\calide 2\desktop\ogl-palpha\src\collider.h
+1370852042 c:\users\calide 2\desktop\ogl-palpha\src\collider.h
 	<glm/glm.hpp>
 	<vector>
 	"gameObject.h"
 	"component.h"
 
-1370619847 source:c:\users\calide 2\desktop\ogl-palpha\src\component.cpp
+1370862600 source:c:\users\calide 2\desktop\ogl-palpha\src\component.cpp
 	"component.h"
+	"collider.h"
+	"physics.h"
 
-1370619839 c:\users\calide 2\desktop\ogl-palpha\src\component.h
-	"gameObject.h"
+1370862610 c:\users\calide 2\desktop\ogl-palpha\src\component.h
 	<vector>
+	"gameObject.h"
 
 1370614818 c:\users\calide 2\desktop\ogl-palpha\src\physics.h
 	<glm/glm.hpp>
@@ -527,7 +529,7 @@
 	"gameobject.h"
 	"component.h"
 
-1370614879 source:c:\users\calide 2\desktop\ogl-palpha\src\physics.cpp
+1370852059 source:c:\users\calide 2\desktop\ogl-palpha\src\physics.cpp
 	"physics.h"
 
 1370003807 source:c:\users\calide 2\desktop\ogl-palpha\src\gui.cpp

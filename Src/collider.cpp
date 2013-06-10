@@ -2,8 +2,10 @@
 
 vector<Collider*> Collider::colliders;
 
-Collider::Collider(GameObject* gmo) : owner(gmo)
+Collider::Collider(GameObject* gmo)
 {
+    type = ComponentType::C_Collider;
+    owner = gmo;
     xMin = yMin = -1;
     xMax = yMax = 1;
     colliders.push_back(this);

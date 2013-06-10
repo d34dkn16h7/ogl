@@ -8,7 +8,6 @@ bool Input::mKeyStatePressed[ MOUSE_KEY_COUNT ];
 int Input::mouseWDelta,Input::lastWPos;
 vec2 Input::lastPos,Input::mouseDelta;
 
-
 void Input::Init()
 {
     mouseWDelta = 0;

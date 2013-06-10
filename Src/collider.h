@@ -12,7 +12,6 @@ using namespace glm;
 class Collider : public Component
 {
 private:
-    GameObject* owner;
     static vector<Collider*> colliders;
 
     static float GetSize(Collider*);

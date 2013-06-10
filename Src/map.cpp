@@ -58,7 +58,7 @@ void Map::MakeMap(string strData)
 
         if(gmo != nullptr)
         {
-            if(token == "player")
+            if(token == "onControl")
             {
                 Game::onControl = gmo;
             }

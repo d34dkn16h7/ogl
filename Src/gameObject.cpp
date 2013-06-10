@@ -9,6 +9,11 @@ GameObject::GameObject(string pref)
 {
     nameToken = pref;
     LoadPrefab(pref);
+
+    /*//shitty desing.
+    Physics* tPhysics = (Physics*)Component::GetComponent(components,ComponentType::C_Physics);
+    if(tPhysics != nullptr)
+        tPhysics->AddConstantForce(vec3(0,-.0001f,0));*/
 }
 GameObject::~GameObject()
 {
@@ -44,11 +49,11 @@ void GameObject::LoadPrefab(string fName)
             }
             else if(input == "physics")
             {
-                components.push_back( new Physics(this) );
+                Component::AddComponent(components,this,ComponentType::C_Physics);
             }
             else if(input == "collider")
             {
-                components.push_back( new Collider(this) );
+                Component::AddComponent(components,this,ComponentType::C_Collider);
             }
         }
     }

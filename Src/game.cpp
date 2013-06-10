@@ -42,6 +42,7 @@ void Game::Update()
 
     if(isEditor)
         editor.Update();
+
     input();
 }
 void Game::input()
