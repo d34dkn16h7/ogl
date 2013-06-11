@@ -31,11 +31,11 @@ void Map::SaveMap(string tFile)
             mstr << "\t" << "rot " << tVec.x << " " << tVec.y << " " <<  tVec.z << endl;
         //Color
         vec4 tVec4 = gmo->GetColor();
-        mstr << "\t" << "col " << tVec4.x << " " << tVec4.y << " " << tVec4.z << " " << tVec4.w << endl;
-
+        if(tVec4 != vec4(-1,0,0,1))
+            mstr << "\t" << "col " << tVec4.x << " " << tVec4.y << " " << tVec4.z << " " << tVec4.w << endl;
 
         if(gmo == Game::onControl)
-            mstr << "\t" << "player" << endl;
+            mstr << "\t" << "onControl" << endl;
     }
     Tools::File::tSaveFile(tFile,mstr.str());
 }
@@ -47,8 +47,6 @@ void Map::MakeMap(string strData)
     for(unsigned int i = 0;i < t.tokens.size() ;i++)
     {
         string token = t.tokens[i];
-
-        //std::cout << "Current Token : " << token << std::endl;
 
         if(isObject(token))
         {
@@ -95,8 +93,7 @@ void Map::MakeMap(string strData)
                 }
                 else
                 {
-                    g  = 0;
-                    b = 0;
+                    g = b = 0;
                     a = 1;
                     i += 1;
                 }
@@ -105,7 +102,6 @@ void Map::MakeMap(string strData)
             }
         }
     }
-    //cout << "Loaded Map Size -> " << data.size() << endl;
 }
 bool Map::isObject(string token) //hard-coded vals? fuck no!
 {
@@ -114,6 +110,8 @@ bool Map::isObject(string token) //hard-coded vals? fuck no!
     if(token == "tris")
         return true;
     if(token == "sphere")
+        return true;
+    if(token == "player")
         return true;
 
     return false;

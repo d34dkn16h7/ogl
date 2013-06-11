@@ -26,7 +26,7 @@ int Game::Run()
 Game::Game()
 {
     ins = this;
-    Speed = 5;
+    Speed = 15;
     lastTime = glfwGetTime();
     editor.SetTargetMap(&map);
     isEditor = true;

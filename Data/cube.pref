@@ -1,4 +1,4 @@
-model Cube.obj
+model Block.obj
 texture none
 scale 1
 position 0 .01 0

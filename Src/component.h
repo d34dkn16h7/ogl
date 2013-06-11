@@ -13,7 +13,7 @@ enum ComponentType
 };
 
 class GameObject;
-class Component
+class Component //Base Component
 {
 public:
     ComponentType type;

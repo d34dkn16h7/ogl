@@ -31,6 +31,7 @@ public:
 
     vector<GameObject*> Intersect();
     static vector<GameObject*> Intersect( Collider* );
+    static vector<GameObject*> Intersect( Collider* , vec3 );
 };
 
 #endif // COLLIDER_H

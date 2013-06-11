@@ -41,7 +41,7 @@ private:
     vec3 position = vec3(0,0,0);
     vec3 rotation = vec3(0,0,0);
     vec3 vScale = vec3(1,1,1);
-    vec4 color = vec4(1,1,1,1);
+    vec4 color = vec4(-1,0,0,1);
 
     mat4 modelMatrix;
 

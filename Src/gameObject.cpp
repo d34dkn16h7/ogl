@@ -4,16 +4,16 @@
 #include "map.h"
 #include <iostream>
 
+    /*//shitty desing.
+    Physics* tPhysics = (Physics*)Component::GetComponent(components,ComponentType::C_Physics);
+    if(tPhysics != nullptr)
+        tPhysics->AddConstantForce(vec3(0,-.0001f,0));*/
+
 const static string DataDir = "Data/";
 GameObject::GameObject(string pref)
 {
     nameToken = pref;
     LoadPrefab(pref);
-
-    /*//shitty desing.
-    Physics* tPhysics = (Physics*)Component::GetComponent(components,ComponentType::C_Physics);
-    if(tPhysics != nullptr)
-        tPhysics->AddConstantForce(vec3(0,-.0001f,0));*/
 }
 GameObject::~GameObject()
 {
