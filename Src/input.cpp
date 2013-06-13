@@ -52,6 +52,10 @@ bool Input::isMouseRelased(int key)
     mKeyStateRelased[key] = false;
     return val;
 }
+bool Input::isKey(int key)
+{
+    return glfwGetKey(key);
+}
 vec2 Input::MousePos()
 {
     int x,y;

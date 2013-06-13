@@ -14,7 +14,7 @@ int Game::Run()
     isOpen = Renderer::Setup(1024,576,GLFW_WINDOW);//isOpen = Renderer::Setup(1280,800,GLFW_FULLSCREEN);
     map.LoadMap("Data/m.mp");
     Input::Init();
-    while(isOpen && !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam( GLFW_OPENED))
+    while(isOpen && !Input::isKey(GLFW_KEY_ESC) && glfwGetWindowParam( GLFW_OPENED))
     {
         Update();
         Renderer::Render();
@@ -49,21 +49,16 @@ void Game::input()
 {
     if(onControl != nullptr)
     {
-        if(glfwGetKey('W'))
+        if(Input::isKey('W'))
             onControl->aPosition(Up * Speed * deltaTime);
-        if(glfwGetKey('S'))
+        if(Input::isKey('S'))
             onControl->aPosition(Down * Speed * deltaTime);
-        if(glfwGetKey('A'))
+        if(Input::isKey('A'))
             onControl->aPosition(Left * Speed * deltaTime);
-        if(glfwGetKey('D'))
+        if(Input::isKey('D'))
             onControl->aPosition(Right * Speed * deltaTime);
-
-        /*if(glfwGetKey(GLFW_KEY_LEFT))
-            onControl->aRotate(vec3(1,0,0));
-        if(glfwGetKey(GLFW_KEY_RIGHT))
-            onControl->aRotate(vec3(-1,0,0));*/
     }
-    if(glfwGetKey(GLFW_KEY_PAUSE))
+    if(Input::isKey(GLFW_KEY_PAUSE))
         map.SaveMap("Data/m.mp");
 }
 void Game::Timer()

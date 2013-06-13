@@ -15,7 +15,7 @@ void main()
     	col = color;
     else
 	{
-		vec4 v = vec4(1,1,1,1);
+		vec4 v = vec4(.7,.7,.7,1);
 		col = (vert + v) / 2;
 	}
 }

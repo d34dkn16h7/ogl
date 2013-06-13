@@ -33,6 +33,12 @@ public:
     static bool isMouse(int);
     static bool isMousePressed(int);
     static bool isMouseRelased(int);
+
+    static bool isKey(int);
+    //static bool isKeyPressed(int);
+    //static bool isKeyRelased(int);
+
+
     static vec2 MousePos();
     static vec2 ScreenToWorld2d();
     static vec3 ScreenToWorld3d();
