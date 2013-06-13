@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <string>
 
@@ -54,30 +55,38 @@ namespace Tools
     class Str
     {
     public:
+        static void AddHashStreamVec3( stringstream& stream, string hVal, vec3 val, int flag)
+        {
+            stream << "\t"<< hVal << " " << val.x << " " << val.y << " " << val.z;
+            if(flag == 1)
+                stream << endl;
+        }
+        static void AddHashStreamVec4( stringstream& stream, string hVal, vec4 val, int flag)
+        {
+            stream << "\t"<< hVal << " " << val.x << " " << val.y << " " << val.z << " " << val.w;
+            if(flag == 1)
+                stream << endl;
+        }
         static string ClearWhiteSpaces(const string val)
         {
             string nVal = "";
 
             for (int i : val)
-            {
                 if(i != -1 && i != int(' '))
                     nVal += i;
-            }
 
             return nVal;
         }
         static string RemoveFormat(const string val)
         {
             string nVal = "";
+
             for (int i : val)
-            {
                 if(i != 13 && i != 10)
                     nVal += i;
                 else
-                {
                     nVal += 32;
-                }
-            }
+
             return nVal;
         }
         static void PrintAscii(const string val)
@@ -102,10 +111,8 @@ namespace Tools
         {
             string nVal = "";
             for( int i : val)
-            {
                 if(i != (int)c)
                     nVal += i;
-            }
 
             return nVal;
         }
@@ -150,9 +157,7 @@ namespace Tools
                     isSkipping = !isSkipping;
                 }
 
-                if(isSkipping)
-                {
-                }
+                if(isSkipping) {}
                 else if(ch == ' ')
                 {
                     if(cVal != "")

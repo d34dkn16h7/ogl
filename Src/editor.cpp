@@ -8,7 +8,7 @@ void Editor::Update()
 {
     isMultyEdit = glfwGetKey( GLFW_KEY_LCTRL );
 
-    if(Input::isMousePressed(0))//if(Input::isMouseRelased(0))
+    if(Input::isMousePressed(0))
         SelectObjects();
     if(glfwGetKey(GLFW_KEY_DEL))
         DeleteObject();
@@ -52,7 +52,7 @@ void Editor::Edit()
         if(glfwGetKey(GLFW_KEY_LSHIFT) )
         {
             float fac = (val.x + val.y) / 2;
-            aScale( vec3(fac,fac,fac) );
+            aScale( vec3(fac,fac,0) );
         }
         else
         {

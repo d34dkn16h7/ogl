@@ -57,6 +57,11 @@ void Game::input()
             onControl->aPosition(Left * Speed * deltaTime);
         if(glfwGetKey('D'))
             onControl->aPosition(Right * Speed * deltaTime);
+
+        /*if(glfwGetKey(GLFW_KEY_LEFT))
+            onControl->aRotate(vec3(1,0,0));
+        if(glfwGetKey(GLFW_KEY_RIGHT))
+            onControl->aRotate(vec3(-1,0,0));*/
     }
     if(glfwGetKey(GLFW_KEY_PAUSE))
         map.SaveMap("Data/m.mp");

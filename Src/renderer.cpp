@@ -88,10 +88,10 @@ bool Renderer::Setup(int w,int h , int screenState)
         glfwOpenWindowHint(GLFW_OPENGL_PROFILE,0);
         if(!glfwOpenWindow(w, h, 8, 8, 8, 8, 16, 0, screenState))
         {
-            throw runtime_error("glfwOpenWindow() Fail 2x!");
+            cout << "glfwOpenWindow() Fail\n";
             return false;
         }
-        cerr << "GLFW_OPENGL_PROFILE -> 0" << endl;
+        cout << "GLFW_OPENGL_PROFILE -> 0\n";
 
     }
     glfwSetWindowTitle("openGL 3.2 -PRE.ALPHA");
@@ -99,19 +99,18 @@ bool Renderer::Setup(int w,int h , int screenState)
     glewExperimental = GL_TRUE;
     if(glewInit() != GLEW_OK)
     {
-        throw runtime_error("glewInit() Fail!");
+        cout << "glewInit() Fail!\n";
         return false;
     }
     if(!GLEW_VERSION_3_2)
     {
-        throw runtime_error("OpenGL 3.2 API is not available.");
+        cout << "OpenGL 3.2 API is not available.\n";
         return false;
     }
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
     cam = new Camera(w,h);
-    prog = new Program("Data/Shaders/dVS.glsl","Data/Shaders/dFS.glsl","Model");
-    new Program("Data/Shaders/guiVS.glsl","Data/Shaders/guiFS.glsl","Gui");
+    prog = new Program("Data/Shaders/dVS.glsl","Data/Shaders/dFS.glsl","Model");//new Program("Data/Shaders/guiVS.glsl","Data/Shaders/guiFS.glsl","Gui");
     return true;
 }
 void Renderer::RegObject(Geometry *obj)

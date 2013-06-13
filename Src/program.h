@@ -31,6 +31,7 @@ public:
     GLuint& GetProgram();
 
     void SetUniform(const string&,const vec2&);
+    void SetUniform(const string&,const vec3&);
     void SetUniform(const string&,const vec4&);
     void SetUniform(const string&,const mat4&);
 

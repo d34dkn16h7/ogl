@@ -3,8 +3,8 @@
 
 #include <glm/glm.hpp>
 #include <vector>
-#include "gameobject.h"
 #include "component.h"
+#include "gameobject.h"
 
 using namespace std;
 using namespace glm;

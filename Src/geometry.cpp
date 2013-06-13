@@ -104,9 +104,9 @@ void Geometry::LinkData()
 }
 void Geometry::GenerateMatrix()
 {
-    modelMatrix = translate(mat4(),position);
-    modelMatrix *= rotate(mat4(),rotation.x , vec3(0,1,0));
-    modelMatrix *= rotate(mat4(),rotation.y , vec3(1,0,0));
+    modelMatrix = translate(mat4(1.0),position);
+    modelMatrix *= rotate(mat4(1.0),rotation.x , vec3(0,1,0));
+    modelMatrix *= rotate(mat4(1.0),rotation.y , vec3(1,0,0));
     modelMatrix *= scale(mat4(1.0),vScale);
 }
 //GET
@@ -120,7 +120,7 @@ void Geometry::uRotate(vec3 val)
 {rotation = val;GenerateMatrix();}
 
 void Geometry::aRotate(vec3 val)
-{rotation += val;GenerateMatrix();}
+{rotation += val;GenerateMatrix();cout << rotation.x << endl;}
 
 void Geometry::uScale(vec3 val)
 {vScale = val;GenerateMatrix();}

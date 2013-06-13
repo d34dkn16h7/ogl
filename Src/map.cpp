@@ -17,25 +17,27 @@ void Map::SaveMap(string tFile)
     for(GameObject* gmo : data)
     {
         vec3 tVec;
+        vec4 tVec4;
+
         mstr << gmo->gPtr->idString << endl;
-        //Position
+    //Position
         tVec = gmo->GetPosition();
-        mstr << "\t" << "pos " << tVec.x << " " << tVec.y << " " <<  tVec.z << endl;
-        //Scale
+        Tools::Str::AddHashStreamVec3(mstr ,"pos" , tVec , 1);
+    //Scale
         tVec = gmo->GetScale();
         if(tVec != vec3(1,1,1))
-            mstr << "\t" << "scale " << tVec.x << " " << tVec.y << " " <<  tVec.z << endl;
-        //Rotation
+            Tools::Str::AddHashStreamVec3(mstr ,"scale" , tVec , 1);
+    //Rotation
         tVec = gmo->GetRotation();
         if(tVec != vec3(0,0,0))
-            mstr << "\t" << "rot " << tVec.x << " " << tVec.y << " " <<  tVec.z << endl;
-        //Color
-        vec4 tVec4 = gmo->GetColor();
-        if(tVec4 != vec4(-1,0,0,1))
-            mstr << "\t" << "col " << tVec4.x << " " << tVec4.y << " " << tVec4.z << " " << tVec4.w << endl;
+            Tools::Str::AddHashStreamVec3(mstr ,"rot" , tVec , 1);
+    //Color
+        tVec4 = gmo->GetColor();
+        if(tVec4 != vec4(-1,0,0,1)) //Null also default color for shader
+            Tools::Str::AddHashStreamVec4(mstr ,"col" , tVec4 , 1);
 
         if(gmo == Game::onControl)
-            mstr << "\t" << "onControl" << endl;
+            mstr << "\tonControl" << endl;
     }
     Tools::File::tSaveFile(tFile,mstr.str());
 }
@@ -57,9 +59,8 @@ void Map::MakeMap(string strData)
         if(gmo != nullptr)
         {
             if(token == "onControl")
-            {
                 Game::onControl = gmo;
-            }
+
             if(token == "pos")
             {
                 float x,y,z;
@@ -68,6 +69,16 @@ void Map::MakeMap(string strData)
                 z = atof(t.tokens[i + 3].c_str());
                 vec3 v(x,y,z);
                 gmo->uPosition(v);
+                i += 3;
+            }
+            if(token == "rot")
+            {
+                float x,y,z;
+                x = atof(t.tokens[i + 1].c_str());
+                y = atof(t.tokens[i + 2].c_str());
+                z = atof(t.tokens[i + 3].c_str());
+                vec3 v(x,y,z);
+                gmo->uRotate(v);
                 i += 3;
             }
             if(token == "scale")

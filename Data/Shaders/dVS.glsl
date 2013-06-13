@@ -14,5 +14,8 @@ void main()
     if(color.x != -1)
     	col = color;
     else
-	col = vert;
+	{
+		vec4 v = vec4(1,1,1,1);
+		col = (vert + v) / 2;
+	}
 }

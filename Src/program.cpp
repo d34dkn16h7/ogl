@@ -37,15 +37,24 @@ void Program::LinkProgram()
     glBindFragDataLocation( prog, 0, "outColor" );
     glLinkProgram(prog);
 }
-
-void Program::SetUniform(const string& name,const mat4& matrix)
+void Program::SetUniform(const string& name,const vec2& val)
 {
     Use(true);
     const GLchar* attName = name.c_str();
     GLint uniform = glGetUniformLocation(prog, attName);
     if(uniform == -1)
         throw runtime_error("Can't acces uniform");
-    glUniformMatrix4fv(uniform, 1, false, value_ptr(matrix));
+    glUniform2f(uniform , val.x,val.y);
+    Use(false);
+}
+void Program::SetUniform(const string& name,const vec3& val)
+{
+    Use(true);
+    const GLchar* attName = name.c_str();
+    GLint uniform = glGetUniformLocation(prog, attName);
+    if(uniform == -1)
+        throw runtime_error("Can't acces uniform");
+    glUniform3f(uniform , val.x,val.y,val.z);
     Use(false);
 }
 void Program::SetUniform(const string& name,const vec4& val)
@@ -58,14 +67,14 @@ void Program::SetUniform(const string& name,const vec4& val)
     glUniform4f(uniform , val.r,val.g,val.b,val.a);
     Use(false);
 }
-void Program::SetUniform(const string& name,const vec2& val)
+void Program::SetUniform(const string& name,const mat4& matrix)
 {
     Use(true);
     const GLchar* attName = name.c_str();
     GLint uniform = glGetUniformLocation(prog, attName);
     if(uniform == -1)
         throw runtime_error("Can't acces uniform");
-    glUniform2f(uniform , val.x,val.y);
+    glUniformMatrix4fv(uniform, 1, false, value_ptr(matrix));
     Use(false);
 }
 void Program::Use(bool val)
