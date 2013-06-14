@@ -3,6 +3,7 @@
 #include "editor.h"
 #include "physics.h" // remove this later
 #include "collider.h"
+#include "component.h"
 
 void Editor::Update()
 {
@@ -101,6 +102,11 @@ void Editor::PutObject()
         selection.clear();
 
     GameObject* edit = new GameObject();
+    Physics* p = (Physics*)edit->GetComponent( ComponentType::C_Physics );
+
+    if(p != nullptr)
+        p->AddConstantForce( vec3(0,-.004f,0) );
+
     vec3 nPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;
     edit->uPosition(nPos);

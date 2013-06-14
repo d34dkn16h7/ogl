@@ -18,7 +18,7 @@ GameObject::GameObject(string pref)
 GameObject::~GameObject()
 {
     Map::ins->Pop(this);
-    Component::DestroyAll( components );
+    DestroyComponents();
 }
 void GameObject::LoadPrefab(string fName)
 {
@@ -48,15 +48,38 @@ void GameObject::LoadPrefab(string fName)
                 uPosition(tPos);
             }
             else if(input == "physics")
-            {
-                Component::AddComponent(components,this,ComponentType::C_Physics);
-            }
+                AddComponent(ComponentType::C_Physics);
             else if(input == "collider")
-            {
-                Component::AddComponent(components,this,ComponentType::C_Collider);
-            }
+                AddComponent(ComponentType::C_Collider);
         }
     }
     else
         throw runtime_error("Can't read prefab file");
+}
+Component* GameObject::GetComponent(ComponentType val)
+{
+        for(Component* c : components)
+            if(c->type == val )
+                return c;
+
+        return nullptr;
+}
+void GameObject::AddComponent(ComponentType val)
+{
+    switch (val)
+    {
+    case ComponentType::C_Collider:
+        components.push_back( new Collider(this) );
+        break;
+    case ComponentType::C_Physics:
+        components.push_back( new Physics(this) );
+        break;
+    }
+}
+void GameObject::DestroyComponents()
+{
+    for(Component* c : components)
+        delete c;
+
+    components.clear();
 }

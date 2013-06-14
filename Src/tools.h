@@ -11,7 +11,11 @@
 
 using namespace std;
 using namespace glm;
-
+enum ComponentType
+{
+    C_Physics,
+    C_Collider
+};
 namespace Tools
 {
     class File

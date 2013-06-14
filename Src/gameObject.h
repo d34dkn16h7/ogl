@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include "geometry.h"
 #include "component.h"
+#include "tools.h"
 
 using namespace std;
 
@@ -18,6 +19,11 @@ private:
 public:
     GameObject(string = "cube");
     virtual ~GameObject();
+
+    void AddComponent(ComponentType val);
+    Component* GetComponent(ComponentType);
+    void DestroyComponents();
 };
+
 
 #endif // GAMEOBJECT_H

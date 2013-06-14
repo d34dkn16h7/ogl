@@ -2,17 +2,16 @@
 
 Camera* Camera::MainCamera;
 
-Camera::Camera(int x,int y)
+Camera::Camera(int x,int y) :
+    fow(60) , aspectRatio( (float)x / (float)y ) , ScreenSize( vec2(x,y) )
 {
     MainCamera = this;
-    ScreenSize = vec2(x,y);
-    aspectRatio = (float)x / (float)y;
     GenerateMatrix();
 }
 void Camera::GenerateMatrix()
 {
     look = lookAt(position,(position + lookTarget), vec3(0,1,0));
-    projection = perspective<float>(60, aspectRatio, 0.1, 100.0);
+    projection = perspective<float>(fow, aspectRatio, 0.1, 100.0);
     camera = projection * look;
 }
 //SET
@@ -57,7 +56,7 @@ mat4 Camera::Matrix()
 }
 mat4 Camera::GetPerspective()
 {
-    return perspective<float>(60, aspectRatio, 0.1, 100.0);
+    return perspective<float>(fow, aspectRatio, 0.1, 100.0);
 }
 vec3 Camera::GetLook()
 {

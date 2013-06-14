@@ -6,7 +6,7 @@ cube
 	pos -9.2304 3.26223 0
 	scale 3.03 0.9 0.9
 player
-	pos -4.95983 -2.05147 0
+	pos -10.5398 6.34853 0
 	scale 0.5 0.5 0.5
 	rot 270 0 0
 	onControl

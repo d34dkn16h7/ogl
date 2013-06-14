@@ -1,4 +1,5 @@
 #include "physics.h"
+#include "collider.h"
 
 vector<Physics*> Physics::physics;
 
@@ -16,16 +17,28 @@ void Physics::Start() {}
 void Physics::Update()
 {
     Move(constForce);
+
+    //else
+    //    Move(constForce);
 }
 void Physics::Move(vec3 val)
 {
     vec3 cPos = owner->GetPosition();
     cPos += val;
-    // is colliding? isGrounded?
-    if(true)
-        owner->uPosition(cPos);
-    //else
-        //invalid position
+
+    Collider* c = (Collider*)owner->GetComponent( ComponentType::C_Collider );
+    if(c != nullptr)
+    {
+        if(!c->isGrounded())
+            owner->uPosition(cPos);
+        else // push all down!
+        {
+            Physics* p = (Physics*)c->GetGrounded()->owner->GetComponent(ComponentType::C_Physics);
+            //p->Move(constForce);
+            p->Move(vec3(0,-.004f,0));
+            owner->uPosition(cPos);
+        }
+    }
 }
 void Physics::AddForce(vec3 val) {}
 void Physics::AddConstantForce(vec3 val)

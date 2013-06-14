@@ -11,6 +11,7 @@ using namespace glm;
 class Camera
 {
 private:
+    int fow;
     float aspectRatio;
 
     vec3 position = vec3(0,0,15);
