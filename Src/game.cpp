@@ -49,14 +49,15 @@ void Game::input()
 {
     if(onControl != nullptr)
     {
+        Physics* p = (Physics*)onControl->GetComponent(ComponentType::C_Physics);
         if(Input::isKey('W'))
-            onControl->aPosition(Up * Speed * deltaTime);
+            p->Move(Up * Speed * deltaTime);
         if(Input::isKey('S'))
-            onControl->aPosition(Down * Speed * deltaTime);
+            p->Move(Down * Speed * deltaTime);
         if(Input::isKey('A'))
-            onControl->aPosition(Left * Speed * deltaTime);
+            p->Move(Left * Speed * deltaTime);
         if(Input::isKey('D'))
-            onControl->aPosition(Right * Speed * deltaTime);
+            p->Move(Right * Speed * deltaTime);
     }
     if(Input::isKey(GLFW_KEY_PAUSE))
         map.SaveMap("Data/m.mp");

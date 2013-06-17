@@ -3,7 +3,7 @@
 
 vector<Physics*> Physics::physics;
 
-Physics::Physics(GameObject* own) : constForce( vec3(0,0,0) )
+Physics::Physics(GameObject* own) : constForce( vec3(0,0,0) ) , isConst(true)
 {
     type = ComponentType::C_Physics;
     owner = own;
@@ -16,10 +16,9 @@ Physics::~Physics()
 void Physics::Start() {}
 void Physics::Update()
 {
+    Collider* c = (Collider*)owner->GetComponent( ComponentType::C_Collider );
+    isGrounded = c->isGrounded();
     Move(constForce);
-
-    //else
-    //    Move(constForce);
 }
 void Physics::Move(vec3 val)
 {
@@ -29,14 +28,36 @@ void Physics::Move(vec3 val)
     Collider* c = (Collider*)owner->GetComponent( ComponentType::C_Collider );
     if(c != nullptr)
     {
-        if(!c->isGrounded())
-            owner->uPosition(cPos);
-        else // push all down!
+        vector<Collider*> col = c->Intersect(c,cPos);
+        if( col.size() == 0)
         {
-            Physics* p = (Physics*)c->GetGrounded()->owner->GetComponent(ComponentType::C_Physics);
-            //p->Move(constForce);
-            p->Move(vec3(0,-.004f,0));
             owner->uPosition(cPos);
+        }
+        else
+        {
+            if(owner->nameToken != "player")
+                return;
+
+            bool canMove = true;
+            for(Collider* c : col)
+            {
+                Physics* p = (Physics*)c->owner->GetComponent(ComponentType::C_Physics);
+                if( !p->isConst )
+                {
+                    vec3 isMoved = p->owner->GetPosition();
+                    p->Move( val );
+                    if(p->owner->GetPosition() != (isMoved + val)) // did it move if not you can't move too
+                        canMove = false;
+                }
+                else
+                    canMove = false;
+            }
+
+            if(owner->nameToken != "player") // bug!!!!!!!!
+                return;
+
+            if(canMove)
+                owner->uPosition(cPos);
         }
     }
 }
@@ -66,3 +87,19 @@ void Physics::UpdateAll()
         p->Update();
     }
 }
+/*if(!c->isGrounded())
+            owner->uPosition(cPos);
+        else // push all down! ... why?
+        {
+            vector<Collider*> col = c->GetGrounded();
+
+            for(Collider* c : col)
+            {
+                Physics* p = (Physics*)c->owner->GetComponent(ComponentType::C_Physics);
+                if( p->isConst ? false : (!p->isGrounded && !isGrounded) )
+                {
+                    p->Move( val );
+                    owner->uPosition(cPos);
+                }
+            }
+        }*/

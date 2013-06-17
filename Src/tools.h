@@ -18,6 +18,16 @@ enum ComponentType
 };
 namespace Tools
 {
+    class Rect
+    {
+    public:
+        float xmi,xma;
+        float ymi,yma;
+        Rect() : xmi(-1), xma(1), ymi(-1), yma(1) {}
+        Rect(float xm1,float ym1,float xm2 , float ym2) : xmi(xm1), xma(xm2), ymi(ym1), yma(ym2) {}
+        Rect(float w,float h) : xmi( -(w/2) ), xma( (w/2) ), ymi( -(h/2) ), yma( (h/2) ) {}
+    };
+
     class File
     {
     public:

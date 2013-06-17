@@ -16,8 +16,6 @@ private:
 
     float GetSize();
     static float GetSize(Collider*);
-    //static Collider* FindBiggerVertical(Collider*,Collider*);
-    //static Collider* FindBiggerHorizontal(Collider*,Collider*);
 public:
     float xMin,xMax,yMin,yMax;
 
@@ -25,6 +23,7 @@ public:
     float width,height,depth;
 
     Collider(GameObject*);
+    Collider(GameObject* , float , float , float , float);
     ~Collider();
 
     void Start() {}
@@ -34,11 +33,11 @@ public:
     static vector<GameObject*> GetAll(vec3);
 
     bool isGrounded();
-    Collider* GetGrounded();
+    vector<Collider*> GetGrounded();
 
-    vector<GameObject*> Intersect();
-    static vector<GameObject*> Intersect( Collider* );
-    static vector<GameObject*> Intersect( Collider* , vec3 );
+    vector<Collider*> Intersect();
+    static vector<Collider*> Intersect( Collider* );
+    static vector<Collider*> Intersect( Collider* , vec3);
 };
 
 #endif // COLLIDER_H

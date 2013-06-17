@@ -15,6 +15,8 @@ private:
     static vector<Physics*> physics;
     vec3 constForce;
 public:
+    bool isGrounded;
+    bool isConst;
     Physics(GameObject*);
     virtual ~Physics();
     void Start();

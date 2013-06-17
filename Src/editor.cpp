@@ -9,6 +9,13 @@ void Editor::Update()
 {
     isMultyEdit = glfwGetKey( GLFW_KEY_LCTRL );
 
+    /*if(Input::isKey(GLFW_KEY_SPACE))
+        if( selection.front() != nullptr)
+        {
+            Collider* c =  (Collider*)selection.front()->GetComponent( ComponentType::C_Collider );
+            cout << c->Intersect().size() << endl;
+        }*/
+
     if(Input::isMousePressed(0))
         SelectObjects();
     if(glfwGetKey(GLFW_KEY_DEL))
@@ -102,10 +109,11 @@ void Editor::PutObject()
         selection.clear();
 
     GameObject* edit = new GameObject();
-    Physics* p = (Physics*)edit->GetComponent( ComponentType::C_Physics );
 
+    Physics* p = (Physics*)edit->GetComponent( ComponentType::C_Physics );
     if(p != nullptr)
-        p->AddConstantForce( vec3(0,-.004f,0) );
+        p->AddConstantForce( vec3(0,-.001f,0) );
+    p->isConst = false;
 
     vec3 nPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;

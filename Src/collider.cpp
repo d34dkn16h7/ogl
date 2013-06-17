@@ -62,76 +62,59 @@ vector<GameObject*> Collider::GetAll(vec3 pos)
 }
 bool Collider::isGrounded() // member func
 {
-    for(Collider* c : colliders)
-    {
-        vec3 opos = owner->GetPosition();
-        vec3 oscl = owner->GetScale();
-        float xma = opos.x + (xMax * oscl.x), xmi = opos.x + (xMin * oscl.x);
-        float yma = opos.y + (yMax * oscl.y), ymi = opos.y + (yMin * oscl.y);
-
-        opos = c->owner->GetPosition();
-        oscl = c->owner->GetScale();
-        float cxma = opos.x + (xMax * oscl.x), cxmi = opos.x + (xMin * oscl.x);
-        float cyma = opos.y + (yMax * oscl.y), cymi = opos.y + (yMin * oscl.y);
-
-        if( ymi > cymi && ymi < cyma )
-            if( (xmi > cxmi && xmi < cxma) || (xma > cxmi && xma < cxma) )
-                return true;
-    }
-
-    return false;
+    return GetGrounded().size() == 0 ? false : true;
 }
-Collider* Collider::GetGrounded()
+vector<Collider*> Collider::GetGrounded()
 {
+    vector<Collider*> val;
     for(Collider* c : colliders)
     {
         vec3 opos = owner->GetPosition();
         vec3 oscl = owner->GetScale();
         float xma = opos.x + (xMax * oscl.x), xmi = opos.x + (xMin * oscl.x);
-        float yma = opos.y + (yMax * oscl.y), ymi = opos.y + (yMin * oscl.y);
+        float ymi = opos.y + (yMin * oscl.y);
 
         opos = c->owner->GetPosition();
         oscl = c->owner->GetScale();
-        float cxma = opos.x + (xMax * oscl.x), cxmi = opos.x + (xMin * oscl.x);
-        float cyma = opos.y + (yMax * oscl.y), cymi = opos.y + (yMin * oscl.y);
+        float cxma = opos.x + (c->xMax * oscl.x), cxmi = opos.x + (c->xMin * oscl.x);
+        float cyma = opos.y + (c->yMax * oscl.y), cymi = opos.y + (c->yMin * oscl.y);
 
         if( ymi > cymi && ymi < cyma )
-            if( (xmi > cxmi && xmi < cxma) || (xma > cxmi && xma < cxma) )
-                return c;
+            if( (xmi > cxmi && xmi < cxma) || (xma > cxmi && xma < cxma) || (xma > cxma && xmi < cxmi) )
+                val.push_back(c);
     }
 
-    return nullptr;
+    return val;
 }
-vector<GameObject*> Collider::Intersect()
+vector<Collider*> Collider::Intersect()
 {
     return Intersect(this);
 }
-vector<GameObject*> Collider::Intersect( Collider* target) // EMPTY
+vector<Collider*> Collider::Intersect( Collider* target )
 {
-    vector<GameObject*> gList;
-
-    for(Collider* gmo : colliders)
+    return Intersect( target, target->owner->GetPosition() );
+}
+vector<Collider*> Collider::Intersect( Collider* target , vec3 uPos )
+{
+    vector<Collider*> val;
+    for(Collider* c : colliders)
     {
-        //Collider* bH = FindBiggerHorizontal(gmo , target);
-        //Collider* bV = FindBiggerVertical(gmo , target);
-        //if()
+        vec3 opos = uPos;
+        vec3 oscl = target->owner->GetScale();
 
-        //calc intersection
-        if(true)
-            gList.push_back(gmo->owner);
+        float xma = opos.x + (target->xMax * oscl.x), xmi = opos.x + (target->xMin * oscl.x);
+        float yma = opos.y + (target->yMax * oscl.y), ymi = opos.y + (target->yMin * oscl.y);
+
+        opos = c->owner->GetPosition();
+        oscl = c->owner->GetScale();
+
+        float cxma = opos.x + (c->xMax * oscl.x), cxmi = opos.x + (c->xMin * oscl.x);
+        float cyma = opos.y + (c->yMax * oscl.y), cymi = opos.y + (c->yMin * oscl.y);
+
+        if( (ymi > cymi && ymi < cyma) || (yma < cyma && yma > cymi) || (yma > cyma && ymi < cymi) )
+            if( (xmi > cxmi && xmi < cxma) || (xma > cxmi && xma < cxma) || (xma > cxma && xmi < cxmi) )
+                val.push_back(c);
     }
 
-    return gList;
+    return val;
 }
-/*Collider* Collider::FindBiggerVertical(Collider* c1,Collider* c2)
-{
-    float s1 = c1->owner->GetScale().y;
-    float s2 = c2->owner->GetScale().y;
-    return ((c1->xMax - c1->xMin) * s1) > ((c2->xMax - c2->xMin) * s2) ? c1 : c2;
-}
-Collider* Collider::FindBiggerHorizontal(Collider* c1,Collider* c2)
-{
-    float s1 = c1->owner->GetScale().y;
-    float s2 = c2->owner->GetScale().y;
-    return ((c1->yMax - c1->yMin) * s1) > ((c2->yMax - c2->yMin) * s2) ? c1 : c2;
-}*/
