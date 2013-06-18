@@ -14,9 +14,12 @@ class Physics : public Component
 private:
     static vector<Physics*> physics;
     vec3 constForce;
-public:
+
+    bool canPush;
     bool isGrounded;
+public:
     bool isConst;
+
     Physics(GameObject*);
     virtual ~Physics();
     void Start();

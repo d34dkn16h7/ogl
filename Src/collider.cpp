@@ -2,12 +2,19 @@
 
 vector<Collider*> Collider::colliders;
 
-Collider::Collider(GameObject* gmo)
+Collider::Collider(GameObject* own)
 {
     type = ComponentType::C_Collider;
-    owner = gmo;
+    owner = own;
     xMin = yMin = -1;
     xMax = yMax = 1;
+
+    if(owner->nameToken == "player") // shit
+    {
+        yMax = 4;
+        yMin = -4;
+    }
+
     colliders.push_back(this);
 }
 Collider::~Collider()
@@ -89,6 +96,10 @@ vector<Collider*> Collider::GetGrounded()
 vector<Collider*> Collider::Intersect()
 {
     return Intersect(this);
+}
+vector<Collider*> Collider::Intersect(vec3 nPos)
+{
+    return Intersect(this , nPos);
 }
 vector<Collider*> Collider::Intersect( Collider* target )
 {

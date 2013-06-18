@@ -21,8 +21,10 @@ private:
     void PutObject();
     void DeleteObject();
     void SelectObjects();
+    void UpdateSelection(GameObject*);
     void UpdateSelections(const vector<GameObject*> );
     void RemoveSelection(GameObject*);
+    void ClearSelection();
 
     void aScale(vec3);
     void aPosition(vec3);

@@ -36,6 +36,7 @@ public:
     vector<Collider*> GetGrounded();
 
     vector<Collider*> Intersect();
+    vector<Collider*> Intersect( vec3 );
     static vector<Collider*> Intersect( Collider* );
     static vector<Collider*> Intersect( Collider* , vec3);
 };

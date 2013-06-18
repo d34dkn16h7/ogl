@@ -17,6 +17,8 @@ private:
     vector<Component*> components;
     void LoadPrefab(string);
 public:
+    bool isActive;
+
     GameObject(string = "cube");
     virtual ~GameObject();
 

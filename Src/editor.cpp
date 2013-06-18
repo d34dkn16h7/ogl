@@ -9,19 +9,10 @@ void Editor::Update()
 {
     isMultyEdit = glfwGetKey( GLFW_KEY_LCTRL );
 
-    /*if(Input::isKey(GLFW_KEY_SPACE))
-        if( selection.front() != nullptr)
-        {
-            Collider* c =  (Collider*)selection.front()->GetComponent( ComponentType::C_Collider );
-            cout << c->Intersect().size() << endl;
-        }*/
-
     if(Input::isMousePressed(0))
         SelectObjects();
     if(glfwGetKey(GLFW_KEY_DEL))
         DeleteObject();
-    if(glfwGetKey(GLFW_KEY_F2))
-        CommandLine();
 
     if(Input::isMouse(0))
         Edit();
@@ -73,42 +64,13 @@ void Editor::Edit()
         break;
     }
 }
-void Editor::CommandLine() // look at the mess
-{
-    /*
-    string currentCommand = "";
-    cout << " -> ";
-    cin >> currentCommand;
-
-    if(currentCommand == "add")
-    {
-        string componentName;
-        cout << " -> Enter component name : ";
-        cin >> componentName;
-        if(componentName == "physics")
-        {
-            if(onEdit != nullptr)
-            {
-                onEdit->physics = new Physics(onEdit);
-                onEdit->physics->AddConstantForce(vec3(0,-.01f,0));
-                cout << endl << " -> Component added" << endl;
-            }
-            else
-                cout << endl << " -> Couldn't add component" << endl;
-        }
-    }
-    else if(currentCommand == "del")
-    {
-        if(onEdit != nullptr && onEdit->physics != nullptr)
-            delete onEdit->physics;
-    }*/
-}
 void Editor::PutObject()
 {
     if(!isMultyEdit)
-        selection.clear();
+        ClearSelection();
 
     GameObject* edit = new GameObject();
+    edit->isActive = false;
 
     Physics* p = (Physics*)edit->GetComponent( ComponentType::C_Physics );
     if(p != nullptr)
@@ -120,7 +82,7 @@ void Editor::PutObject()
     edit->uPosition(nPos);
     edit->uColor( vec4(-1,0,0,1) );
     targetMap->Put(edit);
-    selection.push_back(edit);
+    UpdateSelection(edit);
 }
 void Editor::DeleteObject()
 {
@@ -135,7 +97,7 @@ void Editor::SelectObjects()
     gPos.z = 0;
 
     if(!isMultyEdit)
-        selection.clear();
+        ClearSelection();
 
     UpdateSelections( Collider::GetAll(gPos) );
 }
@@ -143,9 +105,28 @@ void Editor::UpdateSelections(const vector<GameObject*> val)
 {
      for(GameObject* gmo : val)
         if(!isSelected(gmo))
+        {
+            gmo->isActive = false;
             selection.push_back(gmo);
+        }
         else
+        {
+            gmo->isActive = true;
             RemoveSelection(gmo);
+        }
+}
+void Editor::UpdateSelection(GameObject* obj)
+{
+    if(!isSelected(obj))
+    {
+        obj->isActive = false;
+        selection.push_back(obj);
+    }
+    else
+    {
+        obj->isActive = true;
+        RemoveSelection(obj);
+    }
 }
 void Editor::RemoveSelection(GameObject* obj)
 {
@@ -153,9 +134,17 @@ void Editor::RemoveSelection(GameObject* obj)
     {
         if(selection[i] == obj)
         {
+            obj->isActive = true;
             selection.erase(selection.begin() + i);
         }
     }
+}
+void Editor::ClearSelection()
+{
+    for(GameObject* gmo : selection)
+        gmo->isActive = true;
+
+    selection.clear();
 }
 void Editor::SetTargetMap(Map* val)
 {
@@ -164,7 +153,9 @@ void Editor::SetTargetMap(Map* val)
 void Editor::aPosition(vec3 val)
 {
     for(GameObject* gmo : selection)
+    {
         gmo->aPosition(val);
+    }
 }
 void Editor::aScale(vec3 val)
 {

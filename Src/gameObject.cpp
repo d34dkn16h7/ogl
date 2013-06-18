@@ -10,7 +10,7 @@
         tPhysics->AddConstantForce(vec3(0,-.0001f,0));*/
 
 const static string DataDir = "Data/";
-GameObject::GameObject(string pref)
+GameObject::GameObject(string pref) : isActive(true)
 {
     nameToken = pref;
     LoadPrefab(pref);
@@ -50,20 +50,7 @@ void GameObject::LoadPrefab(string fName)
             else if(input == "physics")
                 AddComponent(ComponentType::C_Physics);
             else if(input == "collider")
-            {
                 AddComponent(ComponentType::C_Collider);
-
-                if(nameToken == "player")
-                {
-                    Collider* c = (Collider*)GetComponent(ComponentType::C_Collider);
-                    if(c != nullptr)
-                    {
-                        c->yMax = 4;
-                        c->yMin = -4;
-                    }
-                }
-            }
-
         }
     }
     else
