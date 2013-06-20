@@ -24,8 +24,24 @@ namespace Tools
         float xmi,xma;
         float ymi,yma;
         Rect() : xmi(-1), xma(1), ymi(-1), yma(1) {}
-        Rect(float xm1,float ym1,float xm2 , float ym2) : xmi(xm1), xma(xm2), ymi(ym1), yma(ym2) {}
         Rect(float w,float h) : xmi( -(w/2) ), xma( (w/2) ), ymi( -(h/2) ), yma( (h/2) ) {}
+        Rect(float xm1,float ym1,float xm2 , float ym2) : xmi(xm1), xma(xm2), ymi(ym1), yma(ym2) {}
+        Rect(Rect r , vec3 s)
+        {
+            xmi = r.xmi * s.x;
+            xma = r.xma * s.x;
+            ymi = r.ymi * s.y;
+            yma = r.yma * s.y;
+        }
+        Rect Offset( vec3 offset )
+        {
+            Rect r( (-xmi) + xma , (-ymi) + yma );
+            r.xma += offset.x;
+            r.xmi += offset.x;
+            r.yma += offset.y;
+            r.ymi += offset.y;
+            return r;
+        }
     };
 
     class File

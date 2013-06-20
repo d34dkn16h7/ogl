@@ -4,11 +4,11 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include "component.h"
-#include "gameobject.h"
 
 using namespace std;
 using namespace glm;
 
+class GameObject;
 class Physics : public Component
 {
 private:

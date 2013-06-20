@@ -1,11 +1,11 @@
+#include <typeinfo>
 #include "collider.h"
+#include "gameObject.h"
 
 vector<Collider*> Collider::colliders;
 
-Collider::Collider(GameObject* own)
+Collider::Collider(GameObject* own) : Component(typeid(this).hash_code() , own)
 {
-    type = ComponentType::C_Collider;
-    owner = own;
     xMin = yMin = -1;
     xMax = yMax = 1;
 
@@ -13,6 +13,15 @@ Collider::Collider(GameObject* own)
     {
         yMax = 4;
         yMin = -4;
+    }
+
+    colliders.push_back(this);
+}
+Collider::Collider(GameObject* own , Rect r) : Component(typeid(this).hash_code() , own) , box(r)
+{
+    if(owner->nameToken == "player") // shit
+    {
+        box = Rect(2,8);
     }
 
     colliders.push_back(this);
@@ -34,7 +43,7 @@ float Collider::GetSize()
 float Collider::GetSize(Collider* c)
 {
     vec3 scale = c->owner->GetScale();
-    return ((c->xMax - c->xMin) * scale.x) * ((c->yMax - c->yMin) * scale.y);
+    return ((c->box.xma - c->box.xmi) * scale.x) * ((c->box.yma - c->box.ymi) * scale.y);
 }
 GameObject* Collider::Get(vec3 pos)
 {

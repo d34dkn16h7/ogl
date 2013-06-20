@@ -1,16 +1,16 @@
-#include "renderer.h"
-#include "game.h"
 #include <iostream>
+#include "gui.h"
+#include "game.h"
+#include "camera.h"
+#include "program.h"
+#include "geometry.h"
+#include "renderer.h"
 
 Camera* Renderer::cam;
 Program* Renderer::prog;
 vector<Geometry*> Renderer::drawObjects;
 vector<Gui*> Renderer::drawGUI;
 
-Renderer::Renderer(Geometry *obj)
-{
-    RegObject(obj);
-}
 void Renderer::Render()
 {
     glClearColor(0,0,0,1);
@@ -120,12 +120,8 @@ void Renderer::RegObject(Geometry *obj)
 void Renderer::UnRegObject(Geometry *obj)
 {
     for(unsigned int i = 0;i < drawObjects.size();i++)
-    {
         if(drawObjects[i] == obj)
-        {
             drawObjects.erase(drawObjects.begin() + i);
-        }
-    }
 }
 void Renderer::RegGUI(Gui* obj)
 {
@@ -134,10 +130,6 @@ void Renderer::RegGUI(Gui* obj)
 void Renderer::UnRegGUI(Gui* obj)
 {
     for(unsigned int i = 0;i < drawGUI.size();i++)
-    {
         if(drawGUI[i] == obj)
-        {
             drawGUI.erase(drawGUI.begin() + i);
-        }
-    }
 }

@@ -1,9 +1,11 @@
+#include "map.h"
 #include "input.h"
 #include "camera.h"
 #include "editor.h"
 #include "physics.h" // remove this later
-#include "collider.h"
+#include "collider.h" // remove this later
 #include "component.h"
+#include "gameObject.h"
 
 void Editor::Update()
 {
@@ -72,7 +74,7 @@ void Editor::PutObject()
     GameObject* edit = new GameObject();
     edit->isActive = false;
 
-    Physics* p = (Physics*)edit->GetComponent( ComponentType::C_Physics );
+    Physics* p = edit->GetComponent<Physics*>();
     if(p != nullptr)
         p->AddConstantForce( vec3(0,-.001f,0) );
     p->isConst = false;

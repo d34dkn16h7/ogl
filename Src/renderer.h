@@ -9,13 +9,12 @@ class Program;
 #include <stdexcept>
 #include <vector>
 
-#include "program.h"
-#include "camera.h"
-#include "geometry.h"
-#include "gui.h"
-
 using namespace std;
 
+class Gui;
+class Camera;
+class Program;
+class Geometry;
 class Renderer
 {
 private:
@@ -24,7 +23,6 @@ private:
     static vector<Geometry*> drawObjects;
     static vector<Gui*> drawGUI;
 public:
-    Renderer(Geometry *obj); // Alternative for static void Reg();
     static bool Setup(int,int,int);
     static void Render();
     static void RenderObjects();

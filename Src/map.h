@@ -10,8 +10,6 @@
 #include <string>
 #include <vector>
 
-#include "gameObject.h"
-
 using namespace std;
 using namespace glm;
 

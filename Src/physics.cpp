@@ -1,13 +1,12 @@
+#include <typeinfo>
 #include "physics.h"
 #include "collider.h"
+#include "gameobject.h"
 
 vector<Physics*> Physics::physics;
 
-Physics::Physics(GameObject* own) : constForce( vec3(0,0,0) ) , isConst(true) , canPush(false)
+Physics::Physics(GameObject* own) : Component(typeid(this).hash_code() , own) , constForce( vec3(0,0,0) ) , isConst(true)
 {
-    type = ComponentType::C_Physics;
-    owner = own;
-
     if(owner->nameToken == "player")
         canPush = true;
 
@@ -22,7 +21,7 @@ void Physics::Update()
 {
     if(owner->isActive)
     {
-        Collider* c = (Collider*)owner->GetComponent( ComponentType::C_Collider );
+        Collider* c = owner->GetComponent<Collider*>();
         isGrounded = c->isGrounded();
         Move(constForce);
     }
@@ -32,7 +31,7 @@ void Physics::Move(vec3 val) // fucking shit
     vec3 cPos = owner->GetPosition();
     cPos += val;
 
-    Collider* c = (Collider*)owner->GetComponent( ComponentType::C_Collider );
+    Collider* c = owner->GetComponent<Collider*>();
     if(c != nullptr)
     {
         vector<Collider*> col = c->Intersect(c,owner->GetPosition());
@@ -53,14 +52,14 @@ void Physics::Move(vec3 val) // fucking shit
             bool grunded = false;
 
             for(Collider* c : col){
-                Physics* p = (Physics*)c->owner->GetComponent(ComponentType::C_Physics);
+                Physics* p = c->owner->GetComponent<Physics*>();
                 if(p->isConst)
                     {grunded = true;break;}
             }
 
             for(Collider* c : col)
             {
-                Physics* p = (Physics*)c->owner->GetComponent(ComponentType::C_Physics);
+                Physics* p = c->owner->GetComponent<Physics*>();
                 if( !p->isConst )
                 {
                     vec3 isMoved = p->owner->GetPosition();

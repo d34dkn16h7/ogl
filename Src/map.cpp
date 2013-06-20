@@ -1,6 +1,7 @@
 #include "map.h"
 #include "game.h"
 #include "tools.h"
+#include "gameObject.h"
 
 Map* Map::ins;
 
@@ -134,11 +135,6 @@ void Map::Put(GameObject* gmo)
 void Map::Pop(GameObject* gmo)
 {
     for(unsigned int i = 0 ; i < data.size();i++)
-    {
-
         if(gmo == data[i])
-        {
             data.erase(data.begin() + i);
-        }
-    }
 }

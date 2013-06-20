@@ -1,12 +1,17 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
-#include "map.h"
-#include "gameObject.h"
+#include <glm/glm.hpp>
+#include <vector>
+
+using namespace std;
+using namespace glm;
 
 enum EditMode
 {PositionEdit,ScaleEdit,RotationEdit,ColorEdit};
 
+class Map;
+class GameObject;
 class Editor
 {
 private:
@@ -17,7 +22,6 @@ private:
     EditMode mode;
 
     void Edit();
-    void CommandLine();
     void PutObject();
     void DeleteObject();
     void SelectObjects();
@@ -29,7 +33,7 @@ private:
     void aScale(vec3);
     void aPosition(vec3);
 
-    void MoveCam(); // m-click
+    void MoveCam();
 public:
     void SetTargetMap(Map*);
     void Update();

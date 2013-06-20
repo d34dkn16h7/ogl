@@ -1,9 +1,9 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#include <glm/glm.hpp>
 #include <GL/glew.h>
 #include <GL/glfw.h>
-#include <glm/glm.hpp>
 
 #define MOUSE_KEY_COUNT 3
 
@@ -35,9 +35,6 @@ public:
     static bool isMouseRelased(int);
 
     static bool isKey(int);
-    //static bool isKeyPressed(int);
-    //static bool isKeyRelased(int);
-
 
     static vec2 MousePos();
     static vec2 ScreenToWorld2d();

@@ -4,10 +4,10 @@
 #include "map.h"
 #include <iostream>
 
-    /*//shitty desing.
-    Physics* tPhysics = (Physics*)Component::GetComponent(components,ComponentType::C_Physics);
-    if(tPhysics != nullptr)
-        tPhysics->AddConstantForce(vec3(0,-.0001f,0));*/
+/*//shitty desing.
+Physics* tPhysics = (Physics*)Component::GetComponent(components,ComponentType::C_Physics);
+if(tPhysics != nullptr)
+    tPhysics->AddConstantForce(vec3(0,-.0001f,0));*/
 
 const static string DataDir = "Data/";
 GameObject::GameObject(string pref) : isActive(true)
@@ -48,33 +48,13 @@ void GameObject::LoadPrefab(string fName)
                 uPosition(tPos);
             }
             else if(input == "physics")
-                AddComponent(ComponentType::C_Physics);
+                AddComponent<Physics>();
             else if(input == "collider")
-                AddComponent(ComponentType::C_Collider);
+                AddComponent<Collider>();
         }
     }
     else
         throw runtime_error("Can't read prefab file");
-}
-Component* GameObject::GetComponent(ComponentType val)
-{
-        for(Component* c : components)
-            if(c->type == val )
-                return c;
-
-        return nullptr;
-}
-void GameObject::AddComponent(ComponentType val)
-{
-    switch (val)
-    {
-    case ComponentType::C_Collider:
-        components.push_back( new Collider(this) );
-        break;
-    case ComponentType::C_Physics:
-        components.push_back( new Physics(this) );
-        break;
-    }
 }
 void GameObject::DestroyComponents()
 {

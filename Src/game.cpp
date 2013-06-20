@@ -1,8 +1,10 @@
-#include "gui.h"
+#include "map.h"
 #include "game.h"
 #include "input.h"
+#include "editor.h"
 #include "physics.h"
 #include "renderer.h"
+#include "gameObject.h"
 
 Game* Game::ins;
 GameObject* Game::onControl;
@@ -11,7 +13,7 @@ float Game::deltaTime,Game::lastTime,Game::Speed;
 
 int Game::Run()
 {
-    isOpen = Renderer::Setup(1024,576,GLFW_WINDOW);//isOpen = Renderer::Setup(1280,800,GLFW_FULLSCREEN);
+    isOpen = Renderer::Setup(1024,576,GLFW_WINDOW);
     map.LoadMap("Data/m.mp");
     Input::Init();
     while(isOpen && !Input::isKey(GLFW_KEY_ESC) && glfwGetWindowParam( GLFW_OPENED))
@@ -49,7 +51,7 @@ void Game::input()
 {
     if(onControl != nullptr)
     {
-        Physics* p = (Physics*)onControl->GetComponent(ComponentType::C_Physics);
+        Physics* p = onControl->GetComponent<Physics*>();
         if(Input::isKey('W'))
             p->Move(Up * Speed * deltaTime);
         if(Input::isKey('S'))

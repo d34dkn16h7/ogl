@@ -1,7 +1,6 @@
 #include "program.h"
 #include "geometry.h"
 #include "renderer.h"
-#include <iostream>
 
 vector< GData* > Geometry::gData;
 Geometry::~Geometry()
@@ -120,7 +119,7 @@ void Geometry::uRotate(vec3 val)
 {rotation = val;GenerateMatrix();}
 
 void Geometry::aRotate(vec3 val)
-{rotation += val;GenerateMatrix();cout << rotation.x << endl;}
+{rotation += val;GenerateMatrix();}
 
 void Geometry::uScale(vec3 val)
 {vScale = val;GenerateMatrix();}

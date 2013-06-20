@@ -7,10 +7,10 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include <map>
 
 using namespace std;
 using namespace glm;
+
 enum LoadSatus
 {
     Loaded,Fail,AlreadyLoaded

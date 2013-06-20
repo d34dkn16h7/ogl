@@ -3,12 +3,14 @@
 
 #include <glm/glm.hpp>
 #include <vector>
-#include "gameObject.h"
+#include "tools.h"
 #include "component.h"
 
 using namespace std;
 using namespace glm;
+using namespace Tools;
 
+class GameObject;
 class Collider : public Component
 {
 private:
@@ -17,13 +19,11 @@ private:
     float GetSize();
     static float GetSize(Collider*);
 public:
+    Rect box;
     float xMin,xMax,yMin,yMax;
 
-    vec3 position;
-    float width,height,depth;
-
     Collider(GameObject*);
-    Collider(GameObject* , float , float , float , float);
+    Collider(GameObject* , Rect);
     ~Collider();
 
     void Start() {}
