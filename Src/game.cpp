@@ -14,7 +14,7 @@ float Game::deltaTime,Game::lastTime,Game::Speed;
 int Game::Run()
 {
     isOpen = Renderer::Setup(1024,576,GLFW_WINDOW);
-    map.LoadMap("Data/m.mp");
+    map->LoadMap("Data/m.mp");
     Input::Init();
     while(isOpen && !Input::isKey(GLFW_KEY_ESC) && glfwGetWindowParam( GLFW_OPENED))
     {
@@ -25,12 +25,12 @@ int Game::Run()
     glfwTerminate();
     return 0;
 }
-Game::Game()
+Game::Game() : map( new Map()) , editor( new Editor())
 {
     ins = this;
     Speed = 15;
     lastTime = glfwGetTime();
-    editor.SetTargetMap(&map);
+    editor->SetTargetMap(map);
     isEditor = true;
     Input::Init();
 }
@@ -43,7 +43,7 @@ void Game::Update()
     Physics::UpdateAll();
 
     if(isEditor)
-        editor.Update();
+        editor->Update();
 
     input();
 }
@@ -62,7 +62,7 @@ void Game::input()
             p->Move(Right * Speed * deltaTime);
     }
     if(Input::isKey(GLFW_KEY_PAUSE))
-        map.SaveMap("Data/m.mp");
+        map->SaveMap("Data/m.mp");
 }
 void Game::Timer()
 {

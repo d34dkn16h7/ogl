@@ -69,7 +69,7 @@
 1358288506 source:c:\users\shardstack\desktop\ogl-palpha\src\shader.cpp
 	"shader.h"
 
-1371737185 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
+1371742398 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
 	"map.h"
 	"game.h"
 	"input.h"
@@ -77,10 +77,11 @@
 	"physics.h"
 	"renderer.h"
 	"gameObject.h"
-
-1371737315 c:\users\calide 2\desktop\ogl-palpha\src\game.h
 	"map.h"
 	"editor.h"
+
+1371742447 c:\users\calide 2\desktop\ogl-palpha\src\game.h
+	<glm/glm.hpp>
 
 1371737751 c:\users\calide 2\desktop\ogl-palpha\src\renderer.h
 	<GL/glew.h>
@@ -112,10 +113,15 @@
 1369924331 source:c:\users\calide 2\desktop\ogl-palpha\src\main.cpp
 	"game.h"
 
-1371120084 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
-	"renderer.h"
-	"game.h"
+1371742474 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
 	<iostream>
+	"gui.h"
+	"game.h"
+	"editor.h"
+	"camera.h"
+	"program.h"
+	"geometry.h"
+	"renderer.h"
 
 1358331554 source:c:\users\calide 2\desktop\ogl-palpha\src\shader.cpp
 	"shader.h"
