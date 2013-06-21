@@ -103,18 +103,16 @@ GLuint& Program::GetProgram()
 GLuint& Program::GetProgram(string progName)
 {
     for(Program* p : programs)
-    {
         if(p->name == progName)
             return p->prog;
-    }
+
     return (*dProg);
 }
 Program* Program::GetProgramIns(string progName)
 {
     for(Program* p : programs)
-    {
         if(p->name == progName)
             return p;
-    }
+
     return nullptr;
 }

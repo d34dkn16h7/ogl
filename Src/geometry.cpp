@@ -23,10 +23,8 @@ void Geometry::Load(string fSrc)
 GData* Geometry::Find(string sStr)
 {
     for(GData* val : gData)
-    {
         if(val->idString == sStr)
             return val;
-    }
 
     return nullptr;
 }

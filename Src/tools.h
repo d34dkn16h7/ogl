@@ -11,39 +11,46 @@
 
 using namespace std;
 using namespace glm;
-enum ComponentType
-{
-    C_Physics,
-    C_Collider
-};
+
 namespace Tools
 {
-    class Rect
+    struct Rect
     {
     public:
         float xmi,xma;
         float ymi,yma;
         Rect() : xmi(-1), xma(1), ymi(-1), yma(1) {}
-        Rect(float w,float h) : xmi( -(w/2) ), xma( (w/2) ), ymi( -(h/2) ), yma( (h/2) ) {}
+        Rect(float w,float h) : xmi(-w), xma(w), ymi(-h), yma(h) {}
         Rect(float xm1,float ym1,float xm2 , float ym2) : xmi(xm1), xma(xm2), ymi(ym1), yma(ym2) {}
-        Rect(Rect r , vec3 s)
+        Rect(const Rect& r)
+        {
+            xmi = r.xmi;
+            xma = r.xma;
+            ymi = r.ymi;
+            yma = r.yma;
+        }
+        Rect(const Rect& r, const vec3& s)
         {
             xmi = r.xmi * s.x;
             xma = r.xma * s.x;
             ymi = r.ymi * s.y;
             yma = r.yma * s.y;
         }
-        Rect Offset( vec3 offset )
+        void Scale(const vec3& val)
         {
-            Rect r( (-xmi) + xma , (-ymi) + yma );
-            r.xma += offset.x;
-            r.xmi += offset.x;
-            r.yma += offset.y;
-            r.ymi += offset.y;
-            return r;
+            xmi = xmi * val.x;
+            xma = xma * val.x;
+            ymi = ymi * val.y;
+            yma = yma * val.y;
+        }
+        void AddOffset(const vec3& val)
+        {
+            xmi += val.x;
+            xma += val.x;
+            ymi += val.y;
+            yma += val.y;
         }
     };
-
     class File
     {
     public:

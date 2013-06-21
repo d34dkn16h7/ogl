@@ -4,37 +4,19 @@
 
 vector<Collider*> Collider::colliders;
 
-Collider::Collider(GameObject* own) : Component(typeid(this).hash_code() , own)
-{
-    xMin = yMin = -1;
-    xMax = yMax = 1;
-
-    if(owner->nameToken == "player") // shit
-    {
-        yMax = 4;
-        yMin = -4;
-    }
-
-    colliders.push_back(this);
-}
-Collider::Collider(GameObject* own , Rect r) : Component(typeid(this).hash_code() , own) , box(r)
+Collider::Collider(GameObject* own) : Collider(own , Rect(1,1) ) {}
+Collider::Collider(GameObject* own , Rect r) : Component(typeid(this).hash_code() , own) , rect(r)
 {
     if(owner->nameToken == "player") // shit
-    {
-        box = Rect(2,8);
-    }
+        rect = Rect(1,4);
 
     colliders.push_back(this);
 }
 Collider::~Collider()
 {
-    for(unsigned int i = 0;i < colliders.size();i++)
-    {
+    for(unsigned int i = 0; i < colliders.size(); i++)
         if(colliders[i] == this)
-        {
             colliders.erase(colliders.begin() + i);
-        }
-    }
 }
 float Collider::GetSize()
 {
@@ -43,60 +25,51 @@ float Collider::GetSize()
 float Collider::GetSize(Collider* c)
 {
     vec3 scale = c->owner->GetScale();
-    return ((c->box.xma - c->box.xmi) * scale.x) * ((c->box.yma - c->box.ymi) * scale.y);
+    return ((c->rect.xma - c->rect.xmi) * scale.x) * ((c->rect.yma - c->rect.ymi) * scale.y);
 }
 GameObject* Collider::Get(vec3 pos)
 {
     vector<GameObject*> val = GetAll(pos);
     if(!val.empty())
-    {
         return val.front();
-    }
-
     else
         return nullptr;
 }
 vector<GameObject*> Collider::GetAll(vec3 pos)
 {
     vector<GameObject*> val;
-    for(Collider* collider : colliders)
+    for(Collider* c : colliders)
     {
-        vec3 oPos = collider->owner->GetPosition();
-        vec3 oScale = collider->owner->GetScale();
-        float xMinGen = collider->xMin * oScale.x;
-        float xMaxGen = collider->xMax * oScale.x;
-        float yMinGen = collider->yMin * oScale.y;
-        float yMaxGen = collider->yMax * oScale.y;
-        if( oPos.x > (pos.x + xMinGen) && oPos.x < (pos.x + xMaxGen) )
-            if( oPos.y > (pos.y + yMinGen) && oPos.y < (pos.y + yMaxGen) )
-            {
-                val.push_back(collider->owner);
-            }
+        Rect r( c->rect );
+        r.Scale( c->owner->GetScale() );
+        r.AddOffset(pos);
+        vec3 oPos = c->owner->GetPosition();
+
+        if( oPos.x > r.xmi && oPos.x < r.xma )
+            if( oPos.y > r.ymi && oPos.y < r.yma )
+                val.push_back(c->owner);
     }
 
     return val;
 }
-bool Collider::isGrounded() // member func
+bool Collider::isGrounded()
 {
     return GetGrounded().size() == 0 ? false : true;
 }
 vector<Collider*> Collider::GetGrounded()
 {
     vector<Collider*> val;
+    Rect r(rect);
+    r.Scale(owner->GetScale());
+    r.AddOffset(owner->GetPosition());
     for(Collider* c : colliders)
     {
-        vec3 opos = owner->GetPosition();
-        vec3 oscl = owner->GetScale();
-        float xma = opos.x + (xMax * oscl.x), xmi = opos.x + (xMin * oscl.x);
-        float ymi = opos.y + (yMin * oscl.y);
+        Rect cr( c->rect);
+        cr.Scale(c->owner->GetScale());
+        cr.AddOffset(c->owner->GetPosition());
 
-        opos = c->owner->GetPosition();
-        oscl = c->owner->GetScale();
-        float cxma = opos.x + (c->xMax * oscl.x), cxmi = opos.x + (c->xMin * oscl.x);
-        float cyma = opos.y + (c->yMax * oscl.y), cymi = opos.y + (c->yMin * oscl.y);
-
-        if( ymi > cymi && ymi < cyma )
-            if( (xmi > cxmi && xmi < cxma) || (xma > cxmi && xma < cxma) || (xma > cxma && xmi < cxmi) )
+        if( (r.ymi > cr.ymi && r.ymi < cr.yma))
+            if( (r.xmi > cr.xmi && r.xmi < cr.xma) || (r.xma > cr.xmi && r.xma < cr.xma) || (r.xma > cr.xma && r.xmi < cr.xmi) )
                 val.push_back(c);
     }
 
@@ -117,22 +90,17 @@ vector<Collider*> Collider::Intersect( Collider* target )
 vector<Collider*> Collider::Intersect( Collider* target , vec3 uPos )
 {
     vector<Collider*> val;
+    Rect r(target->rect);
+    r.Scale(target->owner->GetScale());
+    r.AddOffset(uPos);
     for(Collider* c : colliders)
     {
-        vec3 opos = uPos;
-        vec3 oscl = target->owner->GetScale();
+        Rect cr( c->rect);
+        cr.Scale(c->owner->GetScale());
+        cr.AddOffset(c->owner->GetPosition());
 
-        float xma = opos.x + (target->xMax * oscl.x), xmi = opos.x + (target->xMin * oscl.x);
-        float yma = opos.y + (target->yMax * oscl.y), ymi = opos.y + (target->yMin * oscl.y);
-
-        opos = c->owner->GetPosition();
-        oscl = c->owner->GetScale();
-
-        float cxma = opos.x + (c->xMax * oscl.x), cxmi = opos.x + (c->xMin * oscl.x);
-        float cyma = opos.y + (c->yMax * oscl.y), cymi = opos.y + (c->yMin * oscl.y);
-
-        if( (ymi > cymi && ymi < cyma) || (yma < cyma && yma > cymi) || (yma > cyma && ymi < cymi) )
-            if( (xmi > cxmi && xmi < cxma) || (xma > cxmi && xma < cxma) || (xma > cxma && xmi < cxmi) )
+        if( (r.ymi > cr.ymi && r.ymi < cr.yma) || (r.yma < cr.yma && r.yma > cr.ymi) || (r.yma > cr.yma && r.ymi < cr.ymi) )
+            if( (r.xmi > cr.xmi && r.xmi < cr.xma) || (r.xma > cr.xmi && r.xma < cr.xma) || (r.xma > cr.xma && r.xmi < cr.xmi) )
                 val.push_back(c);
     }
 

@@ -133,13 +133,11 @@ void Editor::UpdateSelection(GameObject* obj)
 void Editor::RemoveSelection(GameObject* obj)
 {
     for(unsigned int i = 0;i < selection.size();i++)
-    {
         if(selection[i] == obj)
         {
             obj->isActive = true;
             selection.erase(selection.begin() + i);
         }
-    }
 }
 void Editor::ClearSelection()
 {
@@ -155,9 +153,7 @@ void Editor::SetTargetMap(Map* val)
 void Editor::aPosition(vec3 val)
 {
     for(GameObject* gmo : selection)
-    {
         gmo->aPosition(val);
-    }
 }
 void Editor::aScale(vec3 val)
 {

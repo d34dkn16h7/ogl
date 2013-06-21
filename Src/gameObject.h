@@ -23,19 +23,16 @@ public:
     GameObject(string = "cube");
     virtual ~GameObject();
 
-    template <typename compType>
-    void AddComponent()
+
+    template <typename compType> void AddComponent()
     {
         components.push_back( new compType(this) );
     }
-    template <typename compType>
-    compType GetComponent()
+    template <typename compType> compType GetComponent()
     {
         for(auto c : components)
-        {
             if(c->GetType() == typeid(compType).hash_code() )
                 return (compType)c;
-        }
 
         return nullptr;
     }

@@ -19,8 +19,7 @@ private:
     float GetSize();
     static float GetSize(Collider*);
 public:
-    Rect box;
-    float xMin,xMax,yMin,yMax;
+    Rect rect;
 
     Collider(GameObject*);
     Collider(GameObject* , Rect);

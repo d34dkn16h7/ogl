@@ -69,7 +69,7 @@
 1358288506 source:c:\users\shardstack\desktop\ogl-palpha\src\shader.cpp
 	"shader.h"
 
-1371742398 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
+1371742542 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
 	"map.h"
 	"game.h"
 	"input.h"
@@ -77,8 +77,6 @@
 	"physics.h"
 	"renderer.h"
 	"gameObject.h"
-	"map.h"
-	"editor.h"
 
 1371742447 c:\users\calide 2\desktop\ogl-palpha\src\game.h
 	<glm/glm.hpp>
@@ -89,7 +87,7 @@
 	<stdexcept>
 	<vector>
 
-1371737374 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
+1371817394 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
 	<stdexcept>
 	<typeinfo>
 	"tools.h"
@@ -126,7 +124,7 @@
 1358331554 source:c:\users\calide 2\desktop\ogl-palpha\src\shader.cpp
 	"shader.h"
 
-1371132399 source:c:\users\calide 2\desktop\ogl-palpha\src\program.cpp
+1371817527 source:c:\users\calide 2\desktop\ogl-palpha\src\program.cpp
 	"tools.h"
 	"program.h"
 
@@ -277,7 +275,7 @@
 	<vector>
 	<string>
 
-1371737493 source:c:\users\calide 2\desktop\ogl-palpha\src\geometry.cpp
+1371817527 source:c:\users\calide 2\desktop\ogl-palpha\src\geometry.cpp
 	"program.h"
 	"geometry.h"
 	"renderer.h"
@@ -474,7 +472,7 @@
 	<string>
 	<vector>
 
-1371719327 c:\users\calide 2\desktop\ogl-palpha\src\tools.h
+1371817710 c:\users\calide 2\desktop\ogl-palpha\src\tools.h
 	<glm/glm.hpp>
 	<stdexcept>
 	<iostream>
@@ -493,7 +491,7 @@
 	<glm/glm.hpp>
 	<vector>
 
-1371737127 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
+1371817527 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
 	"map.h"
 	"input.h"
 	"camera.h"
@@ -512,12 +510,12 @@
 	"input.h"
 	"camera.h"
 
-1371737023 source:c:\users\calide 2\desktop\ogl-palpha\src\collider.cpp
+1371817298 source:c:\users\calide 2\desktop\ogl-palpha\src\collider.cpp
 	<typeinfo>
 	"collider.h"
 	"gameObject.h"
 
-1371737021 c:\users\calide 2\desktop\ogl-palpha\src\collider.h
+1371816999 c:\users\calide 2\desktop\ogl-palpha\src\collider.h
 	<glm/glm.hpp>
 	<vector>
 	"tools.h"
@@ -538,13 +536,13 @@
 	<vector>
 	"component.h"
 
-1371737643 source:c:\users\calide 2\desktop\ogl-palpha\src\physics.cpp
+1371819249 source:c:\users\calide 2\desktop\ogl-palpha\src\physics.cpp
 	<typeinfo>
 	"physics.h"
 	"collider.h"
 	"gameobject.h"
 
-1370003807 source:c:\users\calide 2\desktop\ogl-palpha\src\gui.cpp
+1371817527 source:c:\users\calide 2\desktop\ogl-palpha\src\gui.cpp
 	"gui.h"
 	"program.h"
 	"renderer.h"

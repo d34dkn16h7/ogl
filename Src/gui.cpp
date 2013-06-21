@@ -50,10 +50,8 @@ void Gui::LinkData()
 GUIData* Gui::Find(string sStr)
 {
     for(GUIData* val : gData)
-    {
         if(val->idString == sStr)
             return val;
-    }
 
     return nullptr;
 }

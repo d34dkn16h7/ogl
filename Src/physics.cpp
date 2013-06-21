@@ -89,19 +89,13 @@ void Physics::Reg(Physics* val)
 void Physics::UnReg(Physics* val)
 {
     for(unsigned int i = 0;i < physics.size();i++)
-    {
         if(physics[i] == val)
-        {
             physics.erase(physics.begin() + i);
-        }
-    }
 }
 void Physics::UpdateAll()
 {
     for(Physics* p : physics)
-    {
         p->Update();
-    }
 }
 /*if(!c->isGrounded())
             owner->uPosition(cPos);
