@@ -1,4 +1,3 @@
-#include <iostream>
 #include "gui.h"
 #include "game.h"
 #include "editor.h"
@@ -7,6 +6,7 @@
 #include "geometry.h"
 #include "renderer.h"
 
+GLFWwindow* Renderer::window;
 Camera* Renderer::cam;
 Program* Renderer::prog;
 vector<Geometry*> Renderer::drawObjects;
@@ -17,10 +17,9 @@ void Renderer::Render()
     glClearColor(0,0,0,1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    RenderObjects();
-    //RenderGUI();
+    RenderObjects();//RenderGUI();
 
-    glfwSwapBuffers();
+    glfwSwapBuffers( window );
 }
 void Renderer::RenderObjects()
 {
@@ -77,42 +76,48 @@ void Renderer::RenderGUI()
     Program::Use(false,"Gui");
     glBindVertexArray(0);
 }
-bool Renderer::Setup(int w,int h , int screenState)
+bool Renderer::Setup(int w,int h)
 {
     glfwInit();
-    glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
-    glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
-    glfwOpenWindowHint(GLFW_WINDOW_NO_RESIZE, GL_TRUE);
-    glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    if(!glfwOpenWindow(w, h, 8, 8, 8, 8, 16, 0, screenState) )
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    window = glfwCreateWindow(w, h, "openGL 3.2 -PRE.ALPHA", 0, 0);
+    if(!window)
     {
-        glfwOpenWindowHint(GLFW_OPENGL_PROFILE,0);
-        if(!glfwOpenWindow(w, h, 8, 8, 8, 8, 16, 0, screenState))
+        glfwWindowHint(GLFW_OPENGL_PROFILE,0);
+        window = glfwCreateWindow(w, h, "openGL 3.2 -PRE.ALPHA", 0, 0);
+        if(!window)
         {
-            cout << "glfwOpenWindow() Fail\n";
+            cout << "glfwCreateWindow() Fail" << endl;
             return false;
         }
-        cout << "GLFW_OPENGL_PROFILE -> 0\n";
-
+        cout << "GLFW_OPENGL_PROFILE -> 0" << endl;
     }
-    glfwSetWindowTitle("openGL 3.2 -PRE.ALPHA");
-    glfwSwapInterval(0);
+    glfwMakeContextCurrent(window);
+    printInfo();
     glewExperimental = GL_TRUE;
-    if(glewInit() != GLEW_OK)
+    GLenum glewStatus = glewInit();
+    if (glewStatus != GLEW_OK)
     {
-        cout << "glewInit() Fail!\n";
-        return false;
-    }
-    if(!GLEW_VERSION_3_2)
-    {
-        cout << "OpenGL 3.2 API is not available.\n";
+        cout << "GLEW Error : " << glewGetErrorString(glewStatus) << endl;
         return false;
     }
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+
     cam = new Camera(w,h);
-    prog = new Program("Data/Shaders/dVS.glsl","Data/Shaders/dFS.glsl","Model");//new Program("Data/Shaders/guiVS.glsl","Data/Shaders/guiFS.glsl","Gui");
+    prog = new Program("Data/Shaders/dVS.glsl","Data/Shaders/dFS.glsl","Model");
     return true;
+}
+void Renderer::printInfo()
+{
+    int iOpenGLMajor = glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MAJOR);
+    int iOpenGLMinor = glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MINOR);
+    int iOpenGLRevision = glfwGetWindowAttrib(window, GLFW_CONTEXT_REVISION);
+    cout << "Status: GLFW Version " << glfwGetVersionString() << endl;
+    cout << "Status: OpenGL Version: " << iOpenGLMajor << '.' << iOpenGLMinor << " Revision " << iOpenGLRevision << endl;
+    cout << "Status: GLEW Version " << glewGetString(GLEW_VERSION) << endl;
 }
 void Renderer::RegObject(Geometry *obj)
 {
@@ -133,4 +138,8 @@ void Renderer::UnRegGUI(Gui* obj)
     for(unsigned int i = 0;i < drawGUI.size();i++)
         if(drawGUI[i] == obj)
             drawGUI.erase(drawGUI.begin() + i);
+}
+GLFWwindow* Renderer::gWindow()
+{
+    return window;
 }

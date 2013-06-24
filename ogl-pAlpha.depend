@@ -69,7 +69,7 @@
 1358288506 source:c:\users\shardstack\desktop\ogl-palpha\src\shader.cpp
 	"shader.h"
 
-1371742542 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
+1372081843 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
 	"map.h"
 	"game.h"
 	"input.h"
@@ -81,10 +81,11 @@
 1371742447 c:\users\calide 2\desktop\ogl-palpha\src\game.h
 	<glm/glm.hpp>
 
-1371737751 c:\users\calide 2\desktop\ogl-palpha\src\renderer.h
+1372077557 c:\users\calide 2\desktop\ogl-palpha\src\renderer.h
 	<GL/glew.h>
-	<GL/glfw.h>
+	<GLFW/glfw3.h>
 	<stdexcept>
+	<iostream>
 	<vector>
 
 1371817394 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
@@ -111,8 +112,7 @@
 1369924331 source:c:\users\calide 2\desktop\ogl-palpha\src\main.cpp
 	"game.h"
 
-1371742474 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
-	<iostream>
+1372077551 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
 	"gui.h"
 	"game.h"
 	"editor.h"
@@ -487,11 +487,12 @@
 	"tools.h"
 	"gameObject.h"
 
-1371737291 c:\users\calide 2\desktop\ogl-palpha\src\editor.h
+1372062143 c:\users\calide 2\desktop\ogl-palpha\src\editor.h
+	<GLFW/glfw3.h>
 	<glm/glm.hpp>
 	<vector>
 
-1371817527 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
+1372069882 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
 	"map.h"
 	"input.h"
 	"camera.h"
@@ -501,14 +502,15 @@
 	"component.h"
 	"gameObject.h"
 
-1371737537 c:\users\calide 2\desktop\ogl-palpha\src\input.h
+1372069626 c:\users\calide 2\desktop\ogl-palpha\src\input.h
 	<glm/glm.hpp>
 	<GL/glew.h>
-	<GL/glfw.h>
+	<GLFW/glfw3.h>
 
-1371135814 source:c:\users\calide 2\desktop\ogl-palpha\src\input.cpp
+1372084993 source:c:\users\calide 2\desktop\ogl-palpha\src\input.cpp
 	"input.h"
 	"camera.h"
+	"renderer.h"
 
 1371817298 source:c:\users\calide 2\desktop\ogl-palpha\src\collider.cpp
 	<typeinfo>
@@ -536,7 +538,7 @@
 	<vector>
 	"component.h"
 
-1371819249 source:c:\users\calide 2\desktop\ogl-palpha\src\physics.cpp
+1372085415 source:c:\users\calide 2\desktop\ogl-palpha\src\physics.cpp
 	<typeinfo>
 	"physics.h"
 	"collider.h"

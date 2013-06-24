@@ -30,6 +30,7 @@ void Physics::Move(vec3 val) // fucking shit
 {
     vec3 cPos = owner->GetPosition();
     cPos += val;
+    float div = 2.5f;
 
     Collider* c = owner->GetComponent<Collider*>();
     if(c != nullptr)
@@ -64,7 +65,7 @@ void Physics::Move(vec3 val) // fucking shit
                 {
                     vec3 isMoved = p->owner->GetPosition();
                     if(!grunded)
-                        p->Move( val ); // shit
+                        p->Move( val / div ); // shit
 
                     if(p->owner->GetPosition() != (isMoved + val)) // did it move if not you can't move too
                         canMove = false;
@@ -73,7 +74,7 @@ void Physics::Move(vec3 val) // fucking shit
                     canMove = false;
             }
             if(canMove)
-                owner->uPosition( owner->GetPosition() + val );
+                owner->uPosition( owner->GetPosition() + (val / div) );
         }
     }
 }

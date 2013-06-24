@@ -9,12 +9,13 @@
 
 void Editor::Update()
 {
-    isMultyEdit = glfwGetKey( GLFW_KEY_LCTRL );
+    isMultyEdit = Input::isKey(GLFW_KEY_LEFT_CONTROL);
 
     if(Input::isMousePressed(0))
         SelectObjects();
-    if(glfwGetKey(GLFW_KEY_DEL))
+    if( Input::isKey(GLFW_KEY_DELETE) )
         DeleteObject();
+
 
     if(Input::isMouse(0))
         Edit();
@@ -23,17 +24,17 @@ void Editor::Update()
     if(Input::isMouse(2))
         MoveCam();
 
-    if(glfwGetKey('1'))
+    if( Input::isKey(GLFW_KEY_1) )
         mode = EditMode::PositionEdit;
-    if(glfwGetKey('2'))
+    if( Input::isKey(GLFW_KEY_2) )
         mode = EditMode::ScaleEdit;
-    if(glfwGetKey('3'))
+    if( Input::isKey(GLFW_KEY_3) )
         mode = EditMode::RotationEdit;   // Empty
-    if(glfwGetKey('4'))
+    if( Input::isKey(GLFW_KEY_4) )
         mode = EditMode::ColorEdit;   // Empty
 
-    if(Input::mouseWDelta != 0)
-        Camera::MainCamera->aPosition( vec3(0,0,Input::mouseWDelta * -.1f) );
+    if(Input::mouseWDelta.y != 0)
+        Camera::MainCamera->aPosition( vec3(0,0,Input::mouseWDelta.y * -.5f) );
 }
 void Editor::Edit()
 {
@@ -50,7 +51,7 @@ void Editor::Edit()
         break;
     case EditMode::ScaleEdit:
         val *= .01f;
-        if(glfwGetKey(GLFW_KEY_LSHIFT) )
+        if( Input::isKey(GLFW_KEY_LEFT_SHIFT) )
         {
             float fac = (val.x + val.y) / 2;
             aScale( vec3(fac,fac,0) );

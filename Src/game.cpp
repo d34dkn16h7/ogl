@@ -13,19 +13,21 @@ float Game::deltaTime,Game::lastTime,Game::Speed;
 
 int Game::Run()
 {
-    isOpen = Renderer::Setup(1024,576,GLFW_WINDOW);
+    isOpen = Renderer::Setup(1024,576);
     map->LoadMap("Data/m.mp");
     Input::Init();
-    while(isOpen && !Input::isKey(GLFW_KEY_ESC) && glfwGetWindowParam( GLFW_OPENED))
+    while(isOpen && !Input::isKey(GLFW_KEY_ESCAPE) && !glfwWindowShouldClose( Renderer::gWindow() ))
     {
+        glfwPollEvents();
         Update();
         Renderer::Render();
         Timer();
     }
+    glfwDestroyWindow( Renderer::gWindow() );
     glfwTerminate();
     return 0;
 }
-Game::Game() : map( new Map()) , editor( new Editor())
+Game::Game() : map( new Map() ) , editor( new Editor() )
 {
     ins = this;
     Speed = 15;
@@ -36,7 +38,7 @@ Game::Game() : map( new Map()) , editor( new Editor())
 }
 void Game::Update()
 {
-    if(glfwGetKey(GLFW_KEY_HOME))
+    if(  Input::isKey(GLFW_KEY_HOME))
         isEditor = !isEditor;
 
     Input::Update();

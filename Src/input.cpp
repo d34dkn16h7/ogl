@@ -1,40 +1,41 @@
 #include "input.h"
 #include "camera.h"
+#include "renderer.h"
 
 bool Input::mKeyState[ MOUSE_KEY_COUNT ];
 bool Input::mKeyStateRelased[ MOUSE_KEY_COUNT ];
 bool Input::mKeyStatePressed[ MOUSE_KEY_COUNT ];
 
-int Input::mouseWDelta,Input::lastWPos;
-vec2 Input::lastPos,Input::mouseDelta;
+vec2 Input::mouseWDelta,Input::lastPos,Input::mouseDelta,Input::mouseWheel,Input::lastMouseWheel;
 
 void Input::Init()
 {
-    mouseWDelta = 0;
-    lastPos = MousePos();
-    glfwSetKeyCallback(Input::Keyboard);
-    glfwSetMouseButtonCallback(Input::MouseKeys);
+    lastPos = MousePos();//glfwSetKeyCallback( Renderer::window , Input::Keyboard ); // No need for now.
+    glfwSetMouseButtonCallback( Renderer::gWindow() , Input::MouseKeys );
+    glfwSetScrollCallback( Renderer::gWindow() , Input::MouseScroll );
 }
 void Input::Update()
 {
     UpdateMouse();
 }
-void GLFWCALL Input::Keyboard(int key ,int action)
-{
-    //cout << key << " : " << action << endl;
-}
-void GLFWCALL Input::MouseKeys(int key ,int action)
+void Input::Keyboard(GLFWwindow* w, int key, int scancode, int action, int mods){}
+void Input::MouseKeys(GLFWwindow* window, int key, int action, int mods)
 {
     mKeyState[key] = mKeyStatePressed[key] = ( action == GLFW_PRESS );
     mKeyStateRelased[key] = ( action == GLFW_RELEASE );
 }
+void Input::MouseScroll(GLFWwindow* w,double x, double y)
+{
+    mouseWheel += vec2(x,y);
+}
+
 void Input::UpdateMouse()
 {
     mouseDelta = MousePos() - lastPos;
     lastPos = MousePos();
 
-    mouseWDelta = glfwGetMouseWheel() - lastWPos;
-    lastWPos = glfwGetMouseWheel();
+    mouseWDelta = mouseWheel - lastMouseWheel;
+    lastMouseWheel = mouseWheel;
 }
 bool Input::isMouse(int key)
 {
@@ -54,12 +55,12 @@ bool Input::isMouseRelased(int key)
 }
 bool Input::isKey(int key)
 {
-    return glfwGetKey(key);
+    return glfwGetKey(Renderer::gWindow(),key);
 }
 vec2 Input::MousePos()
 {
-    int x,y;
-    glfwGetMousePos(&x,&y);
+    double x,y;
+    glfwGetCursorPos(Renderer::gWindow() ,&x,&y);
     vec2 val = vec2(x,y);
     return val;
 }

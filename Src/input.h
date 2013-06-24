@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <GL/glew.h>
-#include <GL/glfw.h>
+#include <GLFW/glfw3.h>
 
 #define MOUSE_KEY_COUNT 3
 
@@ -11,20 +11,23 @@ using namespace glm;
 
 class Input
 {
+
     static vec2 lastPos;
+    static vec2 lastMouseWheel;
+    static vec2 mouseWheel;
 
     static bool mKeyState[MOUSE_KEY_COUNT];
     static bool mKeyStateRelased[MOUSE_KEY_COUNT];
     static bool mKeyStatePressed[MOUSE_KEY_COUNT];
-
-    static int lastWPos;
     //func
     static void UpdateMouse();
-    static void GLFWCALL Keyboard(int,int);
-    static void GLFWCALL MouseKeys(int,int);
 public:
+    static void MouseKeys(GLFWwindow*,int,int,int);
+    static void MouseScroll(GLFWwindow*,double,double);
+    static void Keyboard(GLFWwindow*,int,int,int,int);
+
     static vec2 mouseDelta;
-    static int mouseWDelta;
+    static vec2 mouseWDelta;
 
     static void Init();
     static void Update();
