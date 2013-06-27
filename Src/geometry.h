@@ -21,6 +21,7 @@ public:
     string idString;
 
     vector<GLuint> elementary;
+    //vector<GLfloat> texture_cord;
     vector<GLfloat> verticles;
     vector<GLfloat> colorData;
 

@@ -1,10 +1,10 @@
 #include "tools.h"
 #include "program.h"
 
-GLuint* Program::dProg;
-vector<Program*> Program::programs;
+GLuint* Program::dProg = nullptr; /// Default Program aka First Loaded
+vector<Program*> Program::programs; /// Program vector
 
-Program::Program(string vShaderSrc ,string fShaderSrc ,string progName)
+Program::Program(string vShaderSrc ,string fShaderSrc ,string progName) /// Construct Shaders
 {
     name = progName;
     isReady = CompileShader(vert,GL_VERTEX_SHADER,vShaderSrc) &&
@@ -12,13 +12,15 @@ Program::Program(string vShaderSrc ,string fShaderSrc ,string progName)
     if(isReady)
     {
         LinkProgram();
-        dProg = &prog;
+        if(dProg != nullptr)
+            dProg = &prog;
         programs.push_back(this);
     }
     else
         throw runtime_error("Shader Compile Error");
 }
-GLuint Program::CompileShader(GLuint& trg,GLuint type,string shaderSrc)
+
+GLuint Program::CompileShader(GLuint& trg,GLuint type,string shaderSrc) /// Compile Shader
 {
     trg = glCreateShader(type);
     string source =  Tools::File::tLoadFile(shaderSrc);
@@ -29,15 +31,17 @@ GLuint Program::CompileShader(GLuint& trg,GLuint type,string shaderSrc)
     glGetShaderiv(trg,GL_COMPILE_STATUS,&status);
     return status;
 }
-void Program::LinkProgram()
+
+void Program::LinkProgram() /// Link Program
 {
     prog = glCreateProgram();
     glAttachShader( prog, vert);
     glAttachShader( prog, frag);
-    glBindFragDataLocation( prog, 0, "outColor" );
+    glBindFragDataLocation( prog, 0, "outColor" ); // Hard-coded? Why?
     glLinkProgram(prog);
 }
-void Program::SetUniform(const string& name,const vec2& val)
+
+void Program::SetUniform(const string& name,const vec2& val) /// Set Uniform for vector42
 {
     Use(true);
     const GLchar* attName = name.c_str();
@@ -47,7 +51,8 @@ void Program::SetUniform(const string& name,const vec2& val)
     glUniform2f(uniform , val.x,val.y);
     Use(false);
 }
-void Program::SetUniform(const string& name,const vec3& val)
+
+void Program::SetUniform(const string& name,const vec3& val) /// Set Uniform for vector43
 {
     Use(true);
     const GLchar* attName = name.c_str();
@@ -57,7 +62,8 @@ void Program::SetUniform(const string& name,const vec3& val)
     glUniform3f(uniform , val.x,val.y,val.z);
     Use(false);
 }
-void Program::SetUniform(const string& name,const vec4& val)
+
+void Program::SetUniform(const string& name,const vec4& val) /// Set Uniform for vector4
 {
     Use(true);
     const GLchar* attName = name.c_str();
@@ -67,7 +73,8 @@ void Program::SetUniform(const string& name,const vec4& val)
     glUniform4f(uniform , val.r,val.g,val.b,val.a);
     Use(false);
 }
-void Program::SetUniform(const string& name,const mat4& matrix)
+
+void Program::SetUniform(const string& name,const mat4& matrix) /// Set Uniform for Matrix4
 {
     Use(true);
     const GLchar* attName = name.c_str();
@@ -77,30 +84,30 @@ void Program::SetUniform(const string& name,const mat4& matrix)
     glUniformMatrix4fv(uniform, 1, false, value_ptr(matrix));
     Use(false);
 }
-void Program::Use(bool val)
+
+void Program::Use(bool val) /// Member-Func Use
 {
     if(val)
-    {
         glUseProgram(prog);
-    }
     else
         glUseProgram(0);
 }
-void Program::Use(bool val , string progName)
+
+void Program::Use(bool val , string progName) /// Static-Func Use progName
 {
     Program* p = GetProgramIns(progName);
     if(val && p != nullptr)
-    {
         glUseProgram(p->prog);
-    }
     else
         glUseProgram(0);
 }
-GLuint& Program::GetProgram()
+
+GLuint& Program::GetProgram() /// Member-Func Get Program
 {
     return prog;
 }
-GLuint& Program::GetProgram(string progName)
+
+GLuint& Program::GetProgram(string progName) /// Static-Func Get Program
 {
     for(Program* p : programs)
         if(p->name == progName)
@@ -108,7 +115,8 @@ GLuint& Program::GetProgram(string progName)
 
     return (*dProg);
 }
-Program* Program::GetProgramIns(string progName)
+
+Program* Program::GetProgramIns(string progName) /// Static-Func Get Program Instance
 {
     for(Program* p : programs)
         if(p->name == progName)

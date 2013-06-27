@@ -1,4 +1,3 @@
-#include "gui.h"
 #include "game.h"
 #include "editor.h"
 #include "camera.h"
@@ -10,9 +9,9 @@ GLFWwindow* Renderer::window;
 Camera* Renderer::cam;
 Program* Renderer::prog;
 vector<Geometry*> Renderer::drawObjects;
-vector<Gui*> Renderer::drawGUI;
+GLuint tex_2d;
 
-void Renderer::Render()
+void Renderer::Render() /// Call All Render Func's
 {
     glClearColor(0,0,0,1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -21,7 +20,8 @@ void Renderer::Render()
 
     glfwSwapBuffers( window );
 }
-void Renderer::RenderObjects()
+
+void Renderer::RenderObjects() /// Render All Objects
 {
     int edges = 0;
     GLenum type = GL_TRIANGLES;
@@ -35,7 +35,7 @@ void Renderer::RenderObjects()
             glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
         prog->SetUniform("modelMatrix",gmo->GetModelMatrix());
-        prog->SetUniform("color",gmo->GetColor());
+        //prog->SetUniform("color",gmo->GetColor());
         prog->Use(true);
         if(lastDrawName != gmo->gPtr->idString)
         {
@@ -51,32 +51,8 @@ void Renderer::RenderObjects()
     prog->Use(false);
     glBindVertexArray(0);
 }
-void Renderer::RenderGUI()
-{
-    int edges = 0;
-    GLenum type = GL_TRIANGLES;
-    string lastDrawName = "null";
 
-    Program::Use(true,"Gui");
-    Program::GetProgramIns("Gui")->SetUniform("color", vec4(1,1,1,1));
-
-    for(Gui* gObj : drawGUI)
-    {
-        Program::GetProgramIns("Gui")->SetUniform("scale", gObj->GetScale() );
-        if(lastDrawName != gObj->master->idString)
-        {
-            glBindVertexArray(gObj->master->GetVAO());
-            glBindBuffer(GL_ARRAY_BUFFER,gObj->master->GetVBO());
-            edges = gObj->master->GetEdges();
-            type = gObj->master->GetType();
-            lastDrawName = gObj->master->idString;
-        }
-        glDrawArrays(type,0,edges);
-    }
-    Program::Use(false,"Gui");
-    glBindVertexArray(0);
-}
-bool Renderer::Setup(int w,int h)
+bool Renderer::Setup(int w,int h) /// Setup GLFW - GLEW + Window + Shaders
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -95,7 +71,6 @@ bool Renderer::Setup(int w,int h)
         cout << "GLFW_OPENGL_PROFILE -> 0" << endl;
     }
     glfwMakeContextCurrent(window);
-    printInfo();
     glewExperimental = GL_TRUE;
     GLenum glewStatus = glewInit();
     if (glewStatus != GLEW_OK)
@@ -108,9 +83,20 @@ bool Renderer::Setup(int w,int h)
 
     cam = new Camera(w,h);
     prog = new Program("Data/Shaders/dVS.glsl","Data/Shaders/dFS.glsl","Model");
+
+    PrintRendererInfo();
+
+    tex_2d = SOIL_load_OGL_texture("Data/Textures/wood.jpg",SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_INVERT_Y);
+    if (0 == tex_2d)
+        cout << "SOIL loading error: " <<  SOIL_last_result() << endl;
+
+    glActiveTexture (GL_TEXTURE0); // activate the first slot
+    glBindTexture (GL_TEXTURE_2D, tex_2d);
+
     return true;
 }
-void Renderer::printInfo()
+
+void Renderer::PrintRendererInfo() /// Print Main Info
 {
     int iOpenGLMajor = glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MAJOR);
     int iOpenGLMinor = glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MINOR);
@@ -119,27 +105,20 @@ void Renderer::printInfo()
     cout << "Status: OpenGL Version: " << iOpenGLMajor << '.' << iOpenGLMinor << " Revision " << iOpenGLRevision << endl;
     cout << "Status: GLEW Version " << glewGetString(GLEW_VERSION) << endl;
 }
-void Renderer::RegObject(Geometry *obj)
+
+void Renderer::RegObject(Geometry *obj) /// Register Geometry to Draw Vector
 {
     drawObjects.push_back(obj);
 }
-void Renderer::UnRegObject(Geometry *obj)
+
+void Renderer::UnRegObject(Geometry *obj) /// Remove Geometry from Draw Vector
 {
     for(unsigned int i = 0;i < drawObjects.size();i++)
         if(drawObjects[i] == obj)
             drawObjects.erase(drawObjects.begin() + i);
 }
-void Renderer::RegGUI(Gui* obj)
-{
-    drawGUI.push_back(obj);
-}
-void Renderer::UnRegGUI(Gui* obj)
-{
-    for(unsigned int i = 0;i < drawGUI.size();i++)
-        if(drawGUI[i] == obj)
-            drawGUI.erase(drawGUI.begin() + i);
-}
-GLFWwindow* Renderer::gWindow()
+
+GLFWwindow* Renderer::gWindow() /// Return GLFWwindow* handler
 {
     return window;
 }

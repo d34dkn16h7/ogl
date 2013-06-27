@@ -6,13 +6,13 @@ class Program;
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <SOIL/SOIL.h>
 #include <stdexcept>
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-class Gui;
 class Camera;
 class Program;
 class Geometry;
@@ -23,21 +23,15 @@ private:
     static Camera *cam;
     static Program *prog;
     static vector<Geometry*> drawObjects;
-    static vector<Gui*> drawGUI;
 public:
     static bool Setup(int,int);
-    static void printInfo();
-    static void Render();
+    static void PrintRendererInfo();
 
+    static void Render();
     static void RenderObjects();
-    static void RenderGUI();
-    static void GenData();
 
     static void RegObject(Geometry*);
     static void UnRegObject(Geometry*);
-
-    static void RegGUI(Gui*);
-    static void UnRegGUI(Gui*);
 
     static GLFWwindow* gWindow();
 };

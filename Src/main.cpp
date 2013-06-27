@@ -9,13 +9,12 @@ Global Lists:
 */
 /*
 To Do:
-    physics - (pre-pre-pre alpha level)
-    prefabs - (very basic)
+    physics - (pre-pre-pre alpha level) - Done!
+    prefabs - (very basic) - Already done! Need a better reader
     geometry store - Done!
-    gui - freshly started
-    colliders -> (intersect)
+    gui - freshly started - canceled for now
+    colliders -> (intersect) - Done!
 */
-
 int main()
 {
     Game *myGame = new Game();
