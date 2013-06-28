@@ -4,12 +4,12 @@
 #include "program.h"
 #include "geometry.h"
 #include "renderer.h"
+#include "gameObject.h"
 
 GLFWwindow* Renderer::window;
 Camera* Renderer::cam;
 Program* Renderer::prog;
-vector<Geometry*> Renderer::drawObjects;
-GLuint tex_2d;
+vector<GameObject*> Renderer::drawObjects;
 
 void Renderer::Render() /// Call All Render Func's
 {
@@ -27,18 +27,28 @@ void Renderer::RenderObjects() /// Render All Objects
     GLenum type = GL_TRIANGLES;
     string lastDrawName = "null";
     prog->SetUniform("cameraMatrix",cam->GetMatrix());
-    for(Geometry* gmo : drawObjects)
+    for(GameObject* gmo : drawObjects)
     {
-        if( Game::ins->editor->isSelected( (GameObject*)gmo ) )
+        if( Game::ins->editor->isSelected( gmo ) )
             glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
         else
             glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
-        prog->SetUniform("modelMatrix",gmo->GetModelMatrix());
-        //prog->SetUniform("color",gmo->GetColor());
+        prog->SetUniform("modelMatrix",gmo->transform.gMatrix());
         prog->Use(true);
         if(lastDrawName != gmo->gPtr->idString)
         {
+            if(gmo->gPtr->texture != 0)
+            {
+                glActiveTexture (GL_TEXTURE0);
+                glBindTexture (GL_TEXTURE_2D, gmo->gPtr->texture);
+            }
+            else
+            {
+                glActiveTexture (GL_TEXTURE0);
+                glBindTexture (GL_TEXTURE_2D, 0);
+            }
+
             glBindVertexArray(gmo->gPtr->GetVAO());
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,gmo->gPtr->GetEBO());
             edges = gmo->gPtr->GetEdges();
@@ -55,6 +65,7 @@ void Renderer::RenderObjects() /// Render All Objects
 bool Renderer::Setup(int w,int h) /// Setup GLFW - GLEW + Window + Shaders
 {
     glfwInit();
+    glfwWindowHint(GLFW_RESIZABLE,GL_FALSE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -86,13 +97,6 @@ bool Renderer::Setup(int w,int h) /// Setup GLFW - GLEW + Window + Shaders
 
     PrintRendererInfo();
 
-    tex_2d = SOIL_load_OGL_texture("Data/Textures/wood.jpg",SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_INVERT_Y);
-    if (0 == tex_2d)
-        cout << "SOIL loading error: " <<  SOIL_last_result() << endl;
-
-    glActiveTexture (GL_TEXTURE0); // activate the first slot
-    glBindTexture (GL_TEXTURE_2D, tex_2d);
-
     return true;
 }
 
@@ -106,12 +110,12 @@ void Renderer::PrintRendererInfo() /// Print Main Info
     cout << "Status: GLEW Version " << glewGetString(GLEW_VERSION) << endl;
 }
 
-void Renderer::RegObject(Geometry *obj) /// Register Geometry to Draw Vector
+void Renderer::RegObject(GameObject *obj) /// Register GameObject to Draw Vector
 {
     drawObjects.push_back(obj);
 }
 
-void Renderer::UnRegObject(Geometry *obj) /// Remove Geometry from Draw Vector
+void Renderer::UnRegObject(GameObject *obj) /// Remove GameObject from Draw Vector
 {
     for(unsigned int i = 0;i < drawObjects.size();i++)
         if(drawObjects[i] == obj)

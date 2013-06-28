@@ -34,7 +34,7 @@ void Editor::Update()
         mode = EditMode::ColorEdit;   // Empty
 
     if(Input::mouseWDelta.y != 0)
-        Camera::MainCamera->aPosition( vec3(0,0,Input::mouseWDelta.y * -.5f) );
+        Camera::MainCamera->aPosition( vec3(0,0,Input::mouseWDelta.y * -.4f) );
 }
 void Editor::Edit()
 {
@@ -78,12 +78,10 @@ void Editor::PutObject()
     Physics* p = edit->GetComponent<Physics*>();
     if(p != nullptr)
         p->AddConstantForce( vec3(0,-.001f,0) );
-    p->isConst = false;
 
     vec3 nPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;
-    edit->uPosition(nPos);
-    edit->uColor( vec4(-1,0,0,1) );
+    edit->transform.uPosition(nPos);
     targetMap->Put(edit);
     UpdateSelection(edit);
 }
@@ -154,12 +152,12 @@ void Editor::SetTargetMap(Map* val)
 void Editor::aPosition(vec3 val)
 {
     for(GameObject* gmo : selection)
-        gmo->aPosition(val);
+        gmo->transform.aPosition(val);
 }
 void Editor::aScale(vec3 val)
 {
     for(GameObject* gmo : selection)
-        gmo->aScale(val);
+        gmo->transform.aScale(val);
 }
 void Editor::MoveCam()
 {

@@ -1,4 +1,4 @@
 model Player.obj
+texture sky.jpg
 scale .5 .5 .5
-collider
 physics

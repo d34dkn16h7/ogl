@@ -37,6 +37,7 @@
 			<Add option="-DGLFW_INCLUDE_GLU" />
 		</Compiler>
 		<Linker>
+			<Add library="SOIL" />
 			<Add library="glew32s" />
 			<Add library="glfw3" />
 			<Add library="opengl32" />
@@ -56,8 +57,6 @@
 		<Unit filename="Src/gameObject.h" />
 		<Unit filename="Src/geometry.cpp" />
 		<Unit filename="Src/geometry.h" />
-		<Unit filename="Src/gui.cpp" />
-		<Unit filename="Src/gui.h" />
 		<Unit filename="Src/input.cpp" />
 		<Unit filename="Src/input.h" />
 		<Unit filename="Src/main.cpp" />

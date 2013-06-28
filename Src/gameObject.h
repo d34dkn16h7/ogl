@@ -6,6 +6,7 @@
 #include "tools.h"
 #include "geometry.h"
 #include "component.h"
+#include "transform.h"
 
 using namespace std;
 
@@ -15,11 +16,11 @@ class Component;
 class GameObject : public Geometry
 {
 private:
+    vector<Component*> components;
     void LoadPrefab(string);
 public:
-    vector<Component*> components;
     bool isActive;
-
+    Transform transform;
     GameObject(string = "cube");
     virtual ~GameObject();
 
@@ -28,6 +29,12 @@ public:
     {
         components.push_back( new compType(this) );
     }
+
+    template <typename compType> static void AddComponent(GameObject* gmo)
+    {
+        gmo->components.push_back( new compType(gmo) );
+    }
+
     template <typename compType> compType GetComponent()
     {
         for(auto c : components)
@@ -36,6 +43,7 @@ public:
 
         return nullptr;
     }
+
     void DestroyComponents();
 };
 

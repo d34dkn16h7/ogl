@@ -22,20 +22,16 @@ void Map::SaveMap(string tFile)
 
         mstr << gmo->gPtr->idString << endl;
     //Position
-        tVec = gmo->GetPosition();
+        tVec = gmo->transform.gPosition();
         Tools::Str::AddHashStreamVec3(mstr ,"pos" , tVec , 1);
     //Scale
-        tVec = gmo->GetScale();
+        tVec = gmo->transform.gScale();
         if(tVec != vec3(1,1,1))
             Tools::Str::AddHashStreamVec3(mstr ,"scale" , tVec , 1);
     //Rotation
-        tVec = gmo->GetRotation();
+        tVec = gmo->transform.gRotation();
         if(tVec != vec3(0,0,0))
             Tools::Str::AddHashStreamVec3(mstr ,"rot" , tVec , 1);
-    //Color
-        tVec4 = gmo->GetColor();
-        if(tVec4 != vec4(-1,0,0,1)) //Null also default color for shader
-            Tools::Str::AddHashStreamVec4(mstr ,"col" , tVec4 , 1);
 
         if(gmo == Game::onControl)
             mstr << "\tonControl" << endl;
@@ -69,7 +65,7 @@ void Map::MakeMap(string strData)
                 y = atof(t.tokens[i + 2].c_str());
                 z = atof(t.tokens[i + 3].c_str());
                 vec3 v(x,y,z);
-                gmo->uPosition(v);
+                gmo->transform.uPosition(v);
                 i += 3;
             }
             if(token == "rot")
@@ -79,7 +75,7 @@ void Map::MakeMap(string strData)
                 y = atof(t.tokens[i + 2].c_str());
                 z = atof(t.tokens[i + 3].c_str());
                 vec3 v(x,y,z);
-                gmo->uRotate(v);
+                gmo->transform.uRotation(v);
                 i += 3;
             }
             if(token == "scale")
@@ -89,28 +85,8 @@ void Map::MakeMap(string strData)
                 y = atof(t.tokens[i + 2].c_str());
                 z = atof(t.tokens[i + 3].c_str());
                 vec3 v(x,y,z);
-                gmo->uScale(v);
+                gmo->transform.uScale(v);
                 i += 3;
-            }
-            if(token == "col")
-            {
-                float r,g,b,a;
-                r = atof(t.tokens[i + 1].c_str());
-                if (r != -1)
-                {
-                    g = atof(t.tokens[i + 2].c_str());
-                    b = atof(t.tokens[i + 3].c_str());
-                    a = atof(t.tokens[i + 4].c_str());
-                    i += 4;
-                }
-                else
-                {
-                    g = b = 0;
-                    a = 1;
-                    i += 1;
-                }
-                vec4 col(r,g,b,a);
-                gmo->uColor(col);
             }
         }
     }

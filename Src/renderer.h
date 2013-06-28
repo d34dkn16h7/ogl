@@ -15,14 +15,14 @@ using namespace std;
 
 class Camera;
 class Program;
-class Geometry;
+class GameObject;
 class Renderer
 {
 private:
     static GLFWwindow* window;
     static Camera *cam;
     static Program *prog;
-    static vector<Geometry*> drawObjects;
+    static vector<GameObject*> drawObjects;
 public:
     static bool Setup(int,int);
     static void PrintRendererInfo();
@@ -30,8 +30,8 @@ public:
     static void Render();
     static void RenderObjects();
 
-    static void RegObject(Geometry*);
-    static void UnRegObject(Geometry*);
+    static void RegObject(GameObject*);
+    static void UnRegObject(GameObject*);
 
     static GLFWwindow* gWindow();
 };

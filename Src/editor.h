@@ -32,8 +32,8 @@ private:
     void RemoveSelection(GameObject*);
     void ClearSelection();
 
-    void aScale(vec3);
-    void aPosition(vec3);
+    void aScale(vec3); /// Add scale to all selected objects
+    void aPosition(vec3); /// Move all selected objects
 
     void MoveCam();
 public:

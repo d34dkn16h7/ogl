@@ -3,51 +3,80 @@
 #include "collider.h"
 #include "gameobject.h"
 
-vector<Physics*> Physics::physics;
+vector<Physics*> Physics::physics; /// List of registered objects
 
-Physics::Physics(GameObject* own) : Component(typeid(this).hash_code() , own) , constForce( vec3(0,0,0) ) , isConst(true)
+Physics::Physics(GameObject* own) :
+    Component(typeid(this).hash_code() , own) , constForce( vec3(0,0,0) )
 {
-    if(owner->nameToken == "player")
-        canPush = true;
-
+    GameObject::AddComponent<Collider>(owner);
     Reg(this);
+    Start();
 }
-Physics::~Physics()
+
+Physics::~Physics() /// Unregister from update list
 {
     UnReg(this);
 }
-void Physics::Start() {}
-void Physics::Update()
+
+void Physics::Start()
+{
+    collider = owner->GetComponent<Collider*>();
+}
+
+void Physics::Move(vec3 val) /// Move by val if not colliding
+{
+    vec3 cPos = owner->transform.gPosition();
+    cPos += val;
+
+    if(collider != nullptr)
+    {
+        if(collider->Intersect(cPos).size() == 0)
+            owner->transform.uPosition(cPos);
+    }
+    else /// Don't have collider so just move
+        owner->transform.uPosition(cPos);
+}
+
+void Physics::AddForce(vec3 val) /// Empty
+{
+}
+
+void Physics::AddConstantForce(vec3 force) /// Add force to constForce
+{
+    constForce += force;
+}
+
+void Physics::Reg(Physics* val) /// Add this object to update vector
+{
+    physics.push_back(val);
+}
+
+void Physics::UnReg(Physics* val)/// Remove this object from update vector
+{
+    for(unsigned int i = 0;i < physics.size();i++)
+        if(physics[i] == val)
+            physics.erase(physics.begin() + i);
+}
+
+void Physics::Update() /// Update this object
 {
     if(owner->isActive)
     {
-        Collider* c = owner->GetComponent<Collider*>();
-        isGrounded = c->isGrounded();
-        Move(constForce);
+        if(collider != nullptr)
+            isGrounded = collider->isGrounded();
+        if(constForce != vec3(0,0,0))
+            Move(constForce);
     }
 }
-void Physics::Move(vec3 val) // fucking shit
+
+void Physics::UpdateAll() /// Send update to all registered objects
 {
-    vec3 cPos = owner->GetPosition();
-    cPos += val;
-    float div = 2.5f;
+    for(Physics* p : physics)
+        p->Update();
+}
 
-    Collider* c = owner->GetComponent<Collider*>();
-    if(c != nullptr)
-    {
-        vector<Collider*> col = c->Intersect(c,owner->GetPosition());
-        if(col.size() != 0 && canPush)
-        {
-            owner->uPosition(cPos);
-            return;
-        }
-
-        col = c->Intersect(c,cPos);
-        if( col.size() == 0)
-        {
-            owner->uPosition(cPos);
-        }
-        else if(canPush)
+/*
+else if(canPush)
         {
             bool canMove = true;
             bool grunded = false;
@@ -76,41 +105,4 @@ void Physics::Move(vec3 val) // fucking shit
             if(canMove)
                 owner->uPosition( owner->GetPosition() + (val / div) );
         }
-    }
-}
-void Physics::AddForce(vec3 val) {}
-void Physics::AddConstantForce(vec3 val)
-{
-    constForce += val;
-}
-void Physics::Reg(Physics* val)
-{
-    physics.push_back(val);
-}
-void Physics::UnReg(Physics* val)
-{
-    for(unsigned int i = 0;i < physics.size();i++)
-        if(physics[i] == val)
-            physics.erase(physics.begin() + i);
-}
-void Physics::UpdateAll()
-{
-    for(Physics* p : physics)
-        p->Update();
-}
-/*if(!c->isGrounded())
-            owner->uPosition(cPos);
-        else // push all down! ... why?
-        {
-            vector<Collider*> col = c->GetGrounded();
-
-            for(Collider* c : col)
-            {
-                Physics* p = (Physics*)c->owner->GetComponent(ComponentType::C_Physics);
-                if( p->isConst ? false : (!p->isGrounded && !isGrounded) )
-                {
-                    p->Move( val );
-                    owner->uPosition(cPos);
-                }
-            }
-        }*/
+*/

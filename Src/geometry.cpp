@@ -3,10 +3,7 @@
 #include "renderer.h"
 
 vector< GData* > Geometry::gData;
-Geometry::~Geometry()
-{
-    Renderer::UnRegObject(this);
-}
+
 void Geometry::Load(string fSrc)
 {
     LoadSatus res = LoadData(fSrc);
@@ -14,8 +11,6 @@ void Geometry::Load(string fSrc)
     {
         if(res != LoadSatus::AlreadyLoaded)
             LinkData();
-        GenerateMatrix();
-        Renderer::RegObject(this);
     }
     else
         throw runtime_error("Can't load model file : " + fSrc);
@@ -61,21 +56,27 @@ LoadSatus Geometry::LoadData(string fSrc)
                 if(type == "f")
                 {
                     file >> f1 >> f2 >> f3;
-                    f1 -= 1;
-                    f2 -= 1;
-                    f3 -= 1;
+                    f1 -= 1;f2 -= 1;f3 -= 1;
                     gPtr->elementary.push_back( (GLuint)f1 );
                     gPtr->elementary.push_back( (GLuint)f2 );
                     gPtr->elementary.push_back( (GLuint)f3 );
                 }
             }
-            //std::cout << fSrc << " : Loaded" << std::endl;
             gData.push_back(gPtr);
             return LoadSatus::Loaded;
         }
         else return LoadSatus::Fail;
     }
     return LoadSatus::AlreadyLoaded;
+}
+void Geometry::LoadTexture(string imgPath)
+{
+    if(gPtr != nullptr)
+    {
+        gPtr->texture = SOIL_load_OGL_texture(imgPath.c_str(),SOIL_LOAD_AUTO,SOIL_CREATE_NEW_ID,SOIL_FLAG_INVERT_Y);
+        if (0 == gPtr->texture)
+            cout << "SOIL loading error: " <<  SOIL_last_result() << endl;
+    }
 }
 void Geometry::LinkData()
 {
@@ -99,48 +100,6 @@ void Geometry::LinkData()
     glVertexAttribPointer( posAttrib, 3, GL_FLOAT, GL_FALSE, 0, NULL );
     glEnableVertexAttribArray( posAttrib );
 }
-void Geometry::GenerateMatrix()
-{
-    modelMatrix = translate(mat4(1.0),position);
-    modelMatrix *= rotate(mat4(1.0),rotation.x , vec3(0,1,0));
-    modelMatrix *= rotate(mat4(1.0),rotation.y , vec3(1,0,0));
-    modelMatrix *= scale(mat4(1.0),vScale);
-}
-//GET
-void Geometry::uPosition(vec3 val)
-{position = val;GenerateMatrix();}
-
-void Geometry::aPosition(vec3 val)
-{position += val;GenerateMatrix();}
-
-void Geometry::uRotate(vec3 val)
-{rotation = val;GenerateMatrix();}
-
-void Geometry::aRotate(vec3 val)
-{rotation += val;GenerateMatrix();}
-
-void Geometry::uScale(vec3 val)
-{vScale = val;GenerateMatrix();}
-
-void Geometry::uScale(float val)
-{vScale = vec3(val,val,val);GenerateMatrix();}
-
-void Geometry::aScale(vec3 val)
-{vScale += val;GenerateMatrix();}
-
-void Geometry::aScale(float val)
-{vScale += vec3(val,val,val);GenerateMatrix();}
-
-void Geometry::uColor(vec4 val)
-{color = val;}
-//GET
-
-vec3 Geometry::GetPosition() const {return position;}
-vec3 Geometry::GetRotation() const {return rotation;}
-vec3 Geometry::GetScale() const {return vScale;}
-vec4 Geometry::GetColor() const {return color;}
-
-mat4 Geometry::GetModelMatrix() const {return modelMatrix;}
 
 // GData
 int GData::GetEdges() const {return elementary.size();}

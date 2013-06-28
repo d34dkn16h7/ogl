@@ -8,30 +8,34 @@
 using namespace std;
 using namespace glm;
 
+class Collider;
 class GameObject;
 class Physics : public Component
 {
 private:
-    static vector<Physics*> physics;
-    vec3 constForce;
+    static vector<Physics*> physics; /// List of registered objects
 
-    bool canPush;
-    bool isGrounded;
+    vec3 constForce; /// Const aplied force
+
+
+    bool canPush; /// Can push?
+    bool canBePushed; /// Can be pushed?
+    bool isGrounded; /// Is grounded? Setted by collider in update
+    Collider* collider; /// Local bounded collider
 public:
-    bool isConst;
-
     Physics(GameObject*);
-    virtual ~Physics();
+    virtual ~Physics(); /// Call UnReg()
     void Start();
-    void Update();
 
-    void Move(vec3);
+    void Move(vec3); /// Move by vec3 if not colliding
     void AddForce(vec3);
     void AddConstantForce(vec3);
 
-    static void Reg(Physics*);
-    static void UnReg(Physics*);
-    static void UpdateAll();
+    void Update(); /// Update this object
+    static void UpdateAll(); /// Send update to all registered objects
+
+    static void Reg(Physics*); /// Add this object to update vector
+    static void UnReg(Physics*); /// Remove this object from update vector
 };
 
 #endif // PHYSICS_H
