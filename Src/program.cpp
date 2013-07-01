@@ -23,7 +23,7 @@ Program::Program(string vShaderSrc ,string fShaderSrc ,string progName) /// Cons
 GLuint Program::CompileShader(GLuint& trg,GLuint type,string shaderSrc) /// Compile Shader
 {
     trg = glCreateShader(type);
-    string source =  Tools::File::tLoadFile(shaderSrc);
+    string source =  Tools::File::LoadFile(shaderSrc);
     const char* src = source.c_str();
     glShaderSource(trg,1,&src,NULL);
     glCompileShader(trg);

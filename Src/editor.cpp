@@ -77,7 +77,7 @@ void Editor::PutObject()
     vec3 nPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;
     edit->transform.uPosition(nPos);
-    targetMap->Put(edit);
+    targetMap->Reg(edit);
     UpdateSelection(edit);
 }
 void Editor::DeleteObject()

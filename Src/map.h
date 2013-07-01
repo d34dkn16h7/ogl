@@ -17,14 +17,13 @@ class Map
 {
 private:
     vector<GameObject*> data;
-    void MakeMap(string);
-    bool isObject(string);
+    bool isObject( string);
 public:
-    static Map* ins;
-    void LoadMap(string);
-    void SaveMap(string);
-    void Put(GameObject*);
-    void Pop(GameObject*);
+    static Map* ins; /// Current map instance
+    void LoadMap( string); /// Load and construct gameObjects by .mp file
+    void SaveMap( string); /// Save map file
+    void Reg( GameObject*); /// Register gameObject to map
+    void UnReg( GameObject*); /// Remove gameObject form map
 };
 
 #endif // MAP_H

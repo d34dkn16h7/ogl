@@ -11,7 +11,7 @@ Camera* Renderer::cam;
 Program* Renderer::prog;
 vector<GameObject*> Renderer::drawObjects;
 
-void Renderer::Render() /// Call All Render Func's
+void Renderer::Render() /// Call all render functions
 {
     glClearColor(0,0,0,1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -21,7 +21,7 @@ void Renderer::Render() /// Call All Render Func's
     glfwSwapBuffers( window );
 }
 
-void Renderer::RenderObjects() /// Render All Objects
+void Renderer::RenderObjects() /// Render all objects
 {
     int edges = 0;
     GLenum type = GL_TRIANGLES;
@@ -100,7 +100,7 @@ bool Renderer::Setup(int w,int h) /// Setup GLFW - GLEW + Window + Shaders
     return true;
 }
 
-void Renderer::PrintRendererInfo() /// Print Main Info
+void Renderer::PrintRendererInfo() /// Print main info
 {
     int iOpenGLMajor = glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MAJOR);
     int iOpenGLMinor = glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MINOR);
@@ -110,12 +110,12 @@ void Renderer::PrintRendererInfo() /// Print Main Info
     cout << "Status: GLEW Version " << glewGetString(GLEW_VERSION) << endl;
 }
 
-void Renderer::RegObject(GameObject *obj) /// Register GameObject to Draw Vector
+void Renderer::RegObject(GameObject *obj) /// Register gameObject to draw
 {
     drawObjects.push_back(obj);
 }
 
-void Renderer::UnRegObject(GameObject *obj) /// Remove GameObject from Draw Vector
+void Renderer::UnRegObject(GameObject *obj) /// Remove gameObject from draw
 {
     for(unsigned int i = 0;i < drawObjects.size();i++)
         if(drawObjects[i] == obj)

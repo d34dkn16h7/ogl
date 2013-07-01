@@ -51,6 +51,7 @@
 		<Unit filename="Src/component.h" />
 		<Unit filename="Src/editor.cpp" />
 		<Unit filename="Src/editor.h" />
+		<Unit filename="Src/file.cpp" />
 		<Unit filename="Src/game.cpp" />
 		<Unit filename="Src/game.h" />
 		<Unit filename="Src/gameObject.cpp" />
@@ -70,7 +71,8 @@
 		<Unit filename="Src/program.h" />
 		<Unit filename="Src/renderer.cpp" />
 		<Unit filename="Src/renderer.h" />
-		<Unit filename="Src/tools.cpp" />
+		<Unit filename="Src/str.cpp" />
+		<Unit filename="Src/token.cpp" />
 		<Unit filename="Src/tools.h" />
 		<Unit filename="Src/transform.h" />
 		<Extensions>

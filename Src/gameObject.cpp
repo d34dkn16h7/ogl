@@ -18,14 +18,14 @@ GameObject::GameObject(string pref) : isActive(true)
 
 GameObject::~GameObject()
 {
-    Map::ins->Pop(this);
+    Map::ins->UnReg(this);
     Renderer::UnRegObject(this);
     DestroyComponents();
 }
 
 void GameObject::LoadPrefab() /// Load prefab by nameToken
 {
-    Tools::Token token( Tools::File::tLoadFile(DataDir + nameToken + ".pref") );
+    Tools::Token token( Tools::File::LoadFile(DataDir + nameToken + ".pref") );
 
     while(token.Next() != "#endToken")
     {
