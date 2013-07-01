@@ -74,11 +74,6 @@ void Editor::PutObject()
 
     GameObject* edit = new GameObject();
     edit->isActive = false;
-
-    Physics* p = edit->GetComponent<Physics*>();
-    if(p != nullptr)
-        p->AddConstantForce( vec3(0,-.001f,0) );
-
     vec3 nPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;
     edit->transform.uPosition(nPos);

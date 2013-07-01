@@ -1,5 +1,4 @@
 #include "game.h"
-
 /*
 Global Lists:
     Renderer -> drawList (geo)

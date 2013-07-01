@@ -43,52 +43,27 @@ void Map::MakeMap(string strData)
     strData = Tools::Str::RemoveFormat(strData);
     Tools::Token t(strData);
     GameObject *gmo = nullptr;
-    for(unsigned int i = 0;i < t.tokens.size() ;i++)
-    {
-        string token = t.tokens[i];
 
-        if(isObject(token))
+    while( t.Next() != "#endToken" )
+    {
+        if(isObject( t.Current() )) /// Make object?
         {
-            gmo = new GameObject(token);
+            gmo = new GameObject(t.Current());
             data.push_back( (gmo) );
         }
-
-        if(gmo != nullptr)
+        else if(gmo != nullptr) /// Property if not empty object?
         {
-            if(token == "onControl")
+            if(t.Current() == "onControl" )
                 Game::onControl = gmo;
+            else if(t.Current() == "pos" )
+                gmo->transform.uPosition( t.GetNVec3() );
+            else if(t.Current() == "rot" )
+                gmo->transform.uRotation( t.GetNVec3() );
+            else if(t.Current() == "scale" )
+                gmo->transform.uScale( t.GetNVec3() );
 
-            if(token == "pos")
-            {
-                float x,y,z;
-                x = atof(t.tokens[i + 1].c_str());
-                y = atof(t.tokens[i + 2].c_str());
-                z = atof(t.tokens[i + 3].c_str());
-                vec3 v(x,y,z);
-                gmo->transform.uPosition(v);
-                i += 3;
-            }
-            if(token == "rot")
-            {
-                float x,y,z;
-                x = atof(t.tokens[i + 1].c_str());
-                y = atof(t.tokens[i + 2].c_str());
-                z = atof(t.tokens[i + 3].c_str());
-                vec3 v(x,y,z);
-                gmo->transform.uRotation(v);
-                i += 3;
-            }
-            if(token == "scale")
-            {
-                float x,y,z;
-                x = atof(t.tokens[i + 1].c_str());
-                y = atof(t.tokens[i + 2].c_str());
-                z = atof(t.tokens[i + 3].c_str());
-                vec3 v(x,y,z);
-                gmo->transform.uScale(v);
-                i += 3;
-            }
         }
+
     }
 }
 bool Map::isObject(string token) //hard-coded vals? fuck no!

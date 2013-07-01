@@ -4,7 +4,6 @@
 #include <glm/glm.hpp>
 #include <stdexcept>
 #include <iostream>
-#include <stdlib.h>
 #include <fstream>
 #include <sstream>
 #include <string>

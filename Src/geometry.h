@@ -45,12 +45,12 @@ private:
     GData* Find(string);
 
     void LinkData();
-    LoadSatus LoadData(string);
 public:
+    string fileToken;
     string nameToken;
     GData* gPtr = nullptr;
 
-    void Load(string);
+    void Load(string,string);
     void LoadTexture(string);
 };
 #endif // GEOMETRY_H

@@ -64,11 +64,15 @@
 		<Unit filename="Src/map.h" />
 		<Unit filename="Src/physics.cpp" />
 		<Unit filename="Src/physics.h" />
+		<Unit filename="Src/prefab.cpp" />
+		<Unit filename="Src/prefab.h" />
 		<Unit filename="Src/program.cpp" />
 		<Unit filename="Src/program.h" />
 		<Unit filename="Src/renderer.cpp" />
 		<Unit filename="Src/renderer.h" />
+		<Unit filename="Src/tools.cpp" />
 		<Unit filename="Src/tools.h" />
+		<Unit filename="Src/transform.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

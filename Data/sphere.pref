@@ -1,5 +1,4 @@
 model Sphere.obj
 texture head.png
 scale 1 1 1
-position 0 -.5 0
 physics

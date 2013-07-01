@@ -16,26 +16,28 @@ class Component;
 class GameObject : public Geometry
 {
 private:
-    vector<Component*> components;
-    void LoadPrefab(string);
+    vector<Component*> components; /// All components
+    void LoadPrefab(); /// Load prefab by nameToken
 public:
     bool isActive;
-    Transform transform;
+    Transform transform; /// Position,Rotation,Scale
     GameObject(string = "cube");
     virtual ~GameObject();
 
-
-    template <typename compType> void AddComponent()
+    template <typename compType>
+    void AddComponent() /// Add Component to this object
     {
         components.push_back( new compType(this) );
     }
 
-    template <typename compType> static void AddComponent(GameObject* gmo)
+    template <typename compType>
+    static void AddComponent(GameObject* gmo) /// Add Component to object
     {
         gmo->components.push_back( new compType(gmo) );
     }
 
-    template <typename compType> compType GetComponent()
+    template <typename compType>
+    compType GetComponent() /// Get Component
     {
         for(auto c : components)
             if(c->GetType() == typeid(compType).hash_code() )
@@ -44,7 +46,7 @@ public:
         return nullptr;
     }
 
-    void DestroyComponents();
+    void DestroyComponents(); /// Delete all components
 };
 
 #endif // GAMEOBJECT_H

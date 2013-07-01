@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <stdexcept>
 #include <iostream>
+#include <stdlib.h>
+#include <cstdlib>
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -64,7 +66,6 @@ namespace Tools
                 while(!file.eof())
                 {
                     int val = file.get();
-
                     if(val != -1)
                         whole += val;
                 }
@@ -72,7 +73,6 @@ namespace Tools
             }
             else
             {
-                //throw  runtime_error("Can't Read File " + fSrc);
                 return "";
             }
         }
@@ -81,17 +81,28 @@ namespace Tools
             fstream file(fSrc.c_str(),std::fstream::trunc | std::fstream::out);
             if(file.is_open())
             {
-                file << sData;file.close();
+                file << sData;
+                file.close();
             }
             else
-            {
                 throw  runtime_error("Can't Read File " + fSrc);
-            }
         }
     };
     class Str
     {
     public:
+        static bool isNum(const string str)
+        {
+            bool val = true;
+
+            for(char c : str)
+                if(!isdigit(c))
+                    if(c != '.' && c != '-')
+                        val = false;
+
+            return val;
+        }
+
         static void AddHashStreamVec3( stringstream& stream, string hVal, vec3 val, int flag)
         {
             stream << "\t"<< hVal << " " << val.x << " " << val.y << " " << val.z;
@@ -114,7 +125,7 @@ namespace Tools
 
             return nVal;
         }
-        static string RemoveFormat(const string val)
+        static string RemoveFormat(const string& val)
         {
             string nVal = "";
 
@@ -126,14 +137,14 @@ namespace Tools
 
             return nVal;
         }
-        static void PrintAscii(const string val)
+        static void PrintAscii(const string& val)
         {
             for (int i : val)
             {
                 cout << i << " . ";
             }
         }
-        static void PrintAsciiF(const string val)
+        static void PrintAsciiF(const string& val)
         {
             for (int i : val)
             {
@@ -144,7 +155,7 @@ namespace Tools
                     cout << endl;
             }
         }
-        static string removeChar(const string val,char c)
+        static string removeChar(const string& val,char c)
         {
             string nVal = "";
             for( int i : val)
@@ -157,64 +168,26 @@ namespace Tools
     class Token
     {
     private:
+        unsigned int indexer;
         string raw;
+        void MakeToken(); /// Based on space | tab | new line
     public:
         vector<string> tokens;
-        Token(string val)
-        {
-            raw = val;
-            TokenizerSpaceTEST();//PrintTokens();
-        }
-        void TokenizerTEST()
-        {
-            string cVal = "";
-            for (unsigned char ch : raw)
-            {
-                if(ch == ':')
-                {
-                    if(cVal != "")
-                    {
-                        tokens.push_back(cVal);
-                        cVal = "";
-                    }
-                }
-                else if(ch != '{' && ch != '}' && ch != ' ')
-                    cVal += ch;
-            }
-        }
-        void TokenizerSpaceTEST()
-        {
-            string cVal = "";
-            bool isSkipping = false;
-            for (unsigned char ch : raw)
-            {
 
-                if(ch == '#')
-                {
-                    isSkipping = !isSkipping;
-                }
+        Token(string val) : raw(val) , indexer(0)
+            {MakeToken();}
 
-                if(isSkipping) {}
-                else if(ch == ' ')
-                {
-                    if(cVal != "")
-                    {
-                        tokens.push_back(cVal);
-                        cVal = "";
-                    }
-                }
-                else
-                {
-                    if(ch != '#' && ch != ' ' && ch != 9)
-                        cVal += ch;
-                }
-            }
-        }
-        void PrintTokens()
-        {
-            for(string val : tokens)
-                cout << val << endl;
-        }
+        string Next(); /// Return next token and update current token
+        string Peek(int); /// Return indexer + i token
+        string Current(); /// Return current token
+
+        bool CanGNum();
+        bool CanGVec2();
+        bool CanGVec3();
+
+        vec2 GetNVec2();
+        vec3 GetNVec3();
+        void PrintTokens();
     };
 }
 #endif // TOOLS_H

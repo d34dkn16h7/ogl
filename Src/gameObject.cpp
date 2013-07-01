@@ -2,15 +2,17 @@
 #include "renderer.h"
 #include "collider.h"
 #include "physics.h"
+#include "prefab.h"
+#include "tools.h"
 #include "map.h"
 #include <iostream>
 
-
 const static string DataDir = "Data/";
+
 GameObject::GameObject(string pref) : isActive(true)
 {
     nameToken = pref;
-    LoadPrefab(pref);
+    LoadPrefab();
     Renderer::RegObject(this);
 }
 
@@ -21,47 +23,28 @@ GameObject::~GameObject()
     DestroyComponents();
 }
 
-void GameObject::LoadPrefab(string fName)
+void GameObject::LoadPrefab() /// Load prefab by nameToken
 {
-    string fScr = DataDir + fName + ".pref";
-    fstream file(fScr.c_str());
-    if(file.is_open())
+    Tools::Token token( Tools::File::tLoadFile(DataDir + nameToken + ".pref") );
+
+    while(token.Next() != "#endToken")
     {
-        while(!file.eof())
+        if(token.Current() == "model")
+            Load( DataDir + token.Next() , nameToken);
+        else if(token.Current() == "texture")
         {
-            string input,sVal;
-            file >> input;
-            if(input == "model")
-            {
-                file >> sVal;
-                Load( DataDir + sVal);
-            }
-            else if(input == "texture")
-            {
-                file >> sVal;
-                if(gPtr != nullptr && sVal != "null")
-                    LoadTexture( DataDir + "Textures/" + sVal);
-            }
-            else if(input == "scale")
-            {
-                vec3 tPos;
-                file >> tPos.x >> tPos.y >> tPos.z;
-                transform.uScale(tPos);
-            }
-            else if(input == "position")
-            {
-                vec3 tPos;
-                file >> tPos.x >> tPos.y >> tPos.z;
-                transform.uPosition(tPos);
-            }
-            else if(input == "physics")
-                AddComponent<Physics>();
+            if(gPtr != nullptr && token.Peek(1) != "null")
+                LoadTexture( DataDir + "Textures/" + token.Next());
+
         }
+        else if(token.Current() == "physics")
+            AddComponent<Physics>();
+        else if(token.Current() == "scale")
+                transform.uScale(token.GetNVec3());
     }
-    else
-        throw runtime_error("Can't read prefab file");
 }
-void GameObject::DestroyComponents()
+
+void GameObject::DestroyComponents() /// Delete all components
 {
     for(Component* c : components)
         delete c;
