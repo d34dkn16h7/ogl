@@ -6,9 +6,21 @@
 
 using namespace glm;
 
+class Transformable
+{
+private:
+public:
+    //virtual void MoveUpdate();
+    //virtual void RotationUpdate();
+    //virtual void ScaleUpdate();
+    virtual void GenerateMatrix();
+};
+
 class Transform
 {
 private:
+    Transformable* parent = nullptr;
+
     vec3 mPosition = vec3(0,0,0);
     vec3 mRotation = vec3(0,0,0);
     vec3 mScale = vec3(1,1,1);
@@ -20,23 +32,29 @@ private:
         mMatrix *= rotate(mat4(1.0),mRotation.x , vec3(0,1,0));
         mMatrix *= rotate(mat4(1.0),mRotation.y , vec3(1,0,0));
         mMatrix *= scale(mat4(1.0),mScale);
+
+        if(parent != nullptr)
+            parent->GenerateMatrix();
     }
 public:
     Transform()
         {MakeMatrix();}
+    Transform(Transformable* t) : parent(t)
+        {MakeMatrix();}
+
     /// Add
-    void aPosition(vec3 val)
+    void aPosition(const vec3& val)
         {mPosition += val;MakeMatrix();}
-    void aRotation(vec3 val)
+    void aRotation(const vec3& val)
         {mRotation += val;MakeMatrix();}
-    void aScale(vec3 val)
+    void aScale(const vec3& val)
         {mScale += val;MakeMatrix();}
     /// Set
-    void uPosition(vec3 val)
+    void uPosition(const vec3& val)
         {mPosition = val;MakeMatrix();}
-    void uRotation(vec3 val)
+    void uRotation(const vec3& val)
         {mRotation = val;MakeMatrix();}
-    void uScale(vec3 val)
+    void uScale(const vec3& val)
         {mScale = val;MakeMatrix();}
     /// Get
     vec3 gPosition() const

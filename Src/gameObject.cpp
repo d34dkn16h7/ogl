@@ -2,16 +2,15 @@
 #include "renderer.h"
 #include "collider.h"
 #include "physics.h"
-#include "prefab.h"
 #include "tools.h"
 #include "map.h"
 #include <iostream>
 
 const static string DataDir = "Data/";
 
-GameObject::GameObject(string pref) : isActive(true)
+GameObject::GameObject(string prefName) : isActive(true)
 {
-    nameToken = pref;
+    nameToken = prefName;
     LoadPrefab();
     Renderer::RegObject(this);
 }
@@ -23,9 +22,9 @@ GameObject::~GameObject()
     DestroyComponents();
 }
 
-void GameObject::LoadPrefab() /// Load prefab by nameToken
+void GameObject::LoadPrefab() /// Load and make prefab by nameToken
 {
-    Tools::Token token( Tools::File::LoadFile(DataDir + nameToken + ".pref") );
+    Tools::Token token( DataDir + nameToken + ".pref" , nameToken);
 
     while(token.Next() != "#endToken")
     {
@@ -35,12 +34,11 @@ void GameObject::LoadPrefab() /// Load prefab by nameToken
         {
             if(gPtr != nullptr && token.Peek(1) != "null")
                 LoadTexture( DataDir + "Textures/" + token.Next());
-
         }
         else if(token.Current() == "physics")
             AddComponent<Physics>();
         else if(token.Current() == "scale")
-                transform.uScale(token.GetNVec3());
+            transform.uScale(token.GetNVec3());
     }
 }
 

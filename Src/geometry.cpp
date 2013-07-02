@@ -37,9 +37,7 @@ void Geometry::Load(string fSrc,string name) /// Load .obj model
                 if(type == "f")
                 {
                     file >> f1 >> f2 >> f3;
-                    f1 -= 1;
-                    f2 -= 1;
-                    f3 -= 1;
+                    f1 -= 1;f2 -= 1;f3 -= 1;
                     gPtr->elementary.push_back( (GLuint)f1 );
                     gPtr->elementary.push_back( (GLuint)f2 );
                     gPtr->elementary.push_back( (GLuint)f3 );
@@ -80,20 +78,16 @@ void Geometry::LinkData() /// Link VAO + VBO + EBO
 
     glGenBuffers( 1, &gPtr->vbo );
     glBindBuffer( GL_ARRAY_BUFFER , gPtr->vbo );
-    glBufferData( GL_ARRAY_BUFFER ,
-                  (gPtr->verticles.size() * sizeof(gPtr->verticles[0])),
-                  &gPtr->verticles[0],GL_STATIC_DRAW);
+    glBufferData( GL_ARRAY_BUFFER , (gPtr->verticles.size() * sizeof(gPtr->verticles[0])), &gPtr->verticles[0],GL_STATIC_DRAW);
 
     glGenBuffers(1,&gPtr->ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gPtr->ebo);
+    glBufferData( GL_ELEMENT_ARRAY_BUFFER , (gPtr->elementary.size() * sizeof(gPtr->elementary[0])), &gPtr->elementary[0],GL_STATIC_DRAW);
 
-    glBufferData( GL_ELEMENT_ARRAY_BUFFER ,
-                  (gPtr->elementary.size() * sizeof(gPtr->elementary[0])),
-                  &gPtr->elementary[0],GL_STATIC_DRAW);
+    GLuint vertAttrib = Program::GetProgramIns("Model")->gAttrib("vert");
 
-    GLint posAttrib = glGetAttribLocation( Program::GetProgram("Model"), "vert" );
-    glVertexAttribPointer( posAttrib, 3, GL_FLOAT, GL_FALSE, 0, NULL );
-    glEnableVertexAttribArray( posAttrib );
+    glEnableVertexAttribArray( vertAttrib );
+    glVertexAttribPointer( vertAttrib , 3, GL_FLOAT, GL_FALSE, 0, NULL );
 }
 
 // GData

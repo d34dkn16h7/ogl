@@ -17,24 +17,19 @@ class GameObject : public Geometry
 {
 private:
     vector<Component*> components; /// All components
-    void LoadPrefab(); /// Load prefab by nameToken
+    void LoadPrefab(); /// Load and make prefab by nameToken
 public:
     bool isActive;
     Transform transform; /// Position,Rotation,Scale
+
     GameObject(string = "cube");
     virtual ~GameObject();
 
-    template <typename compType>
-    void AddComponent() /// Add Component to this object
-    {
-        components.push_back( new compType(this) );
-    }
+    template <typename compType> void AddComponent() /// Add Component to this object
+        {components.push_back( new compType(this) );}
 
-    template <typename compType>
-    static void AddComponent(GameObject* gmo) /// Add Component to object
-    {
-        gmo->components.push_back( new compType(gmo) );
-    }
+    template <typename compType> static void AddComponent(GameObject* gmo) /// Add Component to object
+        {gmo->components.push_back( new compType(gmo) );}
 
     template <typename compType>
     compType GetComponent() /// Get Component

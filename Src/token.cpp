@@ -2,10 +2,42 @@
 
 using namespace Tools;
 
-Token::Token(const string& rToken)
+vector<Token*> Token::loadedTokens;
+
+Token::Token( Token* t) /// Stor constructor
+{
+    raw = t->gRaw();
+    key = t->gKey();
+}
+
+Token::Token(const string& rToken) /// Throw away token
 {
     raw = rToken;
     MakeToken();
+}
+
+Token::Token(const string& fileName , string fKey) /// Stored by key token
+    : key(fKey)
+{
+    Token* t = Find(key);
+    if(t == nullptr)
+    {
+        raw = File::LoadFile(fileName);
+        loadedTokens.push_back( new Token(this) );
+    }
+    else
+        raw = t->gRaw();
+
+    MakeToken();
+}
+
+Token* Token::Find(string fKey)
+{
+    for(Token* t : loadedTokens)
+        if(t->gKey() == fKey)
+            return t;
+
+    return nullptr;
 }
 
 void Token::MakeToken() /// Based on space | tab | new line
@@ -61,7 +93,7 @@ string Token::Current() /// Return current token
     return tokens[indexer];
 }
 
-vec2 Token::GetNVec2()
+vec2 Token::GetNVec2() /// Return vec2 based on next 2 tokens
 {
     vec2 tVec(0,0);
 
@@ -74,7 +106,7 @@ vec2 Token::GetNVec2()
     return tVec;
 }
 
-vec3 Token::GetNVec3()
+vec3 Token::GetNVec3() /// Return vec3 based on next 3 tokens
 {
     vec3 tVec(0,0,0);
 
@@ -88,21 +120,35 @@ vec3 Token::GetNVec3()
     return tVec;
 }
 
-bool Token::CanGNum()
+bool Token::CanGNum() /// Is next token numeric
 {
     return Str::isNum( Peek(1) );
 }
 
-bool Token::CanGVec2()
+bool Token::CanGVec2() /// Is next 2 token numeric
 {
     return (CanGNum() && Str::isNum( Peek(2) ));
 }
 
-bool Token::CanGVec3()
+bool Token::CanGVec3() /// Is next 3 token numeric
 {
     return (CanGVec2() && Str::isNum( Peek(3) ));
 }
 
+string Token::gRaw()
+{
+    return raw;
+}
+
+string Token::gKey()
+{
+    return key;
+}
+
+void Token::Reset() /// Reset for next use
+{
+    indexer = 0;
+}
 
 void Token::PrintTokens() /// Print all tokens
 {

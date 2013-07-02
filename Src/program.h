@@ -35,6 +35,8 @@ public:
     void SetUniform(const string&,const vec4&);
     void SetUniform(const string&,const mat4&);
 
+    GLuint gAttrib(string);
+
     static void Use(bool,string);
     static GLuint& GetProgram(string);
     static Program* GetProgramIns(string);

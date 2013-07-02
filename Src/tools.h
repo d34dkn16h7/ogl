@@ -52,12 +52,14 @@ namespace Tools
             yma += val.y;
         }
     };
+
     class File
     {
     public:
         static string LoadFile( string);
         static void SaveFile( const string&, const string&);
     };
+
     class Str
     {
     public:
@@ -66,28 +68,41 @@ namespace Tools
         static void AddHashStreamVec4( stringstream&, string, vec4);
         static string ClearWhiteSpaces( const string&);
     };
+
     class Token
     {
     private:
+        static vector<Token*> loadedTokens;
+
         unsigned int indexer = 0;
         string raw; /// Raw source string
+        string key; /// Retrieve key for token
+
+        Token* Find(string);
         void MakeToken(); /// Based on space | tab | new line
     public:
         vector<string> tokens;
 
+        Token( Token*);
         Token( const string&);
+        Token( const string&, string); /// Register this by tId
 
         string Next(); /// Return next token and update current token
         string Peek( int); /// Return indexer + i token
         string Current(); /// Return current token
 
-        bool CanGNum();
-        bool CanGVec2();
-        bool CanGVec3();
+        bool CanGNum(); /// Is next token numeric
+        bool CanGVec2(); /// Is next 2 token numeric
+        bool CanGVec3(); /// Is next 3 token numeric
 
-        vec2 GetNVec2();
-        vec3 GetNVec3();
-        void PrintTokens();
+        vec2 GetNVec2(); /// Return vec2 based on next 2 tokens
+        vec3 GetNVec3(); /// Return vec3 based on next 3 tokens
+
+        string gRaw();
+        string gKey();
+
+        void Reset(); /// Reset for next use
+        void PrintTokens(); /// Print all tokens
     };
 }
 #endif // TOOLS_H

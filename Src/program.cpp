@@ -85,6 +85,11 @@ void Program::SetUniform(const string& name,const mat4& matrix) /// Set Uniform 
     Use(false);
 }
 
+GLuint Program::gAttrib(string attribName)
+{
+    return glGetAttribLocation( prog , attribName.c_str() );
+}
+
 void Program::Use(bool val) /// Member-Func Use
 {
     if(val)

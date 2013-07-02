@@ -94,7 +94,7 @@ vec2 Input::ScreenToWorld2d()
 }
 vec3 Input::ScreenToWorld3d()
 {
-    float camZ = Camera::MainCamera->GetPosition().z;
+    float camZ = Camera::MainCamera->transform.gPosition().z;
     vec3 val = vec3(ScreenToWorld2d(),0);
     vec3 mult(camZ,camZ / Camera::MainCamera->GetAspectRatio(),0);
     val *= mult;

@@ -34,12 +34,12 @@ void Editor::Update()
         mode = EditMode::ColorEdit;   // Empty
 
     if(Input::mouseWDelta.y != 0)
-        Camera::MainCamera->aPosition( vec3(0,0,Input::mouseWDelta.y * -.4f) );
+        Camera::MainCamera->transform.aPosition( vec3(0,0,Input::mouseWDelta.y * -.4f) );
 }
 void Editor::Edit()
 {
     vec2 val = Input::mouseDelta;
-    float camZ = Camera::MainCamera->GetPosition().z;
+    float camZ = Camera::MainCamera->transform.gPosition().z;
 
     switch (mode)
     {
@@ -74,7 +74,7 @@ void Editor::PutObject()
 
     GameObject* edit = new GameObject();
     edit->isActive = false;
-    vec3 nPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
+    vec3 nPos = vec3 ( Camera::MainCamera->transform.gPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;
     edit->transform.uPosition(nPos);
     targetMap->Reg(edit);
@@ -89,7 +89,7 @@ void Editor::DeleteObject()
 }
 void Editor::SelectObjects()
 {
-    vec3 gPos = vec3 ( Camera::MainCamera->GetPosition() + Input::ScreenToWorld3d());
+    vec3 gPos = vec3 ( Camera::MainCamera->transform.gPosition() + Input::ScreenToWorld3d());
     gPos.z = 0;
 
     if(!isMultyEdit)
@@ -156,13 +156,13 @@ void Editor::aScale(vec3 val)
 }
 void Editor::MoveCam()
 {
-    float camZ = Camera::MainCamera->GetPosition().z;
+    float camZ = Camera::MainCamera->transform.gPosition().z;
     vec2 val = Input::mouseDelta;
     if(camZ < 0)
         camZ = (-camZ);
     val *= (camZ * .002f);
     val.x = -val.x;
-    Camera::MainCamera->aPosition(vec3(val.x,val.y,0));
+    Camera::MainCamera->transform.aPosition(vec3(val.x,val.y,0));
 }
 bool Editor::isSelected(GameObject* val)
 {
