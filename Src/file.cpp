@@ -2,25 +2,23 @@
 
 using namespace Tools;
 
-string File::LoadFile(string fileName)
+string File::LoadFile(const string& fileName)
 {
-    string whole;
+    string whole = "";
     fstream file(fileName.c_str());
     if(file.is_open())
     {
         while(!file.eof())
         {
-            int val = file.get();
-            if(val != -1)
-                whole += val;
+            int ch = file.get();
+            if(ch != -1)
+                whole += ch;
         }
-        return whole;
     }
     else
-    {
         cout << "Can't read file : " + fileName << endl;
-        return "";
-    }
+
+    return whole;
 }
 void File::SaveFile(const string& fileName,const string& data)
 {
@@ -30,5 +28,6 @@ void File::SaveFile(const string& fileName,const string& data)
         file << data;
         file.close();
     }
-    cout << "Can't save file : " + fileName << endl;
+    else
+        cout << "Can't save file : " + fileName << endl;
 }

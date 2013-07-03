@@ -25,15 +25,14 @@ void Physics::Start()
 
 void Physics::Move(vec3 val) /// Move by val if not colliding
 {
-    vec3 cPos = owner->transform.gPosition();
-    cPos += val;
+    vec3 cPos = owner->transform.gPosition() + val;
 
     if(collider != nullptr)
     {
         if(collider->Intersect(cPos).size() == 0)
             owner->transform.uPosition(cPos);
     }
-    else /// Don't have collider so just move
+    else /// Don't have collider so just move*/
         owner->transform.uPosition(cPos);
 }
 

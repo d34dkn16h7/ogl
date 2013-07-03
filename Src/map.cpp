@@ -63,7 +63,7 @@ void Map::SaveMap(string tFile) /// Save map file
 
 bool Map::isObject(string token) /// Hard-coded vals? fuck no!
 {
-    if(token == "cube" || token == "tris" || token == "sphere" || token == "player")
+    if(token == "cube" || token == "tris" || token == "icosphere" || token == "player")
         return true;
 
     return false;

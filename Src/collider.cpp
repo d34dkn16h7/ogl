@@ -8,11 +8,9 @@ Collider::Collider(GameObject* own) :
     Collider(own , Rect(1,1) ) {}
 
 Collider::Collider(GameObject* own , Rect r) :
-    Component(typeid(this).hash_code() , own) , rect(r)
+    Component(typeid(this).hash_code() , own)
 {
-    if(owner->nameToken == "player") // shit
-        rect = Rect(1,4);
-
+    mRect = rect = r;
     colliders.push_back(this);
 }
 
@@ -21,6 +19,20 @@ Collider::~Collider()
     for(unsigned int i = 0; i < colliders.size(); i++)
         if(colliders[i] == this)
             colliders.erase(colliders.begin() + i);
+}
+
+void Collider::sSize(Rect r)
+{
+    mRect = rect = r;
+}
+
+void Collider::sOffset(vec3 offset)
+{
+    cout << "from : " << rect.ymi << endl;
+    cout << "from : " << rect.yma << endl;
+    rect.AddOffset(offset);
+    cout << "to : " << rect.ymi << endl;
+    cout << "to : " << rect.yma << endl;
 }
 
 float Collider::GetSize() /// Useless
@@ -49,12 +61,11 @@ vector<GameObject*> Collider::GetAll(vec3 pos) /// Get all colliders who intesec
     for(Collider* c : colliders)
     {
         Rect r( c->rect );
-        r.Scale( c->owner->transform.gScale() );
-        r.AddOffset(pos);
-        vec3 oPos = c->owner->transform.gPosition();
+        r.Scale( c->owner->transform.gScale());
+        r.AddOffset( c->owner->transform.gPosition());
 
-        if( oPos.x > r.xmi && oPos.x < r.xma )
-            if( oPos.y > r.ymi && oPos.y < r.yma )
+        if( pos.x > r.xmi && pos.x < r.xma )
+            if( pos.y > r.ymi && pos.y < r.yma )
                 val.push_back(c->owner);
     }
 
@@ -70,10 +81,13 @@ vector<Collider*> Collider::GetGrounded() /// Check if bottom bound is colliding
 {
     vector<Collider*> val;
     Rect r(rect);
-    r.Scale(owner->transform.gScale());
+    r.Scale( owner->transform.gScale() );
     r.AddOffset(owner->transform.gPosition());
     for(Collider* c : colliders)
     {
+        if(this == c) /// Stop colliding with yourself!
+            continue;
+
         Rect cr( c->rect);
         cr.Scale(c->owner->transform.gScale());
         cr.AddOffset(c->owner->transform.gPosition());
@@ -109,6 +123,9 @@ vector<Collider*> Collider::Intersect( Collider* target , vec3 uPos ) /// Inters
     r.AddOffset(uPos);
     for(Collider* c : colliders)
     {
+        if(target == c) /// Stop colliding with yourself!
+            continue;
+
         Rect cr( c->rect);
         cr.Scale(c->owner->transform.gScale());
         cr.AddOffset(c->owner->transform.gPosition());

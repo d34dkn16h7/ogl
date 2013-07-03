@@ -147,7 +147,17 @@ void Editor::SetTargetMap(Map* val)
 void Editor::aPosition(vec3 val)
 {
     for(GameObject* gmo : selection)
-        gmo->transform.aPosition(val);
+    {
+        if( Input::isKey(GLFW_KEY_LEFT_SHIFT) )
+        {
+            Physics* p = gmo->GetComponent<Physics*>();
+            if(p != nullptr)
+                p->Move(val);
+        }
+        else
+            gmo->transform.aPosition(val);
+    }
+
 }
 void Editor::aScale(vec3 val)
 {

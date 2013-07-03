@@ -39,6 +39,20 @@ void GameObject::LoadPrefab() /// Load and make prefab by nameToken
             AddComponent<Physics>();
         else if(token.Current() == "scale")
             transform.uScale(token.GetNVec3());
+        else if(token.Current() == "csize")
+        {
+            vec3 tV = token.GetNVec3();
+            Collider* c = GetComponent<Collider*>();
+            if(c != nullptr)
+                c->sSize(Rect(tV.x,tV.y));
+        }
+        else if(token.Current() == "coffset")
+        {
+            Collider* c = GetComponent<Collider*>();
+            if(c != nullptr)
+                c->sOffset(token.GetNVec3());
+        }
+
     }
 }
 

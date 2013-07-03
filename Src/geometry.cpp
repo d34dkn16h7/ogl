@@ -95,18 +95,22 @@ int GData::GetEdges() const
 {
     return elementary.size();
 }
+
 GLuint GData::GetType() const
 {
     return type;
 }
+
 GLuint GData::GetVBO() const
 {
     return vbo;
 }
+
 GLuint GData::GetVAO() const
 {
     return vao;
 }
+
 GLuint GData::GetEBO() const
 {
     return ebo;

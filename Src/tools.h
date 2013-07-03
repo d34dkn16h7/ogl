@@ -56,7 +56,7 @@ namespace Tools
     class File
     {
     public:
-        static string LoadFile( string);
+        static string LoadFile( const string&);
         static void SaveFile( const string&, const string&);
     };
 

@@ -18,6 +18,8 @@ private:
 
     float GetSize();
     static float GetSize(Collider*);
+
+    Rect mRect;
 public:
     Rect rect;
 
@@ -27,6 +29,9 @@ public:
 
     void Start() {}
     void Update() {}
+
+    void sSize(Rect);
+    void sOffset(vec3);
 
     static GameObject* Get(vec3);
     static vector<GameObject*> GetAll(vec3);
