@@ -29,7 +29,27 @@ void Physics::Move(vec3 val) /// Move by val if not colliding
 
     if(collider != nullptr)
     {
-        if(collider->Intersect(cPos).size() == 0)
+        vector<Collider*> cl = collider->Intersect(cPos);
+
+        /*bool xMinus,xPlus,yMinus,yPlus;
+        xMinus = xPlus = yMinus = yPlus = false;
+        for(Collider* c : cl)
+        {
+            if(c->c1 == Side::Right)
+                xPlus = true;
+            else if(c->c1 == Side::Left)
+                xMinus = true;
+
+            if(c->c2 == Side::Top)
+                yPlus = true;
+            else if(c->c2 == Side::Bottom)
+                yMinus = true;
+        }
+
+        cout <<"xMinus " <<  xMinus << endl;
+        cout <<"xPlus " << xPlus << endl;*/
+
+        if(cl.size() == 0)
             owner->transform.uPosition(cPos);
     }
     else /// Don't have collider so just move*/

@@ -98,6 +98,6 @@ vec3 Input::ScreenToWorld3d()
     vec3 val = vec3(ScreenToWorld2d(),0);
     vec3 mult(camZ,camZ / Camera::MainCamera->GetAspectRatio(),0);
     val *= mult;
-    glm::unProject(val, mat4(1.0) , Camera::MainCamera->GetPerspective(),vec4(-1,1,-1,1));
+    glm::unProject(val, mat4(1.0) , Camera::MainCamera->GetPerspective(),vec4(-1,1,-1,1)); /// Need work!
     return val;
 }

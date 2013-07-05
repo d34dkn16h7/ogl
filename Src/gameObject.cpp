@@ -24,29 +24,35 @@ GameObject::~GameObject()
 
 void GameObject::LoadPrefab() /// Load and make prefab by nameToken
 {
+    bool isTextureActive = false;
     Tools::Token token( DataDir + nameToken + ".pref" , nameToken);
 
     while(token.Next() != "#endToken")
     {
-        if(token.Current() == "model")
+        if(token == "model")
             Load( DataDir + token.Next() , nameToken);
-        else if(token.Current() == "texture")
+
+        if(token == "texture" && Tools::Settings::loadTextures)
         {
             if(gPtr != nullptr && token.Peek(1) != "null")
                 LoadTexture( DataDir + "Textures/" + token.Next());
         }
-        else if(token.Current() == "physics")
+        if(token == "physics")
             AddComponent<Physics>();
-        else if(token.Current() == "scale")
+
+        if(token == "rot")
+            transform.uRotation(token.GetNVec3());
+        if(token == "scale")
             transform.uScale(token.GetNVec3());
-        else if(token.Current() == "csize")
+
+        if(token == "csize")
         {
             vec3 tV = token.GetNVec3();
             Collider* c = GetComponent<Collider*>();
             if(c != nullptr)
                 c->sSize(Rect(tV.x,tV.y));
         }
-        else if(token.Current() == "coffset")
+        if(token == "coffset")
         {
             Collider* c = GetComponent<Collider*>();
             if(c != nullptr)

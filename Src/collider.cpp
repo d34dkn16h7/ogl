@@ -28,11 +28,7 @@ void Collider::sSize(Rect r)
 
 void Collider::sOffset(vec3 offset)
 {
-    cout << "from : " << rect.ymi << endl;
-    cout << "from : " << rect.yma << endl;
     rect.AddOffset(offset);
-    cout << "to : " << rect.ymi << endl;
-    cout << "to : " << rect.yma << endl;
 }
 
 float Collider::GetSize() /// Useless
@@ -130,9 +126,80 @@ vector<Collider*> Collider::Intersect( Collider* target , vec3 uPos ) /// Inters
         cr.Scale(c->owner->transform.gScale());
         cr.AddOffset(c->owner->transform.gPosition());
 
-        if( (r.ymi > cr.ymi && r.ymi < cr.yma) || (r.yma < cr.yma && r.yma > cr.ymi) || (r.yma > cr.yma && r.ymi < cr.ymi) )
+
+        if( (r.yma > cr.yma && r.ymi < cr.ymi) ) /// Both
+        {
+            if (r.xma > cr.xma && r.xmi < cr.xmi) /// Both
+            {
+                c->c1 = Side::Both;
+                c->c2 = Side::Both;val.push_back(c);
+            }
+            else if( (r.xmi > cr.xmi && r.xmi < cr.xma) )/// Right
+            {
+                c->c1 = Side::Right;
+                c->c2 = Side::Both;val.push_back(c);
+            }
+            else if(r.xma > cr.xmi && r.xma < cr.xma) /// Left
+            {
+                c->c1 = Side::Left;
+                c->c2 = Side::Both;val.push_back(c);
+            }
+            else
+            {
+                c->c1 = Side::None;
+                c->c2 = Side::None;
+            }
+        }
+        else if( (r.ymi > cr.ymi && r.ymi < cr.yma) ) /// Top
+        {
+            if (r.xma > cr.xma && r.xmi < cr.xmi) /// Both
+            {
+                c->c1 = Side::Both;
+                c->c2 = Side::Top;val.push_back(c);
+            }
+            else if( (r.xmi > cr.xmi && r.xmi < cr.xma)) /// Right
+            {
+                c->c1 = Side::Right;
+                c->c2 = Side::Top;val.push_back(c);
+            }
+            else if(r.xma > cr.xmi && r.xma < cr.xma) /// Left
+            {
+                c->c1 = Side::Left;
+                c->c2 = Side::Top;val.push_back(c);
+            }
+            else
+            {
+                c->c1 = Side::None;
+                c->c2 = Side::None;
+            }
+        }
+        else if( (r.yma < cr.yma && r.yma > cr.ymi) ) /// Bottom
+        {
+            if (r.xma > cr.xma && r.xmi < cr.xmi) /// Both
+            {
+                c->c1 = Side::Both;
+                c->c2 = Side::Bottom;val.push_back(c);
+            }
+            else if( (r.xmi > cr.xmi && r.xmi < cr.xma)) /// Right
+            {
+                c->c1 = Side::Right;
+                c->c2 = Side::Bottom;val.push_back(c);
+            }
+            else if(r.xma > cr.xmi && r.xma < cr.xma) /// Left
+            {
+                c->c1 = Side::Left;
+                c->c2 = Side::Bottom;val.push_back(c);
+            }
+            else
+            {
+                c->c1 = Side::None;
+                c->c2 = Side::None;
+            }
+        }
+
+        /*if( (r.ymi > cr.ymi && r.ymi < cr.yma) || (r.yma < cr.yma && r.yma > cr.ymi) || (r.yma > cr.yma && r.ymi < cr.ymi) )
             if( (r.xmi > cr.xmi && r.xmi < cr.xma) || (r.xma > cr.xmi && r.xma < cr.xma) || (r.xma > cr.xma && r.xmi < cr.xmi) )
-                val.push_back(c);
+                val.push_back(c);*/
     }
 
     return val;

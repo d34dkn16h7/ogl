@@ -1,0 +1,13 @@
+﻿
+#textureMode true
+#textureModern false
+
+
+vertex Data/Shaders/dVS.glsl
+fragment Data/Shaders/dFSTextured.glsl
+
+
+#obj cube
+#obj player
+#obj icosphere
+#obj plane

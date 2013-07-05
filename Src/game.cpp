@@ -6,6 +6,7 @@
 #include "renderer.h"
 #include "gameObject.h"
 
+#include "camera.h"
 Game* Game::ins;
 GameObject* Game::onControl;
 bool Game::isOpen,Game::isEditor;
@@ -13,9 +14,8 @@ float Game::deltaTime,Game::lastTime,Game::Speed;
 
 int Game::Run()
 {
-    isOpen = Renderer::Setup(1024,576);
-    map->LoadMap("Data/m.mp");
-    Input::Init();
+
+    //Camera::MainCamera->transform.uRotation(Game::onControl->transform.gRotation());
     while(isOpen && !Input::isKey(GLFW_KEY_ESCAPE) && !glfwWindowShouldClose( Renderer::gWindow() ))
     {
         glfwPollEvents();
@@ -29,11 +29,14 @@ int Game::Run()
 }
 Game::Game() : map( new Map() ) , editor( new Editor() )
 {
+    Tools::Settings::LoadSettings();
     ins = this;
     Speed = 15;
     lastTime = glfwGetTime();
     editor->SetTargetMap(map);
     isEditor = true;
+    isOpen = Renderer::Setup(1024,576);
+    map->LoadMap("Data/m.mp");
     Input::Init();
 }
 void Game::Update()

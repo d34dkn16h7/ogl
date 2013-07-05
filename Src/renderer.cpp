@@ -1,4 +1,5 @@
 #include "game.h"
+#include "tools.h"
 #include "editor.h"
 #include "camera.h"
 #include "program.h"
@@ -27,37 +28,33 @@ void Renderer::RenderObjects() /// Render all objects
     GLenum type = GL_TRIANGLES;
     string lastDrawName = "null";
     prog->SetUniform("cameraMatrix",cam->GetMatrix());
+
     for(GameObject* gmo : drawObjects)
     {
-        if( Game::ins->editor->isSelected( gmo ) )
-            glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-        else
-            glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+        glPolygonMode( GL_FRONT_AND_BACK, Game::ins->editor->isSelected( gmo ) ? GL_LINE : GL_FILL);
 
         prog->SetUniform("modelMatrix",gmo->transform.gMatrix());
         prog->Use(true);
-        if(lastDrawName != gmo->gPtr->idString)
-        {
-            if(gmo->gPtr->texture != 0)
-            {
-                glActiveTexture (GL_TEXTURE0);
-                glBindTexture (GL_TEXTURE_2D, gmo->gPtr->texture);
-            }
-            else
-            {
-                glActiveTexture (GL_TEXTURE0);
-                glBindTexture (GL_TEXTURE_2D, 0);
-            }
 
-            glBindVertexArray(gmo->gPtr->GetVAO());
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,gmo->gPtr->GetEBO());
-            edges = gmo->gPtr->GetEdges();
-            type = gmo->gPtr->GetType();
+        if(lastDrawName != gmo->gPtr->idString) /// lastDraw != thisDraw re-bind data
+        {
+            glActiveTexture (GL_TEXTURE0);
+
+            if(gmo->gPtr->texture != 0)
+                glBindTexture (GL_TEXTURE_2D, gmo->gPtr->texture);
+            else
+                glBindTexture (GL_TEXTURE_2D, 0);
+
+            glBindVertexArray( gmo->gPtr->gVAO() );
+            glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, gmo->gPtr->gEBO() );
+            edges = gmo->gPtr->gEdges();
+            type = gmo->gPtr->gType();
             lastDrawName = gmo->gPtr->idString;
         }
+
         glDrawElements(type,edges,GL_UNSIGNED_INT,0);
     }
-
+    /// Clear bindings
     prog->Use(false);
     glBindVertexArray(0);
 }
@@ -93,7 +90,7 @@ bool Renderer::Setup(int w,int h) /// Setup GLFW - GLEW + Window + Shaders
     glDepthFunc(GL_LESS);
 
     cam = new Camera(w,h);
-    prog = new Program("Data/Shaders/dVS.glsl","Data/Shaders/dFS.glsl","Model");
+    prog = new Program(Tools::Settings::vertexShaderFileName,Tools::Settings::fragmentShaderFileName,"Model");
 
     PrintRendererInfo();
 

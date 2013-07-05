@@ -81,11 +81,23 @@ namespace Tools
         Token* Find(string);
         void MakeToken(); /// Based on space | tab | new line
     public:
+        static string EndToken;
+        static string BeginToken;
+
         vector<string> tokens;
 
         Token( Token*);
         Token( const string&);
         Token( const string&, string); /// Register this by tId
+
+        bool operator==(const string& str )
+        {
+            return tokens[indexer] == str;
+        }
+        bool operator!=(const string& str )
+        {
+            return tokens[indexer] != str;
+        }
 
         string Next(); /// Return next token and update current token
         string Peek( int); /// Return indexer + i token
@@ -95,6 +107,7 @@ namespace Tools
         bool CanGVec2(); /// Is next 2 token numeric
         bool CanGVec3(); /// Is next 3 token numeric
 
+        int GetNi();
         vec2 GetNVec2(); /// Return vec2 based on next 2 tokens
         vec3 GetNVec3(); /// Return vec3 based on next 3 tokens
 
@@ -103,6 +116,18 @@ namespace Tools
 
         void Reset(); /// Reset for next use
         void PrintTokens(); /// Print all tokens
+    };
+
+    class Settings
+    {
+    public:
+        static vector<string> objectNames;
+        static bool loadTextures;
+        static bool TextureLoadModern;
+        static string vertexShaderFileName;
+        static string fragmentShaderFileName;
+
+        static void LoadSettings();
     };
 }
 #endif // TOOLS_H

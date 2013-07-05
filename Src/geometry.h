@@ -30,11 +30,14 @@ public:
     GLuint texture = 0;
     GLuint type = GL_TRIANGLES;
 
-    int GetEdges() const;
-    GLuint GetVBO() const;
-    GLuint GetVAO() const;
-    GLuint GetEBO() const;
-    GLuint GetType() const;
+    void pVerticle(vec3);
+    void pElement(GLuint);
+
+    int gEdges() const;
+    GLuint gVBO() const;
+    GLuint gVAO() const;
+    GLuint gEBO() const;
+    GLuint gType() const;
 };
 
 class Geometry

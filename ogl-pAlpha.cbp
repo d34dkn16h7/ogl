@@ -44,6 +44,14 @@
 			<Add library="gdi32" />
 			<Add library="glu32" />
 		</Linker>
+		<Unit filename="Data/Shaders/dFS.glsl" />
+		<Unit filename="Data/Shaders/dFSTextured.glsl" />
+		<Unit filename="Data/Shaders/dVS.glsl" />
+		<Unit filename="Data/cube.pref" />
+		<Unit filename="Data/m.mp" />
+		<Unit filename="Data/plane.pref" />
+		<Unit filename="Data/player.pref" />
+		<Unit filename="Data/settings" />
 		<Unit filename="Src/camera.cpp" />
 		<Unit filename="Src/camera.h" />
 		<Unit filename="Src/collider.cpp" />
@@ -69,6 +77,7 @@
 		<Unit filename="Src/program.h" />
 		<Unit filename="Src/renderer.cpp" />
 		<Unit filename="Src/renderer.h" />
+		<Unit filename="Src/settings.cpp" />
 		<Unit filename="Src/str.cpp" />
 		<Unit filename="Src/token.cpp" />
 		<Unit filename="Src/tools.h" />

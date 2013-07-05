@@ -1,0 +1,4 @@
+model Plane.obj
+texture sky.jpg
+physics
+rot 0 90 0

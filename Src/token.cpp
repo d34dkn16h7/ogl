@@ -3,6 +3,8 @@
 using namespace Tools;
 
 vector<Token*> Token::loadedTokens;
+string Token::EndToken = "#endToken";
+string Token::BeginToken = "#firstToken";
 
 Token::Token( Token* t) /// Stor constructor
 {
@@ -91,6 +93,15 @@ string Token::Peek(int i) /// Return indexer + i token
 string Token::Current() /// Return current token
 {
     return tokens[indexer];
+}
+
+int Token::GetNi()
+{
+    int i = 0;
+    if(CanGNum())
+        i = atoi(Next().c_str());
+
+    return i;
 }
 
 vec2 Token::GetNVec2() /// Return vec2 based on next 2 tokens

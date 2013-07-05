@@ -2,14 +2,12 @@
 
 uniform mat4 cameraMatrix;
 uniform mat4 modelMatrix;
-uniform vec4 color;
 
-in vec4 vert;
+in vec4 vertex;
 out vec3 col;
 
-void main() 
+void main()
 {
-    gl_Position = cameraMatrix * modelMatrix * vert;
-
-    col = vec3(vert.x,vert.y,vert.z);
+    gl_Position = cameraMatrix * modelMatrix * vertex;
+    col = vec3(vertex.x,vertex.y,vertex.z);
 }

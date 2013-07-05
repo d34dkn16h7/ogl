@@ -1,3 +1,7 @@
+cube
+    pos 0 0 -15
+    scale 25 15 .1
+    staticObject
 icosphere
 	pos -1.71251 -4.15132 0
 cube
@@ -19,3 +23,5 @@ cube
 	scale 14.46 0.97 1
 cube
 	pos -1.69855 -5.15497 0
+plane
+	pos 0 0 0

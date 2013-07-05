@@ -31,7 +31,10 @@ public:
     void uLookTarget(vec3);
     void aLookTarget(vec3);
 
+    vec3 gLookTarget();
+
     mat4 Matrix();
+    mat4 GetLook(vec3);
     mat4 GetPerspective();
     float GetAspectRatio();
     const mat4& GetMatrix();

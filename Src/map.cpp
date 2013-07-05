@@ -8,28 +8,29 @@ Map* Map::ins; /// Current map instance
 void Map::LoadMap(string fSrc) /// Load and construct gameObjects by .mp file
 {
     ins = this;
-    Tools::Token t( Tools::File::LoadFile(fSrc) );
+    Tools::Token mapToken( Tools::File::LoadFile(fSrc) );
     GameObject *gmo = nullptr;
     data.clear();
-    while( t.Next() != "#endToken" )
+    while( mapToken.Next() != "#endToken" )
     {
-        if(isObject( t.Current() )) /// Make object?
+        if(isObject( mapToken.Current() )) /// Make object?
         {
-            gmo = new GameObject(t.Current());
-            data.push_back( (gmo) );
+            gmo = new GameObject( mapToken.Current() );
+            data.push_back( gmo );
         }
         else if(gmo != nullptr) /// Property if not empty object?
         {
-            if(t.Current() == "onControl" )
+            if(mapToken == "onControl" )
                 Game::onControl = gmo;
-            else if(t.Current() == "pos" )
-                gmo->transform.uPosition( t.GetNVec3() );
-            else if(t.Current() == "rot" )
-                gmo->transform.uRotation( t.GetNVec3() );
-            else if(t.Current() == "scale" )
-                gmo->transform.uScale( t.GetNVec3() );
+            else if(mapToken == "pos" )
+                gmo->transform.uPosition( mapToken.GetNVec3() );
+            else if(mapToken == "rot" )
+                gmo->transform.uRotation( mapToken.GetNVec3() );
+            else if(mapToken == "scale" )
+                gmo->transform.uScale( mapToken.GetNVec3() );
+            else if(mapToken == "staticObject")
+                gmo->DestroyComponents();
         }
-
     }
 }
 
@@ -63,8 +64,9 @@ void Map::SaveMap(string tFile) /// Save map file
 
 bool Map::isObject(string token) /// Hard-coded vals? fuck no!
 {
-    if(token == "cube" || token == "tris" || token == "icosphere" || token == "player")
-        return true;
+    for(string name : Tools::Settings::objectNames )
+        if(name == token)
+            return true;
 
     return false;
 }

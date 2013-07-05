@@ -16,13 +16,22 @@ void Editor::Update()
     if( Input::isKey(GLFW_KEY_DELETE) )
         DeleteObject();
 
-
     if(Input::isMouse(0))
         Edit();
     if(Input::isMousePressed(1))
         PutObject();
     if(Input::isMouse(2))
         MoveCam();
+
+
+    if(Input::isKey(GLFW_KEY_F1))
+        Camera::MainCamera->uLookTarget( vec3(-1,0,0) );
+    if(Input::isKey(GLFW_KEY_F2))
+        Camera::MainCamera->uLookTarget( vec3(1,0,0) );
+    if(Input::isKey(GLFW_KEY_F3))
+        Camera::MainCamera->uLookTarget( vec3(0,0,-1) );
+    if(Input::isKey(GLFW_KEY_F4))
+        Camera::MainCamera->uLookTarget( vec3(0,0,1) );
 
     if( Input::isKey(GLFW_KEY_1) )
         mode = EditMode::PositionEdit;
@@ -34,8 +43,25 @@ void Editor::Update()
         mode = EditMode::ColorEdit;   // Empty
 
     if(Input::mouseWDelta.y != 0)
-        Camera::MainCamera->transform.aPosition( vec3(0,0,Input::mouseWDelta.y * -.4f) );
+    {
+        vec3 lTarget = Camera::MainCamera->gLookTarget();
+        if( lTarget.z != 0)
+        {
+            if(lTarget.z < 0)
+                Camera::MainCamera->transform.aPosition( vec3(0,0,Input::mouseWDelta.y * -.4f) );
+            else
+                Camera::MainCamera->transform.aPosition( vec3(0,0, -(Input::mouseWDelta.y * -.4f) ) );
+        }
+        else if(lTarget.x != 0)
+        {
+            if(lTarget.x < 0)
+                Camera::MainCamera->transform.aPosition( vec3(Input::mouseWDelta.y * -.4f , 0, 0) );
+            else
+                Camera::MainCamera->transform.aPosition( vec3( -(Input::mouseWDelta.y * -.4f) , 0, 0) );
+        }
+    }
 }
+
 void Editor::Edit()
 {
     vec2 val = Input::mouseDelta;
@@ -67,7 +93,8 @@ void Editor::Edit()
         break;
     }
 }
-void Editor::PutObject()
+
+void Editor::PutObject() /// Crate new gameObject(cube)
 {
     if(!isMultyEdit)
         ClearSelection();
@@ -80,24 +107,26 @@ void Editor::PutObject()
     targetMap->Reg(edit);
     UpdateSelection(edit);
 }
-void Editor::DeleteObject()
+
+void Editor::DeleteObject() /// Delete selected objects
 {
     for(GameObject* gmo : selection)
         delete gmo;
 
     selection.clear();
 }
+
 void Editor::SelectObjects()
 {
     vec3 gPos = vec3 ( Camera::MainCamera->transform.gPosition() + Input::ScreenToWorld3d());
-    gPos.z = 0;
 
     if(!isMultyEdit)
         ClearSelection();
 
     UpdateSelections( Collider::GetAll(gPos) );
 }
-void Editor::UpdateSelections(const vector<GameObject*> val)
+
+void Editor::UpdateSelections(const vector<GameObject*> val) /// Unite new vector with selected vector
 {
      for(GameObject* gmo : val)
         if(!isSelected(gmo))
@@ -111,7 +140,8 @@ void Editor::UpdateSelections(const vector<GameObject*> val)
             RemoveSelection(gmo);
         }
 }
-void Editor::UpdateSelection(GameObject* obj)
+
+void Editor::UpdateSelection(GameObject* obj) /// Add object to selected vector
 {
     if(!isSelected(obj))
     {
@@ -124,7 +154,8 @@ void Editor::UpdateSelection(GameObject* obj)
         RemoveSelection(obj);
     }
 }
-void Editor::RemoveSelection(GameObject* obj)
+
+void Editor::RemoveSelection(GameObject* obj) /// Deselect
 {
     for(unsigned int i = 0;i < selection.size();i++)
         if(selection[i] == obj)
@@ -133,18 +164,21 @@ void Editor::RemoveSelection(GameObject* obj)
             selection.erase(selection.begin() + i);
         }
 }
-void Editor::ClearSelection()
+
+void Editor::ClearSelection() /// Reset Selection
 {
     for(GameObject* gmo : selection)
         gmo->isActive = true;
 
     selection.clear();
 }
+
 void Editor::SetTargetMap(Map* val)
 {
     targetMap = val;
 }
-void Editor::aPosition(vec3 val)
+
+void Editor::aPosition(vec3 val) /// Add to selections
 {
     for(GameObject* gmo : selection)
     {
@@ -159,22 +193,43 @@ void Editor::aPosition(vec3 val)
     }
 
 }
-void Editor::aScale(vec3 val)
+
+void Editor::aScale(vec3 val) /// Add to selections
 {
     for(GameObject* gmo : selection)
         gmo->transform.aScale(val);
 }
+
 void Editor::MoveCam()
 {
     float camZ = Camera::MainCamera->transform.gPosition().z;
     vec2 val = Input::mouseDelta;
     if(camZ < 0)
         camZ = (-camZ);
+    if(camZ < 3)
+        camZ = 3;
+
     val *= (camZ * .002f);
     val.x = -val.x;
-    Camera::MainCamera->transform.aPosition(vec3(val.x,val.y,0));
+    vec3 lTarget = Camera::MainCamera->gLookTarget();
+    if( lTarget.z != 0 )
+    {
+        if(lTarget.z < 0)
+            Camera::MainCamera->transform.aPosition(vec3(val.x,val.y,0));
+        else
+            Camera::MainCamera->transform.aPosition(vec3(-val.x,val.y,0));
+    }
+    else if(lTarget.x != 0)
+    {
+
+        if(lTarget.x < 0)
+            Camera::MainCamera->transform.aPosition(vec3(0,val.y,-val.x));
+        else
+            Camera::MainCamera->transform.aPosition(vec3(0,val.y,val.x));
+    }
 }
-bool Editor::isSelected(GameObject* val)
+
+bool Editor::isSelected(GameObject* val) /// Is object selected
 {
     for(GameObject* gmo : selection)
         if(gmo == val)

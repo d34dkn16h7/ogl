@@ -10,6 +10,11 @@ using namespace std;
 using namespace glm;
 using namespace Tools;
 
+enum Side
+{
+    Front,Back,Top,Bottom,Left,Right,Both,None
+};
+
 class GameObject;
 class Collider : public Component
 {
@@ -21,6 +26,7 @@ private:
 
     Rect mRect;
 public:
+    Side c1,c2;
     Rect rect;
 
     Collider(GameObject*);

@@ -47,7 +47,11 @@ void Program::SetUniform(const string& name,const vec2& val) /// Set Uniform for
     const GLchar* attName = name.c_str();
     GLint uniform = glGetUniformLocation(prog, attName);
     if(uniform == -1)
-        throw runtime_error("Can't acces uniform");
+    {
+        cout << "Can't acces uniform " << name << endl;
+        throw runtime_error("Fatal Error");
+    }
+
     glUniform2f(uniform , val.x,val.y);
     Use(false);
 }
@@ -58,7 +62,10 @@ void Program::SetUniform(const string& name,const vec3& val) /// Set Uniform for
     const GLchar* attName = name.c_str();
     GLint uniform = glGetUniformLocation(prog, attName);
     if(uniform == -1)
-        throw runtime_error("Can't acces uniform");
+    {
+        cout << "Can't acces uniform " << name << endl;
+        throw runtime_error("Fatal Error");
+    }
     glUniform3f(uniform , val.x,val.y,val.z);
     Use(false);
 }
@@ -69,7 +76,10 @@ void Program::SetUniform(const string& name,const vec4& val) /// Set Uniform for
     const GLchar* attName = name.c_str();
     GLint uniform = glGetUniformLocation(prog, attName);
     if(uniform == -1)
-        throw runtime_error("Can't acces uniform");
+    {
+        cout << "Can't acces uniform " << name << endl;
+        throw runtime_error("Fatal Error");
+    }
     glUniform4f(uniform , val.r,val.g,val.b,val.a);
     Use(false);
 }
@@ -80,7 +90,10 @@ void Program::SetUniform(const string& name,const mat4& matrix) /// Set Uniform 
     const GLchar* attName = name.c_str();
     GLint uniform = glGetUniformLocation(prog, attName);
     if(uniform == -1)
-        throw runtime_error("Can't acces uniform");
+    {
+        cout << "Can't acces uniform " << name << endl;
+        throw runtime_error("Fatal Error");
+    }
     glUniformMatrix4fv(uniform, 1, false, value_ptr(matrix));
     Use(false);
 }
