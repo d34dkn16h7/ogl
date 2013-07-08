@@ -22,7 +22,7 @@ public:
     string idString;
 
     vector<GLuint> elementary;
-    //vector<GLfloat> texture_cord;
+    vector<GLfloat> textureCoord;
     vector<GLfloat> verticles;
     vector<GLfloat> colorData;
 
@@ -32,6 +32,7 @@ public:
 
     void pVerticle(vec3);
     void pElement(GLuint);
+    void pTextureCoord(vec2);
 
     int gEdges() const;
     GLuint gVBO() const;
@@ -47,6 +48,7 @@ private:
 
     GData* Find(string);
 
+    void UniteData();
     void LinkData();
 public:
     string fileToken;

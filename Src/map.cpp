@@ -13,9 +13,9 @@ void Map::LoadMap(string fSrc) /// Load and construct gameObjects by .mp file
     data.clear();
     while( mapToken.Next() != "#endToken" )
     {
-        if(isObject( mapToken.Current() )) /// Make object?
+        if( Tools::Settings::isObject( mapToken.Current() )) /// Make object?
         {
-            gmo = new GameObject( mapToken.Current() );
+            gmo = new GameObject(  mapToken.Current() );
             data.push_back( gmo );
         }
         else if(gmo != nullptr) /// Property if not empty object?
@@ -60,15 +60,6 @@ void Map::SaveMap(string tFile) /// Save map file
     }
     cout << "Map saved : " << tFile << "  :: Map Size : " << data.size() << endl;
     Tools::File::SaveFile(tFile,mstr.str());
-}
-
-bool Map::isObject(string token) /// Hard-coded vals? fuck no!
-{
-    for(string name : Tools::Settings::objectNames )
-        if(name == token)
-            return true;
-
-    return false;
 }
 
 void Map::Reg(GameObject* gmo) /// Register gameObject to map

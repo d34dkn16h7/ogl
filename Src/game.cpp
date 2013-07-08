@@ -14,9 +14,12 @@ float Game::deltaTime,Game::lastTime,Game::Speed;
 
 int Game::Run()
 {
-
-    //Camera::MainCamera->transform.uRotation(Game::onControl->transform.gRotation());
-    while(isOpen && !Input::isKey(GLFW_KEY_ESCAPE) && !glfwWindowShouldClose( Renderer::gWindow() ))
+    Speed = 15;
+    isEditor = true;
+    editor->SetTargetMap(map);
+    map->LoadMap("Data/m.mp");
+    lastTime = glfwGetTime();
+    while( (isOpen && !Input::isKey(GLFW_KEY_ESCAPE)) && !glfwWindowShouldClose( Renderer::gWindow() ) )
     {
         glfwPollEvents();
         Update();
@@ -27,19 +30,16 @@ int Game::Run()
     glfwTerminate();
     return 0;
 }
+
 Game::Game() : map( new Map() ) , editor( new Editor() )
 {
-    Tools::Settings::LoadSettings();
     ins = this;
-    Speed = 15;
-    lastTime = glfwGetTime();
-    editor->SetTargetMap(map);
-    isEditor = true;
+    Tools::Settings::LoadSettings();
     isOpen = Renderer::Setup(1024,576);
-    map->LoadMap("Data/m.mp");
     Input::Init();
 }
-void Game::Update()
+
+void Game::Update() /// Update all
 {
     if(  Input::isKey(GLFW_KEY_HOME))
         isEditor = !isEditor;
@@ -52,24 +52,29 @@ void Game::Update()
 
     input();
 }
-void Game::input()
+
+void Game::input() /// Player input - remove it later
 {
     if(onControl != nullptr)
     {
-        Physics* p = onControl->GetComponent<Physics*>();
-        if(Input::isKey('W'))
-            p->Move(Up * Speed * deltaTime);
-        if(Input::isKey('S'))
-            p->Move(Down * Speed * deltaTime);
-        if(Input::isKey('A'))
-            p->Move(Left * Speed * deltaTime);
-        if(Input::isKey('D'))
-            p->Move(Right * Speed * deltaTime);
+        Physics* p = onControl->GetComponent<Physics>();
+        if(p != nullptr)
+        {
+            if(Input::isKey('W'))
+                p->Move(Up * Speed * deltaTime);
+            if(Input::isKey('S'))
+                p->Move(Down * Speed * deltaTime);
+            if(Input::isKey('A'))
+                p->Move(Left * Speed * deltaTime);
+            if(Input::isKey('D'))
+                p->Move(Right * Speed * deltaTime);
+        }
     }
     if(Input::isKey(GLFW_KEY_PAUSE))
         map->SaveMap("Data/m.mp");
 }
-void Game::Timer()
+
+void Game::Timer() /// Update deltaTime
 {
     deltaTime = ( glfwGetTime() - lastTime );
     lastTime = glfwGetTime();

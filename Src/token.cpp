@@ -71,11 +71,10 @@ string Token::Next() /// Return next token and update current token
     if(tokens.size() > indexer + 1)
         indexer++;
     else
-        return "#endToken";
+        return EndToken;
 
     return tokens[indexer];
 }
-
 string Token::Peek(int i) /// Return indexer + i token
 {
     int nIndexer = indexer + i;
@@ -84,10 +83,10 @@ string Token::Peek(int i) /// Return indexer + i token
         if(nIndexer >= 1)
             return tokens[nIndexer];
         else
-            return "#firstToken";
+            return BeginToken;
     }
     else
-        return "#endToken";
+        return EndToken;
 }
 
 string Token::Current() /// Return current token

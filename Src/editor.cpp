@@ -3,7 +3,7 @@
 #include "camera.h"
 #include "editor.h"
 #include "physics.h" // remove this later
-#include "collider.h" // remove this later
+#include "collider2d.h" // remove this later
 #include "component.h"
 #include "gameObject.h"
 
@@ -99,7 +99,7 @@ void Editor::PutObject() /// Crate new gameObject(cube)
     if(!isMultyEdit)
         ClearSelection();
 
-    GameObject* edit = new GameObject();
+    GameObject* edit = new GameObject("cube");
     edit->isActive = false;
     vec3 nPos = vec3 ( Camera::MainCamera->transform.gPosition() + Input::ScreenToWorld3d());
     nPos.z = 0;
@@ -123,7 +123,7 @@ void Editor::SelectObjects()
     if(!isMultyEdit)
         ClearSelection();
 
-    UpdateSelections( Collider::GetAll(gPos) );
+    UpdateSelections( Collider2d::GetAll(gPos) );
 }
 
 void Editor::UpdateSelections(const vector<GameObject*> val) /// Unite new vector with selected vector
@@ -184,7 +184,7 @@ void Editor::aPosition(vec3 val) /// Add to selections
     {
         if( Input::isKey(GLFW_KEY_LEFT_SHIFT) )
         {
-            Physics* p = gmo->GetComponent<Physics*>();
+            Physics* p = gmo->GetComponent<Physics>();
             if(p != nullptr)
                 p->Move(val);
         }

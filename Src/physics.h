@@ -8,7 +8,7 @@
 using namespace std;
 using namespace glm;
 
-class Collider;
+class Collider2d;
 class GameObject;
 class Physics : public Component
 {
@@ -17,11 +17,10 @@ private:
 
     vec3 constForce; /// Const aplied force
 
-
     bool canPush; /// Can push?
     bool canBePushed; /// Can be pushed?
     bool isGrounded; /// Is grounded? Setted by collider in update
-    Collider* collider; /// Local bounded collider
+    Collider2d* collider; /// Local bounded collider
 public:
     Physics(GameObject*);
     virtual ~Physics(); /// Call UnReg()

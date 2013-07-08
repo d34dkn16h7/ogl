@@ -7,7 +7,7 @@ vertex Data/Shaders/dVS.glsl
 fragment Data/Shaders/dFSTextured.glsl
 
 
-#obj cube
-#obj player
-#obj icosphere
-#obj plane
+#obj cube Data/cube.pref
+#obj player Data/player.pref
+#obj icosphere Data/icosphere.pref
+#obj plane Data/plane.pref

@@ -55,16 +55,14 @@ void Geometry::LoadTexture(string imgPath) /// Laod and link texture
             }
             else
             {
+                int width, height;
+                unsigned char* image;
 
                 glGenTextures( 1, &gPtr->texture );
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-                //glGenerateMipmap( GL_TEXTURE_2D );
-
-                int width, height;
-                unsigned char* image;
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
 
                 glActiveTexture( GL_TEXTURE0 );
                 glBindTexture( GL_TEXTURE_2D, gPtr->texture );
@@ -95,6 +93,13 @@ void Geometry::LinkData() /// Link VAO + VBO + EBO
 }
 
 // GData
+
+void GData::pTextureCoord(vec2 tcoord)
+{
+    textureCoord.push_back(tcoord.x);
+    textureCoord.push_back(tcoord.y);
+}
+
 void GData::pVerticle(vec3 vertex)
 {
     verticles.push_back(vertex.x);

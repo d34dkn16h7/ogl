@@ -1,6 +1,6 @@
 #include "gameObject.h"
 #include "renderer.h"
-#include "collider.h"
+#include "collider2d.h"
 #include "physics.h"
 #include "tools.h"
 #include "map.h"
@@ -8,10 +8,11 @@
 
 const static string DataDir = "Data/";
 
-GameObject::GameObject(string prefName) : isActive(true)
+
+GameObject::GameObject(string name) : isActive(true)
 {
-    nameToken = prefName;
-    LoadPrefab();
+    nameToken = name;
+    LoadPrefab( Tools::Settings::gPrefabPath(nameToken) );
     Renderer::RegObject(this);
 }
 
@@ -22,10 +23,10 @@ GameObject::~GameObject()
     DestroyComponents();
 }
 
-void GameObject::LoadPrefab() /// Load and make prefab by nameToken
+void GameObject::LoadPrefab(string prefPath) /// Load and make prefab by nameToken
 {
     bool isTextureActive = false;
-    Tools::Token token( DataDir + nameToken + ".pref" , nameToken);
+    Tools::Token token( prefPath , nameToken);
 
     while(token.Next() != "#endToken")
     {
@@ -48,13 +49,13 @@ void GameObject::LoadPrefab() /// Load and make prefab by nameToken
         if(token == "csize")
         {
             vec3 tV = token.GetNVec3();
-            Collider* c = GetComponent<Collider*>();
+            Collider2d* c = GetComponent<Collider2d>();
             if(c != nullptr)
                 c->sSize(Rect(tV.x,tV.y));
         }
         if(token == "coffset")
         {
-            Collider* c = GetComponent<Collider*>();
+            Collider2d* c = GetComponent<Collider2d>();
             if(c != nullptr)
                 c->sOffset(token.GetNVec3());
         }

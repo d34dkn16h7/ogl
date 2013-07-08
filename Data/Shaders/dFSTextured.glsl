@@ -11,6 +11,7 @@ void main()
 	vec4 texel = vec4(col.x,col.y,col.z,1);
 
 	/// Texture null check? Three ifs for not using texture coord
+
 	if(col.z == 0 || col.z == 1 || col.z == -1)
 		texel = texture (textu, vec2(col.x + offset,col.y + offset));
 	else if(col.y == -1 || col.y == 1)

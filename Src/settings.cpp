@@ -6,7 +6,7 @@ bool Settings::loadTextures;
 bool Settings::TextureLoadModern = false;
 string Settings::vertexShaderFileName;
 string Settings::fragmentShaderFileName;
-vector<string> Settings::objectNames;
+vector<ObjectInfo> Settings::objectInfos;
 
 void Settings::LoadSettings()
 {
@@ -25,7 +25,23 @@ void Settings::LoadSettings()
         if( setting == "fragment" )
             fragmentShaderFileName = setting.Next();
         if( setting == "#obj" )
-            objectNames.push_back(setting.Next());
+            objectInfos.push_back( ObjectInfo( setting.Next() ,setting.Next() ) );
     }
 
+}
+bool Settings::isObject(string n)
+{
+    for(ObjectInfo& ob : objectInfos)
+        if(n == ob.name)
+            return true;
+
+    return false;
+}
+string Settings::gPrefabPath(string n)
+{
+    for(ObjectInfo& ob : objectInfos)
+        if(n == ob.name)
+            return ob.prefabPath;
+
+    return "";
 }

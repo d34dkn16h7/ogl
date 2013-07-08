@@ -17,7 +17,6 @@ class Map
 {
 private:
     vector<GameObject*> data;
-    bool isObject( string);
 public:
     static Map* ins; /// Current map instance
     void LoadMap( string); /// Load and construct gameObjects by .mp file

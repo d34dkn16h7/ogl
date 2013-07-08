@@ -15,6 +15,13 @@ using namespace glm;
 
 namespace Tools
 {
+    struct ObjectInfo
+    {
+    public:
+        string name;
+        string prefabPath;
+        ObjectInfo(string tPath, string tName) : name(tName) , prefabPath(tPath) {}
+    };
     struct Rect
     {
     public:
@@ -81,23 +88,19 @@ namespace Tools
         Token* Find(string);
         void MakeToken(); /// Based on space | tab | new line
     public:
+        vector<string> tokens;
+
         static string EndToken;
         static string BeginToken;
-
-        vector<string> tokens;
 
         Token( Token*);
         Token( const string&);
         Token( const string&, string); /// Register this by tId
 
         bool operator==(const string& str )
-        {
-            return tokens[indexer] == str;
-        }
+            {return tokens[indexer] == str;}
         bool operator!=(const string& str )
-        {
-            return tokens[indexer] != str;
-        }
+            {return tokens[indexer] != str;}
 
         string Next(); /// Return next token and update current token
         string Peek( int); /// Return indexer + i token
@@ -121,13 +124,17 @@ namespace Tools
     class Settings
     {
     public:
-        static vector<string> objectNames;
+        static vector<ObjectInfo> objectInfos;
+
         static bool loadTextures;
         static bool TextureLoadModern;
         static string vertexShaderFileName;
         static string fragmentShaderFileName;
 
         static void LoadSettings();
+
+        static bool isObject(string);
+        static string gPrefabPath(string);
     };
 }
 #endif // TOOLS_H

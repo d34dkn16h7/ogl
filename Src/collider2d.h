@@ -16,22 +16,22 @@ enum Side
 };
 
 class GameObject;
-class Collider : public Component
+class Collider2d : public Component
 {
 private:
-    static vector<Collider*> colliders;
+    static vector<Collider2d*> colliders;
 
     float GetSize();
-    static float GetSize(Collider*);
+    static float GetSize(Collider2d*);
 
     Rect mRect;
 public:
     Side c1,c2;
     Rect rect;
 
-    Collider(GameObject*);
-    Collider(GameObject* , Rect);
-    ~Collider();
+    Collider2d(GameObject*);
+    Collider2d(GameObject* , Rect);
+    ~Collider2d();
 
     void Start() {}
     void Update() {}
@@ -43,12 +43,12 @@ public:
     static vector<GameObject*> GetAll(vec3);
 
     bool isGrounded();
-    vector<Collider*> GetGrounded();
+    vector<Collider2d*> GetGrounded();
 
-    vector<Collider*> Intersect();
-    vector<Collider*> Intersect( vec3 );
-    static vector<Collider*> Intersect( Collider* );
-    static vector<Collider*> Intersect( Collider* , vec3);
+    vector<Collider2d*> Intersect();
+    vector<Collider2d*> Intersect( vec3 );
+    static vector<Collider2d*> Intersect( Collider2d* );
+    static vector<Collider2d*> Intersect( Collider2d* , vec3);
 };
 
 #endif // COLLIDER_H

@@ -1,48 +1,48 @@
 #include <typeinfo>
-#include "collider.h"
+#include "collider2d.h"
 #include "gameObject.h"
 
-vector<Collider*> Collider::colliders;
+vector<Collider2d*> Collider2d::colliders;
 
-Collider::Collider(GameObject* own) :
-    Collider(own , Rect(1,1) ) {}
+Collider2d::Collider2d(GameObject* own) :
+    Collider2d(own , Rect(1,1) ) {}
 
-Collider::Collider(GameObject* own , Rect r) :
+Collider2d::Collider2d(GameObject* own , Rect r) :
     Component(typeid(this).hash_code() , own)
 {
     mRect = rect = r;
     colliders.push_back(this);
 }
 
-Collider::~Collider()
+Collider2d::~Collider2d()
 {
     for(unsigned int i = 0; i < colliders.size(); i++)
         if(colliders[i] == this)
             colliders.erase(colliders.begin() + i);
 }
 
-void Collider::sSize(Rect r)
+void Collider2d::sSize(Rect r)
 {
     mRect = rect = r;
 }
 
-void Collider::sOffset(vec3 offset)
+void Collider2d::sOffset(vec3 offset)
 {
     rect.AddOffset(offset);
 }
 
-float Collider::GetSize() /// Useless
+float Collider2d::GetSize() /// Useless
 {
     return GetSize(this);
 }
 
-float Collider::GetSize(Collider* c) /// Useless
+float Collider2d::GetSize(Collider2d* c) /// Useless
 {
     vec3 scale = c->owner->transform.gScale();
     return ((c->rect.xma - c->rect.xmi) * scale.x) * ((c->rect.yma - c->rect.ymi) * scale.y);
 }
 
-GameObject* Collider::Get(vec3 pos) /// GetAll.first()
+GameObject* Collider2d::Get(vec3 pos) /// GetAll.first()
 {
     vector<GameObject*> val = GetAll(pos);
     if(!val.empty())
@@ -51,10 +51,10 @@ GameObject* Collider::Get(vec3 pos) /// GetAll.first()
         return nullptr;
 }
 
-vector<GameObject*> Collider::GetAll(vec3 pos) /// Get all colliders who intesect with vec3
+vector<GameObject*> Collider2d::GetAll(vec3 pos) /// Get all colliders who intesect with vec3
 {
     vector<GameObject*> val;
-    for(Collider* c : colliders)
+    for(Collider2d* c : colliders)
     {
         Rect r( c->rect );
         r.Scale( c->owner->transform.gScale());
@@ -68,18 +68,18 @@ vector<GameObject*> Collider::GetAll(vec3 pos) /// Get all colliders who intesec
     return val;
 }
 
-bool Collider::isGrounded() /// Is Grounded based on GetGrounded().size()
+bool Collider2d::isGrounded() /// Is Grounded based on GetGrounded().size()
 {
     return GetGrounded().size() == 0 ? false : true;
 }
 
-vector<Collider*> Collider::GetGrounded() /// Check if bottom bound is colliding
+vector<Collider2d*> Collider2d::GetGrounded() /// Check if bottom bound is colliding
 {
-    vector<Collider*> val;
+    vector<Collider2d*> val;
     Rect r(rect);
     r.Scale( owner->transform.gScale() );
     r.AddOffset(owner->transform.gPosition());
-    for(Collider* c : colliders)
+    for(Collider2d* c : colliders)
     {
         if(this == c) /// Stop colliding with yourself!
             continue;
@@ -96,28 +96,28 @@ vector<Collider*> Collider::GetGrounded() /// Check if bottom bound is colliding
     return val;
 }
 
-vector<Collider*> Collider::Intersect() /// Wrapper to Intersect( Collider* )
+vector<Collider2d*> Collider2d::Intersect() /// Wrapper to Intersect( Collider2d* )
 {
     return Intersect(this);
 }
 
-vector<Collider*> Collider::Intersect( Collider* target ) /// Wrapper to Intersect( Collider* , vec3 )
+vector<Collider2d*> Collider2d::Intersect( Collider2d* target ) /// Wrapper to Intersect( Collider2d* , vec3 )
 {
     return Intersect( target, target->owner->transform.gPosition() );
 }
 
-vector<Collider*> Collider::Intersect(vec3 nPos) /// Wrapper to Intersect( Collider* , vec3 )
+vector<Collider2d*> Collider2d::Intersect(vec3 nPos) /// Wrapper to Intersect( Collider2d* , vec3 )
 {
     return Intersect(this , nPos);
 }
 
-vector<Collider*> Collider::Intersect( Collider* target , vec3 uPos ) /// Intersect
+vector<Collider2d*> Collider2d::Intersect( Collider2d* target , vec3 uPos ) /// Intersect
 {
-    vector<Collider*> val;
+    vector<Collider2d*> val;
     Rect r(target->rect);
     r.Scale(target->owner->transform.gScale());
     r.AddOffset(uPos);
-    for(Collider* c : colliders)
+    for(Collider2d* c : colliders)
     {
         if(target == c) /// Stop colliding with yourself!
             continue;

@@ -1,6 +1,6 @@
 #include <typeinfo>
 #include "physics.h"
-#include "collider.h"
+#include "collider2d.h"
 #include "gameobject.h"
 
 vector<Physics*> Physics::physics; /// List of registered objects
@@ -8,7 +8,7 @@ vector<Physics*> Physics::physics; /// List of registered objects
 Physics::Physics(GameObject* own) :
     Component(typeid(this).hash_code() , own) , constForce( vec3(0,0,0) )
 {
-    GameObject::AddComponent<Collider>(owner);
+    GameObject::AddComponent<Collider2d>(owner);
     Reg(this);
     Start();
 }
@@ -20,7 +20,7 @@ Physics::~Physics() /// Unregister from update list
 
 void Physics::Start()
 {
-    collider = owner->GetComponent<Collider*>();
+    collider = owner->GetComponent<Collider2d>();
 }
 
 void Physics::Move(vec3 val) /// Move by val if not colliding
@@ -29,7 +29,7 @@ void Physics::Move(vec3 val) /// Move by val if not colliding
 
     if(collider != nullptr)
     {
-        vector<Collider*> cl = collider->Intersect(cPos);
+        vector<Collider2d*> cl = collider->Intersect(cPos);
 
         /*bool xMinus,xPlus,yMinus,yPlus;
         xMinus = xPlus = yMinus = yPlus = false;

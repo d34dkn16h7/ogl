@@ -10,10 +10,10 @@ class Transformable
 {
 private:
 public:
-    //virtual void MoveUpdate();
-    //virtual void RotationUpdate();
-    //virtual void ScaleUpdate();
-    virtual void GenerateMatrix();
+    virtual void MoveUpdate() {}
+    virtual void RotationUpdate() {}
+    virtual void ScaleUpdate() {}
+    virtual void GenerateMatrix() {}
 };
 
 class Transform
