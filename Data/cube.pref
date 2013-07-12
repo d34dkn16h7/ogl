@@ -1,4 +1,4 @@
 model Cube.obj
-texture wood.jpg
+texture head.png
 scale 1 1 1
 physics

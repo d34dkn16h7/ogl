@@ -4,6 +4,7 @@ using namespace Tools;
 
 bool Settings::loadTextures;
 bool Settings::TextureLoadModern = false;
+string Settings::mapFile;
 string Settings::vertexShaderFileName;
 string Settings::fragmentShaderFileName;
 vector<ObjectInfo> Settings::objectInfos;
@@ -24,8 +25,12 @@ void Settings::LoadSettings()
 
         if( setting == "fragment" )
             fragmentShaderFileName = setting.Next();
+
         if( setting == "#obj" )
             objectInfos.push_back( ObjectInfo( setting.Next() ,setting.Next() ) );
+
+        if( setting == "map")
+            mapFile = setting.Next();
     }
 
 }

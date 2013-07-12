@@ -8,11 +8,10 @@
 
 const static string DataDir = "Data/";
 
-
 GameObject::GameObject(string name) : isActive(true)
 {
     nameToken = name;
-    LoadPrefab( Tools::Settings::gPrefabPath(nameToken) );
+    LoadPrefab( Settings::gPrefabPath(nameToken) );
     Renderer::RegObject(this);
 }
 
@@ -26,18 +25,17 @@ GameObject::~GameObject()
 void GameObject::LoadPrefab(string prefPath) /// Load and make prefab by nameToken
 {
     bool isTextureActive = false;
-    Tools::Token token( prefPath , nameToken);
+    Token token( prefPath , nameToken);
 
-    while(token.Next() != "#endToken")
+    while(token.Next() != Token::EndToken)
     {
         if(token == "model")
             Load( DataDir + token.Next() , nameToken);
 
-        if(token == "texture" && Tools::Settings::loadTextures)
-        {
+        if(token == "texture" && Settings::loadTextures)
             if(gPtr != nullptr && token.Peek(1) != "null")
                 LoadTexture( DataDir + "Textures/" + token.Next());
-        }
+
         if(token == "physics")
             AddComponent<Physics>();
 

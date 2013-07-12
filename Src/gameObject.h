@@ -9,6 +9,7 @@
 #include "transform.h"
 
 using namespace std;
+using namespace Tools;
 
 class Geometry;
 class Physics;

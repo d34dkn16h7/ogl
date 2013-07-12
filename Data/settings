@@ -1,11 +1,12 @@
 ﻿
 #textureMode true
-#textureModern false
+#textureModern true
 
 
 vertex Data/Shaders/dVS.glsl
 fragment Data/Shaders/dFSTextured.glsl
 
+map Data/_map.mp
 
 #obj cube Data/cube.pref
 #obj player Data/player.pref

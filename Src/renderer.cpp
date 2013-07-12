@@ -24,18 +24,19 @@ void Renderer::Render() /// Call all render functions
 
 void Renderer::RenderObjects() /// Render all objects
 {
-    int edges = 0;
+    unsigned int edgesCount = 0;
     GLenum type = GL_TRIANGLES;
     string lastDrawName = "null";
     prog->SetUniform("cameraMatrix",cam->GetMatrix());
-
     for(GameObject* gmo : drawObjects)
     {
         glPolygonMode( GL_FRONT_AND_BACK, Game::ins->editor->isSelected( gmo ) ? GL_LINE : GL_FILL);
 
         prog->SetUniform("modelMatrix",gmo->transform.gMatrix());
+
         prog->Use(true);
 
+        glBindVertexArray( gmo->gPtr->gVAO() );
         if(lastDrawName != gmo->gPtr->idString) /// lastDraw != thisDraw re-bind data
         {
             glActiveTexture (GL_TEXTURE0);
@@ -45,17 +46,16 @@ void Renderer::RenderObjects() /// Render all objects
             else
                 glBindTexture (GL_TEXTURE_2D, 0);
 
-            glBindVertexArray( gmo->gPtr->gVAO() );
-            glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, gmo->gPtr->gEBO() );
-            edges = gmo->gPtr->gEdges();
+            edgesCount = gmo->gPtr->gEdgeCount();
             type = gmo->gPtr->gType();
             lastDrawName = gmo->gPtr->idString;
         }
-
-        glDrawElements(type,edges,GL_UNSIGNED_INT,0);
+        glDrawArrays(type,0,edgesCount);
+        glBindVertexArray( 0 );
     }
     /// Clear bindings
     prog->Use(false);
+    glBindTexture (GL_TEXTURE_2D, 0);
     glBindVertexArray(0);
 }
 

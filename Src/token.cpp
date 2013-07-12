@@ -66,6 +66,48 @@ void Token::MakeToken() /// Based on space | tab | new line
     tokens.push_back("#endToken");
 }
 
+void Token::RemakeWithRules(vector<char> end,vector<char> split)
+{
+    Reset();
+    string cVal = "";
+    tokens.push_back("#firstToken");
+    for (char ch : raw)
+    {
+        bool isEnded = false;
+
+        for(char c : end)
+            if(ch == c)
+                isEnded = true;
+
+        for(char c : split)
+            if(ch == c)
+            {
+                if(cVal != "")
+                {
+                    tokens.push_back(cVal);
+                    cVal = "";
+                }
+                cVal += ch;
+            }
+
+        if(isEnded)/// ch == ' ' || ch == '\n' || ch == '\t' || ch == '/'
+        {
+            if(cVal != "")
+            {
+                tokens.push_back(cVal);
+                cVal = "";
+            }
+        }
+        else
+            cVal += ch;
+    }
+
+    if(cVal != "")
+        tokens.push_back(cVal);
+
+    tokens.push_back("#endToken");
+}
+
 string Token::Next() /// Return next token and update current token
 {
     if(tokens.size() > indexer + 1)
@@ -105,9 +147,9 @@ int Token::GetNi()
 
 vec2 Token::GetNVec2() /// Return vec2 based on next 2 tokens
 {
-    vec2 tVec(0,0);
+    vec2 tVec(2,2);
 
-    if( CanGVec3() )
+    if( CanGVec2() )
     {
         tVec.x = atof(Next().c_str());
         tVec.y = atof(Next().c_str());
@@ -158,6 +200,7 @@ string Token::gKey()
 void Token::Reset() /// Reset for next use
 {
     indexer = 0;
+    tokens.clear();
 }
 
 void Token::PrintTokens() /// Print all tokens

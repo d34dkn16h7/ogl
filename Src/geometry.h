@@ -21,20 +21,30 @@ class GData
 public:
     string idString;
 
-    vector<GLuint> elementary;
-    vector<GLfloat> textureCoord;
-    vector<GLfloat> verticles;
-    vector<GLfloat> colorData;
+    vector<GLfloat> data;
 
+    vector<GLuint> textureIndexer;
+    vector<GLfloat> textureCoord;
+
+    vector<GLuint> elementary;
+    vector<GLfloat> verticles;
+
+    unsigned int elementCount;
     GLuint vbo,vao,ebo;
     GLuint texture = 0;
     GLuint type = GL_TRIANGLES;
 
+    void MakeData();
+    void printData();
+    void printInfo();
+
     void pVerticle(vec3);
-    void pElement(GLuint);
     void pTextureCoord(vec2);
 
-    int gEdges() const;
+    void pElement(GLuint);
+    void pTextureIndex(GLuint);
+
+    unsigned int gEdgeCount() const;
     GLuint gVBO() const;
     GLuint gVAO() const;
     GLuint gEBO() const;

@@ -1,4 +1,3 @@
 model Plane.obj
-texture sky.jpg
+texture head.png
 physics
-rot 0 90 0

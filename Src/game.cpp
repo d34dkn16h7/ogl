@@ -17,7 +17,7 @@ int Game::Run()
     Speed = 15;
     isEditor = true;
     editor->SetTargetMap(map);
-    map->LoadMap("Data/m.mp");
+    map->LoadMap( Settings::mapFile );
     lastTime = glfwGetTime();
     while( (isOpen && !Input::isKey(GLFW_KEY_ESCAPE)) && !glfwWindowShouldClose( Renderer::gWindow() ) )
     {

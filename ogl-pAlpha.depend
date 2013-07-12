@@ -69,7 +69,7 @@
 1358288506 source:c:\users\shardstack\desktop\ogl-palpha\src\shader.cpp
 	"shader.h"
 
-1373280098 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
+1373377042 source:c:\users\calide 2\desktop\ogl-palpha\src\game.cpp
 	"map.h"
 	"game.h"
 	"input.h"
@@ -90,7 +90,7 @@
 	<iostream>
 	<vector>
 
-1373293638 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
+1373359451 c:\users\calide 2\desktop\ogl-palpha\src\gameobject.h
 	<stdexcept>
 	<typeinfo>
 	"tools.h"
@@ -105,7 +105,7 @@
 	<string>
 	<vector>
 
-1373293634 source:c:\users\calide 2\desktop\ogl-palpha\src\gameobject.cpp
+1373376661 source:c:\users\calide 2\desktop\ogl-palpha\src\gameobject.cpp
 	"gameObject.h"
 	"renderer.h"
 	"collider2d.h"
@@ -117,7 +117,7 @@
 1372678135 source:c:\users\calide 2\desktop\ogl-palpha\src\main.cpp
 	"game.h"
 
-1373297438 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
+1373635983 source:c:\users\calide 2\desktop\ogl-palpha\src\renderer.cpp
 	"game.h"
 	"tools.h"
 	"editor.h"
@@ -274,7 +274,7 @@
 1359022999 source:c:\users\d34dkn16h7\desktop\devel\ogl-palpha\src\renderer.cpp
 	"renderer.h"
 
-1373292361 c:\users\calide 2\desktop\ogl-palpha\src\geometry.h
+1373623787 c:\users\calide 2\desktop\ogl-palpha\src\geometry.h
 	<glm/gtc/matrix_transform.hpp>
 	<glm/glm.hpp>
 	<SOIL/SOIL.h>
@@ -283,7 +283,7 @@
 	<vector>
 	<string>
 
-1373297124 source:c:\users\calide 2\desktop\ogl-palpha\src\geometry.cpp
+1373640699 source:c:\users\calide 2\desktop\ogl-palpha\src\geometry.cpp
 	"tools.h"
 	"program.h"
 	"geometry.h"
@@ -480,7 +480,7 @@
 	<string>
 	<vector>
 
-1373296175 c:\users\calide 2\desktop\ogl-palpha\src\tools.h
+1373552913 c:\users\calide 2\desktop\ogl-palpha\src\tools.h
 	<glm/glm.hpp>
 	<iostream>
 	<stdlib.h>
@@ -503,7 +503,7 @@
 	<vector>
 	<string>
 
-1373293562 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
+1373640726 source:c:\users\calide 2\desktop\ogl-palpha\src\editor.cpp
 	"map.h"
 	"input.h"
 	"camera.h"
@@ -596,7 +596,7 @@
 1372857732 source:c:\users\calide 2\desktop\ogl-palpha\src\file.cpp
 	"tools.h"
 
-1373296165 source:c:\users\calide 2\desktop\ogl-palpha\src\token.cpp
+1373553096 source:c:\users\calide 2\desktop\ogl-palpha\src\token.cpp
 	"tools.h"
 
 1372692505 source:c:\users\calide 2\desktop\ogl-palpha\src\str.cpp
@@ -779,7 +779,7 @@
 	"map.h"
 	<iostream>
 
-1373295409 source:c:\users\calide 2\desktop\ogl-palpha\src\settings.cpp
+1373377022 source:c:\users\calide 2\desktop\ogl-palpha\src\settings.cpp
 	"tools.h"
 
 1373272247 source:c:\users\calide 2\desktop\ogl-palpha\src\collider2d.cpp
@@ -792,4 +792,188 @@
 	<vector>
 	"tools.h"
 	"component.h"
+
+1373038074 source:c:\users\asus-laptop\desktop\ogl-palpha\src\camera.cpp
+	"camera.h"
+
+1373019499 c:\users\asus-laptop\desktop\ogl-palpha\src\camera.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<string>
+	"transform.h"
+
+1373295613 c:\users\asus-laptop\desktop\ogl-palpha\src\transform.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/glm.hpp>
+
+1373272247 source:c:\users\asus-laptop\desktop\ogl-palpha\src\collider2d.cpp
+	<typeinfo>
+	"collider2d.h"
+	"gameObject.h"
+
+1373272046 c:\users\asus-laptop\desktop\ogl-palpha\src\collider2d.h
+	<glm/glm.hpp>
+	<vector>
+	"tools.h"
+	"component.h"
+
+1373376999 c:\users\asus-laptop\desktop\ogl-palpha\src\tools.h
+	<glm/glm.hpp>
+	<iostream>
+	<stdlib.h>
+	<cstdlib>
+	<fstream>
+	<sstream>
+	<vector>
+	<string>
+
+1371737051 c:\users\asus-laptop\desktop\ogl-palpha\src\component.h
+	<typeinfo>
+	<string>
+	<vector>
+
+1373359451 c:\users\asus-laptop\desktop\ogl-palpha\src\gameobject.h
+	<stdexcept>
+	<typeinfo>
+	"tools.h"
+	"geometry.h"
+	"component.h"
+	"transform.h"
+
+1373292361 c:\users\asus-laptop\desktop\ogl-palpha\src\geometry.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/glm.hpp>
+	<SOIL/SOIL.h>
+	<GL/glew.h>
+	<fstream>
+	<vector>
+	<string>
+
+1373293562 source:c:\users\asus-laptop\desktop\ogl-palpha\src\editor.cpp
+	"map.h"
+	"input.h"
+	"camera.h"
+	"editor.h"
+	"physics.h"
+	"collider2d.h"
+	"component.h"
+	"gameObject.h"
+
+1373293679 c:\users\asus-laptop\desktop\ogl-palpha\src\map.h
+	<glm/glm.hpp>
+	<stdexcept>
+	<iostream>
+	<fstream>
+	<sstream>
+	<string>
+	<vector>
+
+1372336978 c:\users\asus-laptop\desktop\ogl-palpha\src\input.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<GLFW/glfw3.h>
+
+1373293587 c:\users\asus-laptop\desktop\ogl-palpha\src\editor.h
+	<GL/glew.h>
+	<GLFW/glfw3.h>
+	<glm/glm.hpp>
+	<vector>
+	<string>
+
+1373272193 c:\users\asus-laptop\desktop\ogl-palpha\src\physics.h
+	<glm/glm.hpp>
+	<vector>
+	"component.h"
+
+1372857732 source:c:\users\asus-laptop\desktop\ogl-palpha\src\file.cpp
+	"tools.h"
+
+1373377042 source:c:\users\asus-laptop\desktop\ogl-palpha\src\game.cpp
+	"map.h"
+	"game.h"
+	"input.h"
+	"editor.h"
+	"physics.h"
+	"renderer.h"
+	"gameObject.h"
+	"camera.h"
+
+1371742447 c:\users\asus-laptop\desktop\ogl-palpha\src\game.h
+	<glm/glm.hpp>
+
+1373297028 c:\users\asus-laptop\desktop\ogl-palpha\src\renderer.h
+	<GL/glew.h>
+	<GLFW/glfw3.h>
+	<SOIL/SOIL.h>
+	<stdexcept>
+	<iostream>
+	<vector>
+
+1373376661 source:c:\users\asus-laptop\desktop\ogl-palpha\src\gameobject.cpp
+	"gameObject.h"
+	"renderer.h"
+	"collider2d.h"
+	"physics.h"
+	"tools.h"
+	"map.h"
+	<iostream>
+
+1373385816 source:c:\users\asus-laptop\desktop\ogl-palpha\src\geometry.cpp
+	"tools.h"
+	"program.h"
+	"geometry.h"
+	"renderer.h"
+
+1372873730 c:\users\asus-laptop\desktop\ogl-palpha\src\program.h
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<glm/glm.hpp>
+	<GL/glew.h>
+	<stdexcept>
+	<fstream>
+	<string>
+	<vector>
+
+1372944649 source:c:\users\asus-laptop\desktop\ogl-palpha\src\input.cpp
+	"input.h"
+	"camera.h"
+	"renderer.h"
+
+1372678135 source:c:\users\asus-laptop\desktop\ogl-palpha\src\main.cpp
+	"game.h"
+
+1373293671 source:c:\users\asus-laptop\desktop\ogl-palpha\src\map.cpp
+	"map.h"
+	"game.h"
+	"tools.h"
+	"gameObject.h"
+
+1373272259 source:c:\users\asus-laptop\desktop\ogl-palpha\src\physics.cpp
+	<typeinfo>
+	"physics.h"
+	"collider2d.h"
+	"gameobject.h"
+
+1372936435 source:c:\users\asus-laptop\desktop\ogl-palpha\src\program.cpp
+	"tools.h"
+	"program.h"
+
+1373297438 source:c:\users\asus-laptop\desktop\ogl-palpha\src\renderer.cpp
+	"game.h"
+	"tools.h"
+	"editor.h"
+	"camera.h"
+	"program.h"
+	"geometry.h"
+	"renderer.h"
+	"gameObject.h"
+
+1373377022 source:c:\users\asus-laptop\desktop\ogl-palpha\src\settings.cpp
+	"tools.h"
+
+1372692505 source:c:\users\asus-laptop\desktop\ogl-palpha\src\str.cpp
+	"tools.h"
+
+1373377976 source:c:\users\asus-laptop\desktop\ogl-palpha\src\token.cpp
+	"tools.h"
 

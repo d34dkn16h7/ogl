@@ -117,6 +117,7 @@ namespace Tools
         string gRaw();
         string gKey();
 
+        void RemakeWithRules( vector<char>, vector<char>);
         void Reset(); /// Reset for next use
         void PrintTokens(); /// Print all tokens
     };
@@ -128,6 +129,7 @@ namespace Tools
 
         static bool loadTextures;
         static bool TextureLoadModern;
+        static string mapFile;
         static string vertexShaderFileName;
         static string fragmentShaderFileName;
 
